@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   SafeAreaView,
   View,
@@ -7,52 +7,52 @@ import {
   Text,
   Image,
   TouchableOpacity,
-} from "react-native";
+} from 'react-native';
 
-const testImg = require("../assets/favicon.png");
+const testImg = require('../assets/favicon.png');
 
 const DATA = [
   {
     id: 1,
     img: testImg,
-    user: "Test Person",
-    type: "Coach",
-    msg: "lorem ipsum..",
+    user: 'Test Person',
+    type: 'Coach',
+    msg: 'lorem ipsum..',
   },
   {
     id: 2,
     img: testImg,
-    user: "Test Person",
-    type: "Familj",
-    msg: "lorem ipsum..",
+    user: 'Test Person',
+    type: 'Familj',
+    msg: 'lorem ipsum..',
   },
   {
     id: 3,
     img: testImg,
-    user: "Test Person",
-    type: "Arbete",
-    msg: "lorem ipsum..",
+    user: 'Test Person',
+    type: 'Arbete',
+    msg: 'lorem ipsum..',
   },
   {
     id: 4,
     img: testImg,
-    user: "Test Person",
-    type: "Coach",
-    msg: "lorem ipsum..",
+    user: 'Test Person',
+    type: 'Coach',
+    msg: 'lorem ipsum..',
   },
   {
     id: 5,
     img: testImg,
-    user: "Test Person",
-    type: "Familj",
-    msg: "lorem ipsum..",
+    user: 'Test Person',
+    type: 'Familj',
+    msg: 'lorem ipsum..',
   },
   {
     id: 6,
     img: testImg,
-    user: "Test Person",
-    type: "Arbete",
-    msg: "lorem ipsum..",
+    user: 'Test Person',
+    type: 'Arbete',
+    msg: 'lorem ipsum..',
   },
 ];
 
@@ -95,6 +95,7 @@ export default function Contacts() {
   return (
     <SafeAreaView>
       <FlatList
+        style={{ height: '100%' }}
         data={DATA}
         renderItem={renderItem}
         keyExtractor={(item) => item.id.toString()}
@@ -105,9 +106,9 @@ export default function Contacts() {
 
 const styles = StyleSheet.create({
   item: {
-    flexDirection: "row",
+    flexDirection: 'row',
     width: 400,
-    backgroundColor: "#f8f8f8",
+    backgroundColor: '#f8f8f8',
     padding: 20,
     marginBottom: 5,
   },
@@ -116,7 +117,7 @@ const styles = StyleSheet.create({
   },
   message: {
     fontSize: 16,
-    color: "#B3B3B3",
+    color: '#B3B3B3',
   },
 
   contactContainer: {
