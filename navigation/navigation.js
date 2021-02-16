@@ -6,14 +6,15 @@ import { useNavigation } from '@react-navigation/native';
 import { AntDesign } from '@expo/vector-icons';
 //import Test from '../Test';
 import Contacts from '../screens/Contacts';
-import Test2 from '../Test2';
+//import Test2 from '../Test2';
+import Messages from '../screens/Messages';
 
 const Stack = createStackNavigator();
 
 export default function Nav() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Contacts">
+      <Stack.Navigator initialRouteName="Messages">
         <Stack.Screen
           name="Contacts"
           component={Contacts}
@@ -23,8 +24,8 @@ export default function Nav() {
           }}
         />
         <Stack.Screen
-          name="Test2"
-          component={Test2}
+          name="Messages"
+          component={Messages}
           options={{
             title: <HeaderTitle />,
             headerStyle: { backgroundColor: '#3484ff' },
