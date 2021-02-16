@@ -5,11 +5,8 @@ import {
   FlatList,
   StyleSheet,
   Text,
-  Image,
   TouchableOpacity,
 } from "react-native";
-
-// const testImg = require("../assets/favicon.png");
 
 const DATA = [
   {
@@ -62,7 +59,7 @@ const DATA = [
   },
 ];
 
-//Alphabetical sort
+//Alphabetical sort, based on type { arbete, coach, familj }
 DATA.sort(function (a, b) {
   var typeA = a.type.toUpperCase(); // ignore upper and lowercase
   var typeB = b.type.toUpperCase(); // ignore upper and lowercase
@@ -75,14 +72,9 @@ DATA.sort(function (a, b) {
   // names must be equal
   return 0;
 });
-// console.log(DATA);
 
 const Item = ({ user, msg, initials, time, type }) => (
   <TouchableOpacity activeOpacity={0.7} style={styles.item}>
-    {/* <View style={styles.imgContainer}>
-      <Image source={img} />
-    </View> */}
-
     <View style={styles.initalsContainer}>
       <View style={styles.initialsCircle}>
         <Text style={styles.initialsText}>{initials}</Text>
@@ -99,11 +91,20 @@ const Item = ({ user, msg, initials, time, type }) => (
         <Text>{time}</Text>
       </View>
     </View>
-    {/* <View style={styles.typeContainer}>
-      <Text style={styles.title}>{type}</Text>
-    </View> */}
   </TouchableOpacity>
 );
+
+const FlatListItemSeparator = () => {
+  return (
+    <View
+      style={{
+        height: 0.5,
+        width: "100%",
+        backgroundColor: "#d3d3d3",
+      }}
+    />
+  );
+};
 
 export default function Contacts() {
   const renderItem = ({ item }) => (
@@ -116,10 +117,19 @@ export default function Contacts() {
     />
   );
 
+  if (!DATA.length) {
+    return (
+      <Text style={{ textAlign: "center", marginTop: 20 }}>
+        Inga Meddelanden 💬
+      </Text>
+    );
+  }
+
   return (
     <SafeAreaView>
       <FlatList
-        style={{ height: "100%" }}
+        style={{ height: "100%", backgroundColor: "#f8f8f8" }}
+        ItemSeparatorComponent={FlatListItemSeparator}
         data={DATA}
         renderItem={renderItem}
         keyExtractor={(item) => item.id.toString()}
@@ -131,10 +141,10 @@ export default function Contacts() {
 const styles = StyleSheet.create({
   item: {
     flexDirection: "row",
-    width: 400,
+    width: "100%",
     backgroundColor: "#f8f8f8",
     padding: 20,
-    marginBottom: 5,
+    // marginBottom: 5,
   },
   user: {
     fontSize: 16,
