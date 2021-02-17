@@ -1,13 +1,21 @@
 import React from 'react';
-import { StyleSheet, View, Text, ImageBackground } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Text,
+  ImageBackground,
+  KeyboardAvoidingView,
+} from 'react-native';
 import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 
 export default function Messages() {
   let placeholder = 'Enter youre message' + ':';
   return (
     <View style={styles.conntainer}>
-      <View style={{ height: '85%', width: '100%' }}></View>
-      <View
+      <View style={{ height: '85%', width: '100%' }}>
+        <Text>emil</Text>
+      </View>
+      <KeyboardAvoidingView
         style={{
           height: '15%',
           width: '100%',
@@ -32,7 +40,7 @@ export default function Messages() {
           <View style={{ flexDirection: 'row' }}>
             <TouchableOpacity>
               <ImageBackground
-                source={require('../assets/icon.png')}
+                source={require('../assets/favicon.png')}
                 style={{ width: 40, height: 40, marginLeft: 20 }}
               />
             </TouchableOpacity>
@@ -45,19 +53,19 @@ export default function Messages() {
           <View style={{ flexDirection: 'row' }}>
             <TouchableOpacity>
               <ImageBackground
-                source={require('../assets/icon.png')}
+                source={require('../assets/favicon.png')}
                 style={{ width: 40, height: 40, marginRight: 10 }}
               />
             </TouchableOpacity>
             <TouchableOpacity>
               <ImageBackground
-                source={require('../assets/icon.png')}
+                source={require('../assets/favicon.png')}
                 style={{ width: 40, height: 40, marginRight: 20 }}
               />
             </TouchableOpacity>
           </View>
         </View>
-      </View>
+      </KeyboardAvoidingView>
     </View>
   );
 }
