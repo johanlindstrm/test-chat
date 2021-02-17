@@ -1,62 +1,56 @@
 import { Actions } from "react-native-router-flux";
+import React from "react";
 import {
   StyleSheet,
   View,
   Text,
   ImageBackground,
   KeyboardAvoidingView,
-  placeholder,
 } from "react-native";
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
-import React from "react";
-import { ScrollView } from "react-native";
 
 export const Chats = () => {
   const goToHome = () => {
     Actions.Chat();
   };
+  let placeholder = "Enter youre message" + ":";
   return (
-    <View style={styles.container}>
-      <ScrollView>
-        <View style={{ height: "85%", width: "100%" }}></View>
-      </ScrollView>
-      <View
+    <View style={styles.conntainer}>
+      <View style={{ height: "85%", width: "100%" }}></View>
+      <KeyboardAvoidingView
         style={{
+          height: "15%",
+          width: "100%",
           justifyContent: "center",
           alignItems: "center",
-          paddingTop: 4,
-          borderTopColor: "rgb(229,231,232)",
           borderTopWidth: 1,
         }}
       >
         <View
           style={{
             backgroundColor: "lightgrey",
-            width: "96%",
-            height: "auto",
-            padding: 4,
+            width: "90%",
+            height: "50%",
             borderRadius: 100,
-            margin: 6,
+            marginBottom: 20,
 
             flexDirection: "row",
-            justifyContent: "space-evenly",
+            justifyContent: "space-between",
             alignItems: "center",
           }}
         >
-          <View
-            style={{ flexDirection: "row", justifyContent: "space-evenly" }}
-          >
+          <View style={{ flexDirection: "row" }}>
             <TouchableOpacity>
               <ImageBackground
                 source={require("../assets/favicon.png")}
-                style={{ width: 40, height: 40, marginLeft: 4 }}
+                style={{ width: 40, height: 40, marginLeft: 20 }}
               />
             </TouchableOpacity>
             <TextInput
-              editable={true}
-              style={{ borderRadius: 2, margin: 2, height: 40, width: 200 }}
+              style={{ marginLeft: 10 }}
               placeholderTextColor='black'
-            />
+              placeholder={placeholder}
+            ></TextInput>
           </View>
           <View style={{ flexDirection: "row" }}>
             <TouchableOpacity>
@@ -73,13 +67,13 @@ export const Chats = () => {
             </TouchableOpacity>
           </View>
         </View>
-      </View>
+      </KeyboardAvoidingView>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  conntainer: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
