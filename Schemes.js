@@ -3,6 +3,7 @@ export default schemes = {
     backgroundColor: "white",
     color: "black",
     bottomChatBar: "#3484ff",
+    header: "#3484ff",
   },
 
   DRK: {
@@ -10,6 +11,8 @@ export default schemes = {
     accentColor: "#2d2c33",
     placeholderColor: "black",
     color: "#fff",
+    header: "#ff8534",
+    bottomChatBar: "#ff8534",
   },
 
   MYLI: {
@@ -18,5 +21,6 @@ export default schemes = {
     contactColor: "white",
     placeholderColor: "black",
     bottomChatBar: "#00a48a",
+    header: "#00a48a",
   },
 };
