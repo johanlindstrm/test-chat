@@ -1,12 +1,11 @@
-import React, { Component } from 'react';
-import {Routes} from "./navigation/Router";
+import React, { Component } from "react";
+import { Routes } from "./navigation/Router";
+import ThemeContextProvider from "./context/ThemeContext";
 
 export default function App() {
-
-    return (
-
-    <Routes />
-
-    )
-
+  return (
+    <ThemeContextProvider>
+      <Routes />
+    </ThemeContextProvider>
+  );
 }

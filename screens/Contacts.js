@@ -9,6 +9,8 @@ import {
   Text,
   TouchableOpacity,
 } from "react-native";
+import { ThemeContext } from "../context/ThemeContext";
+import { useContext } from "react";
 
 const DATA = [
   {
@@ -76,6 +78,7 @@ DATA.sort(function (a, b) {
 });
 
 const Item = ({ user, msg, initials, time, type }) => {
+  const { isDarkMode } = useContext(ThemeContext);
   const goToMessages = () => {
     Actions.Chats();
   };
@@ -83,7 +86,10 @@ const Item = ({ user, msg, initials, time, type }) => {
     <TouchableOpacity
       onPress={goToMessages}
       activeOpacity={0.7}
-      style={styles.item}
+      style={{
+        ...styles.item,
+        backgroundColor: isDarkMode ? "black" : "white",
+      }}
     >
       <View style={styles.initalsContainer}>
         <View style={styles.initialsCircle}>
@@ -92,13 +98,21 @@ const Item = ({ user, msg, initials, time, type }) => {
       </View>
 
       <View style={styles.contactContainer}>
-        <Text style={styles.user}>{user}</Text>
+        <Text style={{ ...styles.user, color: isDarkMode ? "white" : "black" }}>
+          {user}
+        </Text>
         <Text style={styles.message}>{msg}</Text>
       </View>
 
       <View style={styles.timeContainer}>
         <View>
-          <Text>{time}</Text>
+          <Text
+            style={{
+              color: isDarkMode ? "white" : "black",
+            }}
+          >
+            {time}
+          </Text>
         </View>
       </View>
     </TouchableOpacity>
