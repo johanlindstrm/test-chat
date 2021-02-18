@@ -1,5 +1,5 @@
-import React from 'react';
-import { Actions } from 'react-native-router-flux';
+import React from "react";
+import { Actions } from "react-native-router-flux";
 
 import {
   SafeAreaView,
@@ -8,58 +8,58 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-} from 'react-native';
-import { ThemeContext } from '../Context/ThemeContext';
-import { useContext } from 'react';
+} from "react-native";
+import { ThemeContext } from "../Context/ThemeContext";
+import { useContext } from "react";
 
 const DATA = [
   {
     id: 1,
-    initials: 'SJ',
-    user: 'Adam Johnson',
-    type: 'Coach',
-    msg: 'lorem ipsum..',
-    time: '09:45',
+    initials: "SJ",
+    user: "Adam Johnson",
+    type: "Coach",
+    msg: "lorem ipsum..",
+    time: "09:45",
   },
   {
     id: 2,
-    initials: 'PJ',
-    user: 'Petra Johnson',
-    type: 'Familj',
-    msg: 'lorem ipsum..',
-    time: 'Igår',
+    initials: "PJ",
+    user: "Petra Johnson",
+    type: "Familj",
+    msg: "lorem ipsum..",
+    time: "Igår",
   },
   {
     id: 3,
-    initials: 'S',
-    user: 'Sara Johnson',
-    type: 'Arbete',
-    msg: 'lorem ipsum..',
-    time: '22:30',
+    initials: "S",
+    user: "Sara Johnson",
+    type: "Arbete",
+    msg: "lorem ipsum..",
+    time: "22:30",
   },
   {
     id: 4,
-    initials: 'P',
-    user: 'Peter Johnson',
-    type: 'Coach',
-    msg: 'lorem ipsum..',
-    time: 'Söndag',
+    initials: "P",
+    user: "Peter Johnson",
+    type: "Coach",
+    msg: "lorem ipsum..",
+    time: "Söndag",
   },
   {
     id: 5,
-    initials: 'A',
-    user: 'Adam Johnson',
-    type: 'Familj',
-    msg: 'lorem ipsum..',
-    time: '10:20',
+    initials: "A",
+    user: "Adam Johnson",
+    type: "Familj",
+    msg: "lorem ipsum..",
+    time: "10:20",
   },
   {
     id: 6,
-    initials: 'AJ',
-    user: 'Adam Johnson',
-    type: 'Arbete',
-    msg: 'lorem ipsum..',
-    time: '10:20',
+    initials: "AJ",
+    user: "Adam Johnson",
+    type: "Arbete",
+    msg: "lorem ipsum..",
+    time: "10:20",
   },
 ];
 
@@ -88,7 +88,7 @@ const Item = ({ user, msg, initials, time, type }) => {
       activeOpacity={0.7}
       style={{
         ...styles.item,
-        backgroundColor: theme, //isDarkMode ? 'black' : 'white',
+        backgroundColor: theme.backgroundColor,
       }}
     >
       <View style={styles.initalsContainer}>
@@ -98,19 +98,15 @@ const Item = ({ user, msg, initials, time, type }) => {
       </View>
 
       <View style={styles.contactContainer}>
-        <Text style={{ ...styles.user, color: theme.color }}>{user}</Text>
+        <Text style={{ ...styles.user, color: theme.contactColor }}>
+          {user}
+        </Text>
         <Text style={styles.message}>{msg}</Text>
       </View>
 
       <View style={styles.timeContainer}>
         <View>
-          <Text
-            style={{
-              color: isDarkMode ? 'white' : 'black',
-            }}
-          >
-            {time}
-          </Text>
+          <Text style={{ color: theme.contactColor }}>{time}</Text>
         </View>
       </View>
     </TouchableOpacity>
@@ -122,8 +118,8 @@ const FlatListItemSeparator = () => {
     <View
       style={{
         height: 0.5,
-        width: '100%',
-        backgroundColor: '#d3d3d3',
+        width: "100%",
+        backgroundColor: "#d3d3d3",
       }}
     />
   );
@@ -142,7 +138,7 @@ export function Contacts() {
 
   if (!DATA.length) {
     return (
-      <Text style={{ textAlign: 'center', marginTop: 20 }}>
+      <Text style={{ textAlign: "center", marginTop: 20 }}>
         Inga Meddelanden 💬
       </Text>
     );
@@ -151,7 +147,7 @@ export function Contacts() {
   return (
     <SafeAreaView>
       <FlatList
-        style={{ height: '100%', backgroundColor: '#f8f8f8' }}
+        style={{ height: "100%", backgroundColor: "#f8f8f8" }}
         ItemSeparatorComponent={FlatListItemSeparator}
         data={DATA}
         renderItem={renderItem}
@@ -163,9 +159,9 @@ export function Contacts() {
 
 const styles = StyleSheet.create({
   item: {
-    flexDirection: 'row',
-    width: '100%',
-    backgroundColor: '#f8f8f8',
+    flexDirection: "row",
+    width: "100%",
+    backgroundColor: "#f8f8f8",
     padding: 20,
     // marginBottom: 5,
   },
@@ -174,42 +170,42 @@ const styles = StyleSheet.create({
   },
   message: {
     fontSize: 16,
-    color: '#B3B3B3',
+    color: "#B3B3B3",
   },
 
   contactContainer: {
     flex: 1,
     paddingLeft: 40,
     // backgroundColor: "red",
-    justifyContent: 'center',
+    justifyContent: "center",
   },
 
   initalsContainer: {
     flex: 0.3,
     // backgroundColor: "orange",
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
 
   initialsCircle: {
-    backgroundColor: '#d8d8d8',
+    backgroundColor: "#d8d8d8",
     width: 55,
     height: 55,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     borderRadius: 30,
-    borderColor: '#1FC6A5',
+    borderColor: "#1FC6A5",
     borderWidth: 3,
   },
 
   initialsText: {
     fontSize: 20,
-    color: '#707070',
+    color: "#707070",
   },
 
   typeContainer: {
     flex: 3,
-    backgroundColor: 'green',
+    backgroundColor: "green",
     paddingRight: 0,
     height: 20,
   },
@@ -217,7 +213,7 @@ const styles = StyleSheet.create({
   timeContainer: {
     // backgroundColor: "red",
     flex: 0.3,
-    justifyContent: 'center',
-    alignItems: 'flex-end',
+    justifyContent: "center",
+    alignItems: "flex-end",
   },
 });

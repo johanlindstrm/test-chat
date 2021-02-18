@@ -1,14 +1,17 @@
 export default schemes = {
   MYLI1: {
-    backgroundColor: 'blue',
-    color: 'green',
+    backgroundColor: "white",
+    color: "black",
   },
-  MYLI3: {
-    backgroundColor: 'yellow',
-    color: 'black',
-  },
+
   MYLI2: {
-    backgroundColor: 'orange',
-    color: 'green',
+    backgroundColor: "orange",
+    color: "green",
+  },
+
+  MYLI3: {
+    backgroundColor: "black",
+    color: "black",
+    contactColor: "white",
   },
 };

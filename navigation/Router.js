@@ -1,10 +1,16 @@
 import React, { Component } from "react";
-import { Router, Scene } from "react-native-router-flux";
+import { Image, Text } from "react-native";
+import { Actions, Router, Scene } from "react-native-router-flux";
 import { styles } from "../styles/styles";
 import { Messages } from "../screens/Messages";
 import { Contacts } from "../screens/Contacts";
 import { Chats } from "../screens/Chats";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { Settings } from "../screens/Settings";
 
+const goToSettings = function () {
+  Actions.Settings();
+};
 //Route component
 export const Routes = () => (
   <Router>
@@ -23,12 +29,26 @@ export const Routes = () => (
         title='Contacts'
         initial={true}
         swipeEnabled={true}
+        renderLeftButton={
+          <TouchableOpacity onPress={goToSettings}>
+            <Image
+              source={require("../assets/settingsIcon.png")}
+              style={styles.settingsIcon}
+            />
+          </TouchableOpacity>
+        }
       />
       <Scene
         key='Messages'
         titleStyle={styles.scene}
         component={Messages}
         title='Messages'
+      />
+      <Scene
+        key='Settings'
+        titleStyle={styles.scene}
+        component={Settings}
+        title='Settings'
       />
       <Scene
         key='Chats'

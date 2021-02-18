@@ -11,4 +11,9 @@ export const styles = StyleSheet.create({
   tintColor: {
     color: "orange",
   },
+  settingsIcon: {
+    width: 25,
+    height: 25,
+    margin: 30,
+  },
 });
