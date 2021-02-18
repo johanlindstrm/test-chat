@@ -78,7 +78,7 @@ DATA.sort(function (a, b) {
 });
 
 const Item = ({ user, msg, initials, time, type }) => {
-  const { isDarkMode, theme } = useContext(ThemeContext);
+  const { theme } = useContext(ThemeContext);
   const goToMessages = () => {
     Actions.Chats();
   };
@@ -88,7 +88,7 @@ const Item = ({ user, msg, initials, time, type }) => {
       activeOpacity={0.7}
       style={{
         ...styles.item,
-        backgroundColor: theme.backgroundColor,
+        backgroundColor: theme.accentColor,
       }}
     >
       <View style={styles.initalsContainer}>
@@ -98,15 +98,13 @@ const Item = ({ user, msg, initials, time, type }) => {
       </View>
 
       <View style={styles.contactContainer}>
-        <Text style={{ ...styles.user, color: theme.contactColor }}>
-          {user}
-        </Text>
+        <Text style={{ ...styles.user, color: theme.color }}>{user}</Text>
         <Text style={styles.message}>{msg}</Text>
       </View>
 
       <View style={styles.timeContainer}>
         <View>
-          <Text style={{ color: theme.contactColor }}>{time}</Text>
+          <Text style={{ color: theme.color }}>{time}</Text>
         </View>
       </View>
     </TouchableOpacity>
@@ -126,6 +124,8 @@ const FlatListItemSeparator = () => {
 };
 
 export function Contacts() {
+  const { theme } = useContext(ThemeContext);
+
   const renderItem = ({ item }) => (
     <Item
       user={item.user}
@@ -147,7 +147,7 @@ export function Contacts() {
   return (
     <SafeAreaView>
       <FlatList
-        style={{ height: "100%", backgroundColor: "#f8f8f8" }}
+        style={{ height: "100%", backgroundColor: theme.backgroundColor }}
         ItemSeparatorComponent={FlatListItemSeparator}
         data={DATA}
         renderItem={renderItem}

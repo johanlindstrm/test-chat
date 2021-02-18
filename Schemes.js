@@ -1,17 +1,22 @@
 export default schemes = {
-  MYLI1: {
+  DEF: {
     backgroundColor: "white",
     color: "black",
+    bottomChatBar: "#3484ff",
   },
 
-  MYLI2: {
-    backgroundColor: "orange",
-    color: "green",
+  DRK: {
+    backgroundColor: "#242329",
+    accentColor: "#2d2c33",
+    placeholderColor: "black",
+    color: "#fff",
   },
 
-  MYLI3: {
-    backgroundColor: "black",
-    color: "black",
+  MYLI: {
+    backgroundColor: "#FAFAFA",
+    color: "#00a48a",
     contactColor: "white",
+    placeholderColor: "black",
+    bottomChatBar: "#00a48a",
   },
 };

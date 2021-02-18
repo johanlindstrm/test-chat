@@ -13,10 +13,9 @@ import schemes from "../Schemes";
 import { ThemeContext } from "../Context/ThemeContext";
 
 export const Chats = () => {
-  //const [theme, setTheme] = useState(schemes.MYLI.backgroundColor);
-  const { theme, toggleTheme } = useContext(ThemeContext);
+  const { theme } = useContext(ThemeContext);
 
-  let placeholder = "Enter youre message" + ":";
+  let placeholder = "Enter message..";
   return (
     <View
       style={{
@@ -25,8 +24,9 @@ export const Chats = () => {
       }}
     >
       <View style={{ height: "85%", width: "100%" }}></View>
-      <KeyboardAvoidingView
+      <View
         style={{
+          backgroundColor: theme.bottomChatBar,
           height: "15%",
           width: "100%",
           justifyContent: "center",
@@ -56,7 +56,7 @@ export const Chats = () => {
             </TouchableOpacity>
             <TextInput
               style={{ marginLeft: 10 }}
-              placeholderTextColor={theme.color}
+              placeholderTextColor={theme.placeholderColor}
               placeholder={placeholder}
             ></TextInput>
           </View>
@@ -75,7 +75,7 @@ export const Chats = () => {
             </TouchableOpacity>
           </View>
         </View>
-      </KeyboardAvoidingView>
+      </View>
     </View>
   );
 };

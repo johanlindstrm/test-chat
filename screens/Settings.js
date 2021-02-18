@@ -6,25 +6,25 @@ import { useContext } from "react";
 import { ThemeContext } from "../Context/ThemeContext";
 
 export const Settings = () => {
-  const { toggleTheme } = useContext(ThemeContext);
+  const { toggleTheme, theme } = useContext(ThemeContext);
   return (
-    <View>
+    <View style={{ height: "100%", backgroundColor: theme.backgroundColor }}>
       <Button
-        title='Theme 1'
+        title='Theme DEFAULT'
         onPress={() => {
-          toggleTheme(schemes.MYLI1);
+          toggleTheme(schemes.DEF);
         }}
       />
       <Button
-        title='Theme 2'
+        title='Theme DARK'
         onPress={() => {
-          toggleTheme(schemes.MYLI2);
+          toggleTheme(schemes.DRK);
         }}
       />
       <Button
-        title='Theme 3'
+        title='Theme MYLI'
         onPress={() => {
-          toggleTheme(schemes.MYLI3);
+          toggleTheme(schemes.MYLI);
         }}
       />
     </View>
