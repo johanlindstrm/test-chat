@@ -1,4 +1,3 @@
-import { Actions } from "react-native-router-flux";
 import React, { useContext, useState } from "react";
 import {
   StyleSheet,
@@ -9,8 +8,7 @@ import {
   Button,
 } from "react-native";
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
-import schemes from "../Schemes";
-import { ThemeContext } from "../Context/ThemeContext";
+import { ThemeContext } from "../context/ThemeContext";
 
 export const Chats = () => {
   const { theme } = useContext(ThemeContext);

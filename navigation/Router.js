@@ -8,7 +8,7 @@ import { Chats } from "../screens/Chats";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Settings } from "../screens/Settings";
 import { useContext } from "react";
-import { ThemeContext } from "../Context/ThemeContext";
+import { ThemeContext } from "../context/ThemeContext";
 
 const goToSettings = function () {
   Actions.Settings();

@@ -3,7 +3,7 @@ import { Button, Text, TouchableOpacity, View, StyleSheet } from "react-native";
 import React from "react";
 import schemes from "../Schemes";
 import { useContext } from "react";
-import { ThemeContext } from "../Context/ThemeContext";
+import { ThemeContext } from "../context/ThemeContext";
 
 export const Settings = () => {
   const { toggleTheme, theme } = useContext(ThemeContext);
