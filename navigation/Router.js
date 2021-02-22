@@ -1,13 +1,14 @@
 import React from "react";
-import { Image } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { Image, TouchableOpacity } from "react-native";
 import { Actions, Router, Scene } from "react-native-router-flux";
 import { styles } from "../styles/styles";
+
+// Screens
 import { Messages } from "../screens/Messages";
 import { Contacts } from "../screens/Contacts";
-import { Chats } from "../screens/Chats";
 import { Settings } from "../screens/Settings";
 
+// Theme & Language Context import
 import { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
 import { LangContext } from "../context/LangContext";
@@ -51,19 +52,13 @@ export const Routes = () => {
           key='Messages'
           titleStyle={styles.scene}
           component={Messages}
-          title={language.chatTitle}
+          title={language.messageTitle}
         />
         <Scene
           key='Settings'
           titleStyle={styles.scene}
           component={Settings}
           title={language.settingsTitle}
-        />
-        <Scene
-          key='Chats'
-          titleStyle={styles.scene}
-          component={Chats}
-          title={language.chatTitle}
         />
       </Scene>
     </Router>

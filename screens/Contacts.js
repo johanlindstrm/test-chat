@@ -1,6 +1,5 @@
 import React from "react";
 import { Actions } from "react-native-router-flux";
-
 import {
   SafeAreaView,
   View,
@@ -11,6 +10,7 @@ import {
 } from "react-native";
 import { ThemeContext } from "../context/ThemeContext";
 import { useContext } from "react";
+
 const DATA = [
   {
     id: 1,
@@ -79,7 +79,7 @@ DATA.sort(function (a, b) {
 const Item = ({ user, msg, initials, time, type }) => {
   const { theme } = useContext(ThemeContext);
   const goToMessages = () => {
-    Actions.Chats();
+    Actions.Messages();
   };
   return (
     <TouchableOpacity

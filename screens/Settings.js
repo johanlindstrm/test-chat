@@ -1,9 +1,11 @@
 // import { Actions } from "react-native-router-flux";
-import { Button, Text, TouchableOpacity, View, StyleSheet } from "react-native";
+import { Text, TouchableOpacity, View, StyleSheet } from "react-native";
 import React from "react";
-import schemes from "../Resources/Schemes";
-import languageScheme from "../Resources/LangScheme";
+// Theme & Language Scheme import
+import schemes from "../resources/Schemes";
+import languageScheme from "../resources/LangScheme";
 
+// Theme & Language Context import
 import { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
 import { LangContext } from "../context/LangContext";
