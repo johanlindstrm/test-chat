@@ -1,0 +1,31 @@
+{
+  "Patient": [
+    {
+      "ID": 0,
+      "Contacts": [
+        {
+          "ID": 0,
+          "FirstName": "Emil",
+          "LastName": "Funhammar",
+          "Description": "Coach"
+        },
+        {
+          "ID": 0,
+          "FirstName": "Linus",
+          "LastName": "Johansson",
+          "Description": "Family"
+        }
+      ],
+      "Messeges": [
+        {
+          "ID": 0,
+          "ChatId": 0,
+          "SenderUserId": 0,
+          "SentTS": 0,
+          "Messages": "hej johan!",
+          "isRead": false
+        }
+      ]
+    }
+  ]
+}
