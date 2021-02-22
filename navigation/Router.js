@@ -1,27 +1,29 @@
-import React, { Component } from "react";
-import { Image, Text } from "react-native";
-import { Actions, Router, Scene } from "react-native-router-flux";
-import { styles } from "../styles/styles";
-import { Messages } from "../screens/Messages";
-import { Contacts } from "../screens/Contacts";
-import { Chats } from "../screens/Chats";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { Settings } from "../screens/Settings";
-import { useContext } from "react";
-import { ThemeContext } from "../context/ThemeContext";
+import React, { Component } from 'react';
+import { Image, Text } from 'react-native';
+import { Actions, Router, Scene } from 'react-native-router-flux';
+import { styles } from '../styles/styles';
+import { Messages } from '../screens/Messages';
+import { Contacts } from '../screens/Contacts';
+import { Chats } from '../screens/Chats';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Settings } from '../screens/Settings';
+import { useContext } from 'react';
+import { ThemeContext } from '../context/ThemeContext';
+import { LangContext } from '../context/LangContext';
 
 const goToSettings = function () {
   Actions.Settings();
 };
 //Route component
 export const Routes = () => {
+  const { language } = useContext(LangContext);
   const { theme } = useContext(ThemeContext);
   return (
     <Router>
       <Scene
-        key='root'
+        key="root"
         tintColor={styles.scene.color}
-        activeTintColor={"red"}
+        activeTintColor={'red'}
         swipeEnabled={true}
         navigationBarStyle={{
           ...styles.appBar,
@@ -29,39 +31,39 @@ export const Routes = () => {
         }}
       >
         <Scene
-          key='Contacts'
+          key="Contacts"
           activeTintColor={styles.scene}
           titleStyle={styles.scene}
           component={Contacts}
-          title='Contacts'
+          title={language}
           initial={true}
           swipeEnabled={true}
           renderLeftButton={
             <TouchableOpacity onPress={goToSettings}>
               <Image
-                source={require("../assets/settingsIcon.png")}
+                source={require('../assets/settingsIcon.png')}
                 style={styles.settingsIcon}
               />
             </TouchableOpacity>
           }
         />
         <Scene
-          key='Messages'
+          key="Messages"
           titleStyle={styles.scene}
           component={Messages}
-          title='Messages'
+          title="Messages"
         />
         <Scene
-          key='Settings'
+          key="Settings"
           titleStyle={styles.scene}
           component={Settings}
-          title='Settings'
+          title="Settings"
         />
         <Scene
-          key='Chats'
+          key="Chats"
           titleStyle={styles.scene}
           component={Chats}
-          title='Chats'
+          title="Chats"
         />
       </Scene>
     </Router>
