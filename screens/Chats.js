@@ -1,19 +1,14 @@
-import React, { useContext, useState } from "react";
-import {
-  StyleSheet,
-  View,
-  Text,
-  ImageBackground,
-  KeyboardAvoidingView,
-  Button,
-} from "react-native";
+import React, { useContext } from "react";
+import { StyleSheet, View, ImageBackground } from "react-native";
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
+import { LangContext } from "../context/LangContext";
 import { ThemeContext } from "../context/ThemeContext";
 
 export const Chats = () => {
   const { theme } = useContext(ThemeContext);
+  const { languge } = useContext(LangContext);
 
-  let placeholder = "Enter message..";
+  // let placeholder = ;
   return (
     <View
       style={{
@@ -55,7 +50,7 @@ export const Chats = () => {
             <TextInput
               style={{ marginLeft: 10 }}
               placeholderTextColor={theme.placeholderColor}
-              placeholder={placeholder}
+              placeholder='enter message..'
             ></TextInput>
           </View>
           <View style={{ flexDirection: "row" }}>
