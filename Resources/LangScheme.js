@@ -8,7 +8,7 @@ export default languageScheme = {
     settingsMYLI: "MYLI tema",
     settingsSV: "Svenska",
     settingsEN: "Engelska",
-    placeholderText: "Skriv meddelande..".toString(),
+    placeholderText: "Skriv meddelande..",
     temporaryText1: "Söndag",
     temporaryText2: "Igår",
   },

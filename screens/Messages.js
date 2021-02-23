@@ -8,7 +8,7 @@ import { ThemeContext } from "../context/ThemeContext";
 
 export const Messages = () => {
   const { theme } = useContext(ThemeContext);
-  const { languge } = useContext(LangContext);
+  const { language } = useContext(LangContext);
 
   return (
     <View
@@ -51,7 +51,7 @@ export const Messages = () => {
             <TextInput
               style={{ marginLeft: 10 }}
               placeholderTextColor={theme.placeholderColor}
-              placeholder='enter message..'
+              placeholder={language.placeholderText}
             ></TextInput>
           </View>
           <View style={{ flexDirection: "row" }}>
