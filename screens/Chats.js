@@ -9,6 +9,7 @@ import {
   TextInput, TouchableOpacity,
 } from "react-native";
 
+
 import {ChatDB} from '../clientRDM/Chat'
 import Clipboard, {useClipboard} from '@react-native-community/clipboard';
 import {MaterialCommunityIcons} from '@expo/vector-icons'
@@ -64,7 +65,7 @@ const Messenger = (props) => {
                         <Text ref={setSelectTextFocus}  selectable
                               style={isSelectAll ?[{color:styles.appBar.backgroundColor,borderRadius:4},styles.messageContainerChildTextMessage]
                                   :styles.messageContainerChildTextMessage}>
-                            {props.text.user+'\n'+ props.text.message}
+                            {props.text.date+'\n'+ props.text.message}
                         </Text>
                 </TouchableOpacity>
 
@@ -82,7 +83,7 @@ export function Chats () {
   };
 
 
-  const user=new User(` ${new Date().toLocaleDateString()}  ${new Date().toLocaleTimeString()}`);
+  const user=new User('Dan');
 
  const [receiver,setReceiver]=useState(user.getUserName().toString())
 
@@ -91,13 +92,12 @@ export function Chats () {
     let [messageStack,setMessageStack]=useState({ users:[]})
     const   [scrollToView,setScrollToView]=useState()
     const [messageState,setMessageState]=useState((() => {}))
-    const [message,setMessage]=useState({})
+    const [message,setMessage]=useState(user.sendMessage(''))
     let [editorValue,setEditorValue]=useState('')
     //appendedCompsCount: this.state.appendedCompsCount + 1
     let   [count,setCount]=useState(0)
 
    const AddChat = () => {
-
 
         setMessageStack({
             users: [...messageStack.users, <Messenger key={count} text={message}/>]
@@ -106,17 +106,7 @@ export function Chats () {
 
     }
 
-
-
-
-
-    /*
-      value.text && value.senderUserId ?
-            setMessageStack({
-                users: [...messageStack.users, <Messenger key={index} text={user.sendMessage(user.messages.text)}/>]
-            }):null
-     */
-    let placeholder = "Enter  message" + ":";
+    const placeholder = "Enter  message:";
     const scrollRef = useRef();
 
     return (
@@ -145,9 +135,7 @@ export function Chats () {
         </ScrollView>
         <View  style={styles.chatInputContainer}>
 
-        <View
-            style={styles.chatInputContainerChild}
-        >
+        <View style={styles.chatInputContainerChild}>
             <View style={{ flexDirection: "row" }}>
                 <TouchableOpacity>
                     <MaterialCommunityIcons name={'bars'} size={40}/>
@@ -158,63 +146,29 @@ export function Chats () {
                     placeholder={placeholder}
                     onChangeText={(text =>  {
                         setMessageState(() =>{
-                            scrollRef.current?.scrollToEnd({
+                        scrollRef.current?.scrollToEnd({
                             x : 0,
                             animated : true
                         });
-                            setMessage(user.sendMessage(text))
-                            user.setUserText(text)
-                        })
-
-                        setEditorValue(text)
+                    })
+                      setMessage(user.sendMessage(text))
+                      setEditorValue(text)
                     })}
                 value={editorValue}/>
             </View>
             <View style={{ flexDirection: "row" }}>
                 <TouchableOpacity onPress={(event =>{
-                    setMessage(user.sendMessage(message))
 
-                    console.log(message)
-                    /*
-                    if(message.message===undefined || message.message===''){
-                        console.log("Hold")
-                        setMessageState(() =>{
-                            scrollRef.current?.scrollToEnd({
-                                x : 0,
-                                animated : true
-                            });
-
-                            setMessage( user.sendMessage(''))
-                            user.setUserText('')
-
-                        })
-
-                    }else
-
-                    setMessageState(() =>{
-                        scrollRef.current?.scrollToEnd({
-                            x : 0,
-                            animated : true
-                        });
-                        setMessage( user.sendMessage(message.message))
-                        user.setUserText(message)
-
-                    })
-
-                    messenger.push( user.sendMessage(message.message))
-                    setEditorValue('')
-                    AddChat()
                     setTimeout(()=>{
+
 
                         scrollRef.current?.scrollToEnd({
                             x : 0,
                             animated : true
                         });
                         clearInterval(this)
-                    },50)
-
-                    console.log('',message.message,'')
-                    */
+                    },100)
+                    AddChat()
                 })}>
                     <Image name={'send'} style={{width:40,height:30}} source={require('../assets/send-512.webp')}/>
                 </TouchableOpacity>

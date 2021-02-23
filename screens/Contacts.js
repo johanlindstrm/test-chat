@@ -1,17 +1,13 @@
-import React, {useEffect} from "react";
+import React, {useRef, useState} from "react";
 import { Actions } from "react-native-router-flux";
-
-
 import {
   SafeAreaView,
   View,
   FlatList,
-  StyleSheet,
   Text,
   TouchableOpacity,
 } from "react-native";
-
-import {AddContactModal} from "./Model";
+import {styles} from "../styles/styles"
 
 const DATA = [
   {
@@ -152,74 +148,6 @@ const FlatListItemSeparator = () => {
               renderItem={renderItem}
               keyExtractor={(item) => item.id.toString()}
           />
-
-          {
-
-            <AddContactModal isVisible={props.isVisible}/>
-          }
         </SafeAreaView>
     );
   }
-
-
-
-const styles = StyleSheet.create({
-  item: {
-    flexDirection: "row",
-    width: "100%",
-    backgroundColor: "#f8f8f8",
-    padding: 20,
-    // marginBottom: 5,
-  },
-  user: {
-    fontSize: 16,
-  },
-  message: {
-    fontSize: 16,
-    color: "#B3B3B3",
-  },
-
-  contactContainer: {
-    flex: 1,
-    paddingLeft: 40,
-    // backgroundColor: "red",
-    justifyContent: "center",
-  },
-
-  initalsContainer: {
-    flex: 0.3,
-    // backgroundColor: "orange",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-
-  initialsCircle: {
-    backgroundColor: "#d8d8d8",
-    width: 55,
-    height: 55,
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 30,
-    borderColor: "#1FC6A5",
-    borderWidth: 3,
-  },
-
-  initialsText: {
-    fontSize: 20,
-    color: "#707070",
-  },
-
-  typeContainer: {
-    flex: 3,
-    backgroundColor: "green",
-    paddingRight: 0,
-    height: 20,
-  },
-
-  timeContainer: {
-    // backgroundColor: "red",
-    flex: 0.3,
-    justifyContent: "center",
-    alignItems: "flex-end",
-  },
-});

@@ -1,5 +1,75 @@
 import { StyleSheet } from "react-native";
 export const styles = StyleSheet.create({
+    settingBtn: {
+        width: 300,
+        height: 60,
+        backgroundColor: "white",
+        justifyContent: "flex-end",
+        alignItems: "center",
+        flexDirection: "row",
+        borderWidth: 2,
+        borderColor: "black",
+        paddingRight: 50,
+        marginBottom: 10,
+    },
+    item: {
+        flexDirection: "row",
+        width: "100%",
+        backgroundColor: "#f8f8f8",
+        padding: 20,
+        // marginBottom: 5,
+    },
+    user: {
+        fontSize: 16,
+    },
+    message: {
+        fontSize: 16,
+        color: "#B3B3B3",
+    },
+
+    contactContainer: {
+        flex: 1,
+        paddingLeft: 40,
+        // backgroundColor: "red",
+        justifyContent: "center",
+    },
+
+    initalsContainer: {
+        flex: 0.3,
+        // backgroundColor: "orange",
+        alignItems: "center",
+        justifyContent: "center",
+    },
+
+    initialsCircle: {
+        backgroundColor: "#d8d8d8",
+        width: 55,
+        height: 55,
+        justifyContent: "center",
+        alignItems: "center",
+        borderRadius: 30,
+        borderColor: "#1FC6A5",
+        borderWidth: 3,
+    },
+
+    initialsText: {
+        fontSize: 20,
+        color: "#707070",
+    },
+
+    typeContainer: {
+        flex: 3,
+        backgroundColor: "green",
+        paddingRight: 0,
+        height: 20,
+    },
+
+    timeContainer: {
+        // backgroundColor: "red",
+        flex: 0.3,
+        justifyContent: "center",
+        alignItems: "flex-end",
+    },
   container: {
     flex: 1,
     alignItems: "center",

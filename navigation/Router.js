@@ -1,6 +1,7 @@
 import React, {Component, useState} from "react";
 import {Actions, Router, Scene} from "react-native-router-flux";
 import { styles } from "../styles/styles";
+import { Messages } from "../screens/Messages";
 import { Contacts } from "../screens/Contacts";
 import { Chats } from "../screens/Chats";
 import {TouchableOpacity} from "react-native";

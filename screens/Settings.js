@@ -1,9 +1,10 @@
 // import { Actions } from "react-native-router-flux";
-import { Button, Text, TouchableOpacity, View, StyleSheet } from "react-native";
+import { Text, TouchableOpacity, View} from "react-native";
 import React from "react";
-import schemes from "../Schemes";
+import {schemes} from "../Schemes";
 import { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
+import {styles} from "../styles/styles"
 
 export const Settings = () => {
   const { toggleTheme, theme } = useContext(ThemeContext);
@@ -67,17 +68,4 @@ export const Settings = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  settingBtn: {
-    width: 300,
-    height: 60,
-    backgroundColor: "white",
-    justifyContent: "flex-end",
-    alignItems: "center",
-    flexDirection: "row",
-    borderWidth: 2,
-    borderColor: "black",
-    paddingRight: 50,
-    marginBottom: 10,
-  },
-});
+

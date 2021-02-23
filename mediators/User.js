@@ -24,6 +24,9 @@ export class User{
 
         return  this.text;
     }
+    getDate(){
+        return  new Date().toLocaleDateString()+'  '+new Date().toLocaleTimeString();
+    }
      sendMessage=function(message){
        return   ChatRoom.showMessage(this,message)
     }
