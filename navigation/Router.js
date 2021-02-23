@@ -1,69 +1,66 @@
-import React, { Component } from "react";
-import { Image, Text } from "react-native";
-import { Actions, Router, Scene } from "react-native-router-flux";
+import React, {Component, useState} from "react";
+import {Actions, Router, Scene} from "react-native-router-flux";
 import { styles } from "../styles/styles";
-import { Messages } from "../screens/Messages";
 import { Contacts } from "../screens/Contacts";
 import { Chats } from "../screens/Chats";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { Settings } from "../screens/Settings";
-import { useContext } from "react";
-import { ThemeContext } from "../context/ThemeContext";
+import {TouchableOpacity} from "react-native";
+import {FontAwesome} from '@expo/vector-icons'
+import {Text,Modal} from "react-native";
+import {View} from "react-native-web";
+import SafeAreaView from "react-native-web/dist/exports/SafeAreaView";
+import AddToContact from "../screens/AddToContact";
 
-const goToSettings = function () {
-  Actions.Settings();
-};
+
+
 //Route component
-export const Routes = () => {
-  const { theme } = useContext(ThemeContext);
-  return (
-    <Router>
-      <Scene
-        key='root'
-        tintColor={styles.scene.color}
-        activeTintColor={"red"}
-        swipeEnabled={true}
-        navigationBarStyle={{
-          ...styles.appBar,
-          backgroundColor: theme.header,
-        }}
+
+export default function Routes (){
+    const [isVisible,setIsVisible]=useState(false)
+    const goToAddToContact =function () {
+        Actions.AddToContact();
+    };
+    return (
+
+  <Router >
+
+    <Scene
+      key='root'
+      tintColor={styles.scene.color}
+      activeTintColor={"red"}
+      swipeEnabled={true}
+      navigationBarStyle={styles.appBar}
       >
-        <Scene
-          key='Contacts'
-          activeTintColor={styles.scene}
-          titleStyle={styles.scene}
-          component={Contacts}
-          title='Contacts'
-          initial={true}
-          swipeEnabled={true}
-          renderLeftButton={
-            <TouchableOpacity onPress={goToSettings}>
-              <Image
-                source={require("../assets/settingsIcon.png")}
-                style={styles.settingsIcon}
-              />
+
+      <Scene
+        key='Contacts'
+        activeTintColor={styles.scene}
+        titleStyle={styles.scene}
+        component={Contacts}
+        title='Contacts'
+        initial={true}
+        swipeEnabled={true}
+        renderRightButton={
+            <TouchableOpacity style = {{ margin: 12 }} onPress = {goToAddToContact}>
+                <Text style={styles.addIconAppBar} >{' + '}</Text>
             </TouchableOpacity>
-          }
-        />
+            }
+            />
+
+      <Scene
+        key='Chats'
+        titleStyle={styles.scene}
+        component={Chats}
+        title='Chats'
+      />
+
         <Scene
-          key='Messages'
-          titleStyle={styles.scene}
-          component={Messages}
-          title='Messages'
+            key='AddToContact'
+            titleStyle={styles.scene}
+            component={AddToContact}
+            title='AddContact'
         />
-        <Scene
-          key='Settings'
-          titleStyle={styles.scene}
-          component={Settings}
-          title='Settings'
-        />
-        <Scene
-          key='Chats'
-          titleStyle={styles.scene}
-          component={Chats}
-          title='Chats'
-        />
-      </Scene>
-    </Router>
-  );
+    </Scene>
+  </Router>
+)
 };
+

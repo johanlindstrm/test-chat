@@ -1,5 +1,6 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Actions } from "react-native-router-flux";
+
 
 import {
   SafeAreaView,
@@ -9,8 +10,8 @@ import {
   Text,
   TouchableOpacity,
 } from "react-native";
-import { ThemeContext } from "../context/ThemeContext";
-import { useContext } from "react";
+
+import {AddContactModal} from "./Model";
 
 const DATA = [
   {
@@ -77,8 +78,8 @@ DATA.sort(function (a, b) {
   return 0;
 });
 
+
 const Item = ({ user, msg, initials, time, type }) => {
-  const { theme } = useContext(ThemeContext);
   const goToMessages = () => {
     Actions.Chats();
   };
@@ -86,10 +87,7 @@ const Item = ({ user, msg, initials, time, type }) => {
     <TouchableOpacity
       onPress={goToMessages}
       activeOpacity={0.7}
-      style={{
-        ...styles.item,
-        backgroundColor: theme.accentColor,
-      }}
+      style={styles.item}
     >
       <View style={styles.initalsContainer}>
         <View style={styles.initialsCircle}>
@@ -98,18 +96,19 @@ const Item = ({ user, msg, initials, time, type }) => {
       </View>
 
       <View style={styles.contactContainer}>
-        <Text style={{ ...styles.user, color: theme.color }}>{user}</Text>
+        <Text style={styles.user}>{user}</Text>
         <Text style={styles.message}>{msg}</Text>
       </View>
 
       <View style={styles.timeContainer}>
         <View>
-          <Text style={{ color: theme.color }}>{time}</Text>
+          <Text>{time}</Text>
         </View>
       </View>
     </TouchableOpacity>
   );
 };
+
 
 const FlatListItemSeparator = () => {
   return (
@@ -123,39 +122,46 @@ const FlatListItemSeparator = () => {
   );
 };
 
-export function Contacts() {
-  const { theme } = useContext(ThemeContext);
 
-  const renderItem = ({ item }) => (
-    <Item
-      user={item.user}
-      msg={item.msg}
-      initials={item.initials}
-      time={item.time}
-      type={item.type}
-    />
-  );
+  export function Contacts(props) {
 
-  if (!DATA.length) {
+    const renderItem = ({item}) => (
+        <Item
+            user={item.user}
+            msg={item.msg}
+            initials={item.initials}
+            time={item.time}
+            type={item.type}
+        />
+    );
+
+    if (!DATA.length) {
+      return (
+          <Text style={{textAlign: "center", marginTop: 20}}>
+            Inga Meddelanden 💬
+          </Text>
+      );
+    }
+
     return (
-      <Text style={{ textAlign: "center", marginTop: 20 }}>
-        Inga Meddelanden 💬
-      </Text>
+        <SafeAreaView>
+          <FlatList
+              style={{height: "100%", backgroundColor: "#f8f8f8"}}
+              ItemSeparatorComponent={FlatListItemSeparator}
+              data={DATA}
+              renderItem={renderItem}
+              keyExtractor={(item) => item.id.toString()}
+          />
+
+          {
+
+            <AddContactModal isVisible={props.isVisible}/>
+          }
+        </SafeAreaView>
     );
   }
 
-  return (
-    <SafeAreaView>
-      <FlatList
-        style={{ height: "100%", backgroundColor: theme.backgroundColor }}
-        ItemSeparatorComponent={FlatListItemSeparator}
-        data={DATA}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id.toString()}
-      />
-    </SafeAreaView>
-  );
-}
+
 
 const styles = StyleSheet.create({
   item: {
