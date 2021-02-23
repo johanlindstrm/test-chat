@@ -2,30 +2,27 @@
   "Patient": [
     {
       "ID": 0,
-      "Contacts": [
+      "BCSupport": [
         {
           "ID": 0,
-          "FirstName": "Emil",
-          "LastName": "Funhammar",
-          "Description": "Coach"
-        },
-        {
-          "ID": 0,
-          "FirstName": "Linus",
-          "LastName": "Johansson",
-          "Description": "Family"
+          "Name": "Emil Funhammar",
+          "BCSupportType": {
+            "Description": "Coach"
+          }
         }
       ],
-      "Messeges": [
-        {
-          "ID": 0,
-          "ChatId": 0,
-          "SenderUserId": 0,
-          "SentTS": 0,
-          "Messages": "hej johan!",
-          "isRead": false
-        }
-      ]
+      "Chat": {
+        "Messeges": [
+          {
+            "ID": 0,
+            "ChatId": 0,
+            "SenderUserId": 0,
+            "SentTS": "13:45",
+            "Messages": "hej johan!",
+            "isRead": false
+          }
+        ]
+      }
     }
   ]
 }
