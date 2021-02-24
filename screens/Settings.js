@@ -2,8 +2,8 @@
 import { Text, TouchableOpacity, View, StyleSheet } from "react-native";
 import React from "react";
 // Theme & Language Scheme import
-import schemes from "../resources/Schemes";
-import languageScheme from "../resources/LangScheme";
+import schemes from "../Resources/Schemes";
+import languageScheme from "../Resources/LangScheme";
 
 // Theme & Language Context import
 import { useContext } from "react";

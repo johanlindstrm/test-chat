@@ -1,5 +1,5 @@
 import React, { createContext, useState } from "react";
-import languageScheme from "../resources/LangScheme";
+import languageScheme from "../Resources/LangScheme";
 
 export const LangContext = createContext();
 
