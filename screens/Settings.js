@@ -1,36 +1,68 @@
 // import { Actions } from "react-native-router-flux";
-import { Text, TouchableOpacity, View } from "react-native";
-import React from "react";
-import { schemes } from "../colorSchemes/Schemes";
-import { useContext } from "react";
-import { ThemeContext } from "../context/ThemeContext";
-import { styles } from "../styles/styles";
+import { Text, TouchableOpacity, View, StyleSheet } from 'react-native';
+import React from 'react';
+// Theme & Language Scheme import
+import schemes from '../Resources/Schemes';
+import languageScheme from '../Resources/LangScheme';
 
+// Theme & Language Context import
+import { useContext } from 'react';
+import { ThemeContext } from '../context/ThemeContext';
+import { LangContext } from '../context/LangContext';
 
-export const Settings =function () {
-    const  {toggleTheme,theme}  = useContext(ThemeContext);
+//import { styles } from '../styles/styles';
 
+export const Settings = () => {
+  const { language, toggleLanguage } = useContext(LangContext);
+  const { toggleTheme, theme } = useContext(ThemeContext);
   return (
     <View
       style={{
-        height: "100%",
+        height: '100%',
         backgroundColor: theme.backgroundColor,
-        alignItems: "center",
-        paddingTop: 100,
+        alignItems: 'center',
+        padding: 5,
       }}
     >
+      <TouchableOpacity
+        style={styles.settingBtn}
+        onPress={() => {
+          toggleLanguage(languageScheme.SV);
+        }}
+      >
+        <Text style={{ fontSize: 22, paddingLeft: 10 }}>
+          {language.settingsSV}
+        </Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.settingBtn}
+        onPress={() => {
+          toggleLanguage(languageScheme.EN);
+        }}
+      >
+        <Text style={{ fontSize: 22, paddingLeft: 10 }}>
+          {language.settingsEN}
+        </Text>
+      </TouchableOpacity>
+
       <TouchableOpacity
         style={styles.settingBtn}
         onPress={() => {
           toggleTheme(schemes.DEF);
         }}
       >
-        <Text style={{ fontSize: 22, marginRight: 20 }}>Default Theme</Text>
+        <View style={{ flex: 1 }}>
+          <Text style={{ fontSize: 22, paddingLeft: 10 }}>
+            {language.settingsDEF}
+          </Text>
+        </View>
+
         <View
           style={{
             width: 40,
             height: 40,
-            backgroundColor: "#3484ff",
+            backgroundColor: '#3484ff',
           }}
         ></View>
       </TouchableOpacity>
@@ -38,15 +70,20 @@ export const Settings =function () {
       <TouchableOpacity
         style={styles.settingBtn}
         onPress={() => {
-         toggleTheme(schemes.DRK);
+          toggleTheme(schemes.DRK);
         }}
       >
-        <Text style={{ fontSize: 22, marginRight: 20 }}>Dark Theme</Text>
+        <View style={{ flex: 1 }}>
+          <Text style={{ fontSize: 22, paddingLeft: 10 }}>
+            {language.settingsDRK}
+          </Text>
+        </View>
+
         <View
           style={{
             width: 40,
             height: 40,
-            backgroundColor: "#ff8534",
+            backgroundColor: '#ff8534',
           }}
         ></View>
       </TouchableOpacity>
@@ -54,18 +91,37 @@ export const Settings =function () {
       <TouchableOpacity
         style={styles.settingBtn}
         onPress={() => {
-         // toggleTheme(schemes.MYLI);
+          toggleTheme(schemes.MYLI);
         }}
       >
-        <Text style={{ fontSize: 22, marginRight: 20 }}>MYLI Theme</Text>
+        <View style={{ flex: 1 }}>
+          <Text style={{ fontSize: 22, paddingLeft: 10 }}>
+            {language.settingsMYLI}
+          </Text>
+        </View>
         <View
           style={{
             width: 40,
             height: 40,
-            backgroundColor: "#00a48a",
+            backgroundColor: '#00a48a',
           }}
         ></View>
       </TouchableOpacity>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  settingBtn: {
+    width: '100%',
+    height: 60,
+    backgroundColor: 'white',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    flexDirection: 'row',
+    borderWidth: 2,
+    borderColor: 'black',
+    paddingRight: 50,
+    marginBottom: 10,
+  },
+});
