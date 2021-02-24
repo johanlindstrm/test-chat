@@ -1,7 +1,7 @@
 import React, { createContext, useState } from "react";
-import schemes from "../Resources/Schemes";
+import {schemes} from "../Resources/Schemes";
 
-export const ThemeContext = createContext();
+export const ThemeContext = createContext(schemes.DEF);
 
 export default function ThemeContextProvider({ children }) {
   const [theme, setTheme] = useState(schemes.DEF);

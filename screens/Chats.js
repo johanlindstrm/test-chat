@@ -20,17 +20,16 @@ import {styles} from "../styles/styles"
 
 
 
+const clipboardOptions=(text)=> {
+    Clipboard.setString('hlooo')
+}
+const fetchClipboardText=async ()=> {
+    return  await Clipboard.getString()
+}
+
 const MessageDB=ChatDB.filter((chat)=>chat !==undefined)
+
 const Messenger = (props) => {
-
-
-
-    const clipboardOptions=(text)=> {
-        Clipboard.setString('hlooo')
-    }
-    const fetchClipboardText=async ()=> {
-        return  await Clipboard.getString()
-    }
 
     const [isSelectAll,setIsSelectAll]=useState(false)
     const setSelectTextFocus=useRef()
