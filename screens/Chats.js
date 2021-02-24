@@ -20,7 +20,7 @@ import {styles} from "../styles/styles"
 
 
 
-const messenger=ChatDB.filter((message)=>message.text !==undefined)
+const MessageDB=ChatDB.filter((chat)=>chat !==undefined)
 const Messenger = (props) => {
 
 
@@ -52,26 +52,39 @@ const Messenger = (props) => {
                     }}>Select all</Text>
                 </TouchableOpacity>
             </View> :null}
-        <View style={styles.messageContainer}>
-            <View  style={styles.messageContainerChild} >
-                <Image style={{width:40,height:40}} source={require('../assets/user.png')}/>
-                <TouchableOpacity   activeOpacity={.6} onLongPress={()=>{
-                     if(isClipboard){
-                         setIsClipboard(false)
-                     }else {
-                         setIsClipboard(true)
-                     }
-                }}>
-                        <Text ref={setSelectTextFocus}  selectable
-                              style={isSelectAll ?[{color:styles.appBar.backgroundColor,borderRadius:4},styles.messageContainerChildTextMessage]
-                                  :styles.messageContainerChildTextMessage}>
+            {props.isFrom ?
+                <View style={styles.messageContainer}>
+                    <View  style={styles.messageContainerChild} >
+                        <Image style={{width:40,height:40}} source={require('../assets/user.png')}/>
+                        <TouchableOpacity   activeOpacity={.6} onLongPress={()=>{
+                            if(isClipboard){
+                                setIsClipboard(false)
+                            }else {
+                                setIsClipboard(true)
+                            }
+                        }}>
+                            <Text ref={setSelectTextFocus}  selectable
+                                  style={isSelectAll ?[{color:styles.appBar.backgroundColor,borderRadius:4},styles.messageContainerChildTextMessage]
+                                      :styles.messageContainerChildTextMessage}>
+                                {props.text.date+'\n'+ props.text.message}
+                            </Text>
+                        </TouchableOpacity>
+
+                    </View>
+
+                </View>:
+            <View style={styles.receiverContainer}>
+                <View  style={styles.receiverContainerChild}>
+                    <Image style={{width:40,height:40}} source={require('../assets/user.png')}/>
+                    <View>
+                        <Text style={styles.receiverMessageText} >
                             {props.text.date+'\n'+ props.text.message}
                         </Text>
-                </TouchableOpacity>
+                    </View>
 
-            </View>
+                </View>
+            </View>}
 
-        </View>
 
         </View>
     )
@@ -84,23 +97,20 @@ export function Chats () {
 
 
   const user=new User('Dan');
-
- const [receiver,setReceiver]=useState(user.getUserName().toString())
-
+    const contactUser=new User('Johan');
     const johan=new User('Johan');
-   const   [sender,setSender]=useState(user.getUserName().toString())
+   const   [isFrom,setIsFrom]=useState(false)
     let [messageStack,setMessageStack]=useState({ users:[]})
     const   [scrollToView,setScrollToView]=useState()
     const [messageState,setMessageState]=useState((() => {}))
     const [message,setMessage]=useState(user.sendMessage(''))
     let [editorValue,setEditorValue]=useState('')
-    //appendedCompsCount: this.state.appendedCompsCount + 1
-    let   [count,setCount]=useState(0)
-
+    const   [count,setCount]=useState(0)
+    let renewMessage=user.sendMessage('');
    const AddChat = () => {
 
         setMessageStack({
-            users: [...messageStack.users, <Messenger key={count} text={message}/>]
+            users: [...messageStack.users, <Messenger isFrom={isFrom} key={count} text={renewMessage}/>]
         })
        setCount(count+1);
 
@@ -118,17 +128,6 @@ export function Chats () {
                     scrollsToTop={scrollToView} onContentSizeChange={scrollToView}>
             <View  />
             <View  />
-            <View style={styles.receiverContainer}>
-            <View  style={styles.receiverContainerChild}>
-                <Image style={{width:40,height:40}} source={require('../assets/user.png')}/>
-                <View>
-                    <Text style={styles.receiverMessage} >
-                        {user.sendMessage("Hej Johan").message}
-                    </Text>
-                </View>
-
-            </View>
-            </View>
 
             {messageStack.users}
 
@@ -141,36 +140,52 @@ export function Chats () {
                     <MaterialCommunityIcons name={'bars'} size={40}/>
                 </TouchableOpacity>
                 <TextInput
-                    style={{ marginLeft: 10 ,width:260,padding:4 }}
+                    style={styles.inputChat}
                     placeholderTextColor='black'
                     placeholder={placeholder}
                     onChangeText={(text =>  {
+                        setEditorValue(text)
+                        renewMessage=user.sendMessage(text);
+                        setMessage(user.sendMessage(text))
                         setMessageState(() =>{
                         scrollRef.current?.scrollToEnd({
                             x : 0,
                             animated : true
                         });
                     })
-                      setMessage(user.sendMessage(text))
-                      setEditorValue(text)
+
                     })}
-                value={editorValue}/>
+                value={editorValue} />
             </View>
             <View style={{ flexDirection: "row" }}>
                 <TouchableOpacity onPress={(event =>{
-
+                    renewMessage=message;
+                       setMessage(user.sendMessage(''))
+                       if(isFrom){
+                           setIsFrom(false)
+                           AddChat()
+                       }else {
+                           setIsFrom(true)
+                           AddChat()
+                       }
+                    renewMessage=user.sendMessage('');
+                    setEditorValue('');
                     setTimeout(()=>{
-
-
                         scrollRef.current?.scrollToEnd({
                             x : 0,
                             animated : true
                         });
+
                         clearInterval(this)
-                    },100)
-                    AddChat()
+                    },10)
+                   // AddChat()
+
+
                 })}>
-                    <Image name={'send'} style={{width:40,height:30}} source={require('../assets/send-512.webp')}/>
+                    <View style={styles.sendMessage} >
+                        <Image name={'send'}  style={styles.sendMessage} source={require('../assets/send-512.webp')}/>
+                    </View>
+
                 </TouchableOpacity>
             </View>
         </View>

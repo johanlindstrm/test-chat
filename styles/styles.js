@@ -77,8 +77,7 @@ export const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   messageContainer:{
-      flexDirection:'row',alignSelf:'flex-end',
-      justifyContent:'space-evenly',
+      flexDirection:'row',alignSelf:'flex-end',flexWrap:'wrap'
   },
 
   appBar: {
@@ -208,11 +207,11 @@ export const styles = StyleSheet.create({
       color:'white'
     },
     messageContainerChild:{
-      flexDirection:'row',
-        marginBottom:10,
-        margin:6,
-        borderRadius:40,
-        backgroundColor:'rgb(242,243,245)',padding:4
+        flexDirection:'row',marginBottom:10,margin:6,
+        borderRadius:20,
+        backgroundColor:'rgb(242,243,245)',
+        padding:1,
+        flexWrap:'wrap'
   },
     messageContainerChildText: {
       flex:1,color:'black',borderRadius:20,
@@ -237,26 +236,33 @@ export const styles = StyleSheet.create({
     },
     receiverContainerChild: {
       flexDirection:'row',marginBottom:10,margin:6,
-        borderRadius:40,
+        borderRadius:20,
         backgroundColor:'rgb(242,243,245)',
-        padding:4,
+        padding:1,
         flexWrap:'wrap'
     },
-    receiverMessage: {
-      flex:1,color:'black',
-        borderRadius:20,margin:4,padding:10
+    receiverMessageText: {
+        flex:1,color:'black',
+        borderRadius:20,
+        width:220,
+        flexWrap:'wrap',
+        margin:4,padding:4
     },
     chatInputContainer: {
 
     borderTopColor:'rgb(238,239,239)',
         borderTopWidth: 1,
     paddingTop:2,
-
+        width:'100%'
     },
     chatInputContainerChild: {
 
     backgroundColor: "rgb(242,243,245)",
+        margin:10,
         marginTop:4,
+        paddingRight:18,
+        paddingLeft:18,
+
     height: 50,
     borderRadius: 100,
     marginBottom: 20,
@@ -264,6 +270,19 @@ export const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
 
+
+    },
+    inputChat: {
+        width:'83%',
+        margin:4,
+        marginRight:4,
+        marginLeft: 10,
+        alignSelf:'center'
+
+    },
+    sendMessage:{
+      width:40,height:30,
+        marginLeft: -4
     }
 
 
