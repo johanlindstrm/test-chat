@@ -75,6 +75,7 @@ DATA.sort(function (a, b) {
   return 0;
 });
 
+
 const Item = ({ user, msg, initials, time, type }) => {
   const goToMessages = () => {
     Actions.Chats();

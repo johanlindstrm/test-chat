@@ -90,34 +90,27 @@ const Messenger = (props) => {
 }
 
 export function Chats () {
-  const goToHome = () => {
-    Actions.Chat();
-  };
 
-
-  const user=new User('Dan');
+  const from=new User('Dan');
     const contactUser=new User('Johan');
-    const johan=new User('Johan');
+    const to=new User('Johan');
    const   [isFrom,setIsFrom]=useState(false)
     let [messageStack,setMessageStack]=useState({ users:[]})
     const   [scrollToView,setScrollToView]=useState()
     const [messageState,setMessageState]=useState((() => {}))
-    const [message,setMessage]=useState(user.sendMessage(''))
+    const [message,setMessage]=useState(from.sendMessage(''))
     let [editorValue,setEditorValue]=useState('')
     const   [count,setCount]=useState(0)
-    let renewMessage=user.sendMessage('');
+    let renewMessage=from.sendMessage('');
    const AddChat = () => {
-
         setMessageStack({
             users: [...messageStack.users, <Messenger isFrom={isFrom} key={count} text={renewMessage}/>]
         })
        setCount(count+1);
-
     }
 
     const placeholder = "Enter  message:";
     const scrollRef = useRef();
-
     return (
     <View style={styles.container}>
         <ScrollView ref={scrollRef}
@@ -144,8 +137,8 @@ export function Chats () {
                     placeholder={placeholder}
                     onChangeText={(text =>  {
                         setEditorValue(text)
-                        renewMessage=user.sendMessage(text);
-                        setMessage(user.sendMessage(text))
+                        renewMessage=from.sendMessage(text);
+                        setMessage(from.sendMessage(text))
                         setMessageState(() =>{
                         scrollRef.current?.scrollToEnd({
                             x : 0,
@@ -159,7 +152,7 @@ export function Chats () {
             <View style={{ flexDirection: "row" }}>
                 <TouchableOpacity onPress={(event =>{
                     renewMessage=message;
-                       setMessage(user.sendMessage(''))
+                       setMessage(from.sendMessage(''))
                        if(isFrom){
                            setIsFrom(false)
                            AddChat()
@@ -167,7 +160,7 @@ export function Chats () {
                            setIsFrom(true)
                            AddChat()
                        }
-                    renewMessage=user.sendMessage('');
+                    renewMessage=from.sendMessage('');
                     setEditorValue('');
                     setTimeout(()=>{
                         scrollRef.current?.scrollToEnd({
@@ -177,9 +170,6 @@ export function Chats () {
 
                         clearInterval(this)
                     },10)
-                   // AddChat()
-
-
                 })}>
                     <View style={styles.sendMessage} >
                         <Image name={'send'}  style={styles.sendMessage} source={require('../assets/send-512.webp')}/>
