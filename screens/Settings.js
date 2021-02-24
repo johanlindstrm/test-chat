@@ -2,13 +2,13 @@
 import { Text, TouchableOpacity, View, StyleSheet } from 'react-native';
 import React from 'react';
 // Theme & Language Scheme import
-import {schemes} from '../Resources/Schemes';
+import schemes from '../Resources/Schemes';
 import languageScheme from '../Resources/LangScheme';
 
 // Theme & Language Context import
 import { useContext } from 'react';
 import { ThemeContext } from '../context/ThemeContext';
-import { LangContext} from '../context/LangContext';
+import { LangContext } from '../context/LangContext';
 
 //import { styles } from '../styles/styles';
 
@@ -19,7 +19,7 @@ export const Settings = () => {
     <View
       style={{
         height: '100%',
-        backgroundColor: 'red'/*theme.backgroundColor*/,
+        backgroundColor: theme.backgroundColor,
         alignItems: 'center',
         padding: 5,
       }}
