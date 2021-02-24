@@ -27,6 +27,9 @@ export default function Routes() {
   const goToAddToContact = function () {
     Actions.AddToContact();
   };
+  const goToSettings = function () {
+    Actions.Settings();
+  };
   return (
     <Router>
       <Scene
@@ -65,12 +68,6 @@ export default function Routes() {
           title={language.messageTitle}
         />
 
-        <Scene
-          key="Settings"
-          titleStyle={styles.scene}
-          component={Settings}
-          title={language.settingsTitle}
-        />
         <Scene
           key="Settings"
           titleStyle={styles.scene}

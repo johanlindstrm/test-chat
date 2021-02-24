@@ -10,7 +10,7 @@ import { useContext } from 'react';
 import { ThemeContext } from '../context/ThemeContext';
 import { LangContext } from '../context/LangContext';
 
-import { styles } from '../styles/styles';
+//import { styles } from '../styles/styles';
 
 export const Settings = () => {
   const { language, toggleLanguage } = useContext(LangContext);
