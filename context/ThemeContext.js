@@ -1,11 +1,9 @@
 import React, { createContext, useState } from "react";
-import {schemes} from "../colorSchemes/Schemes";
+import schemes from "../Resources/Schemes";
 
-export const ThemeContext = createContext({});
+export const ThemeContext = createContext();
 
 export default function ThemeContextProvider({ children }) {
-  const [isDarkMode, setIsDarkMode] = useState(true);
-  const toggleDarkMode = () => setIsDarkMode((prev) => !prev);
   const [theme, setTheme] = useState(schemes.DEF);
 
   const toggleTheme = (value) => {
@@ -13,9 +11,7 @@ export default function ThemeContextProvider({ children }) {
   };
 
   return (
-    <ThemeContext.Provider
-      value={{ isDarkMode, toggleDarkMode, theme, toggleTheme }}
-    >
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
       {children}
     </ThemeContext.Provider>
   );
