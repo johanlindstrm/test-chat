@@ -1,7 +1,7 @@
 import React, { createContext, useState } from "react";
-import schemes from "../Schemes";
+import {schemes} from "../colorSchemes/Schemes";
 
-export const ThemeContext = createContext();
+export const ThemeContext = createContext({});
 
 export default function ThemeContextProvider({ children }) {
   const [isDarkMode, setIsDarkMode] = useState(true);

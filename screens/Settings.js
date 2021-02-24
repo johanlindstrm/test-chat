@@ -1,13 +1,15 @@
 // import { Actions } from "react-native-router-flux";
 import { Text, TouchableOpacity, View } from "react-native";
 import React from "react";
-import { schemes } from "../Schemes";
+import { schemes } from "../colorSchemes/Schemes";
 import { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
 import { styles } from "../styles/styles";
 
-export const Settings = () => {
-  const { toggleTheme, theme } = useContext(ThemeContext);
+
+export const Settings =function () {
+    const  {toggleTheme,theme}  = useContext(ThemeContext);
+
   return (
     <View
       style={{
@@ -36,7 +38,7 @@ export const Settings = () => {
       <TouchableOpacity
         style={styles.settingBtn}
         onPress={() => {
-          toggleTheme(schemes.DRK);
+         toggleTheme(schemes.DRK);
         }}
       >
         <Text style={{ fontSize: 22, marginRight: 20 }}>Dark Theme</Text>
@@ -52,7 +54,7 @@ export const Settings = () => {
       <TouchableOpacity
         style={styles.settingBtn}
         onPress={() => {
-          toggleTheme(schemes.MYLI);
+         // toggleTheme(schemes.MYLI);
         }}
       >
         <Text style={{ fontSize: 22, marginRight: 20 }}>MYLI Theme</Text>

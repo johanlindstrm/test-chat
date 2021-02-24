@@ -6,6 +6,7 @@ import { TouchableOpacity } from "react-native";
 import { Text} from "react-native";
 import AddToContact from "../screens/AddToContact";
 import {Chats} from "../screens/Chats";
+import {Settings} from "../screens/Settings";
 
 //Route component
 
@@ -13,6 +14,9 @@ export default function Routes() {
   const goToAddToContact = function () {
     Actions.AddToContact();
   };
+    const goToSettings = function () {
+        Actions.Settings()
+    };
   return (
     <Router>
       <Scene
@@ -35,6 +39,11 @@ export default function Routes() {
               <Text style={styles.addIconAppBar}>{" + "}</Text>
             </TouchableOpacity>
           }
+          renderLeftButton={
+              <TouchableOpacity style={{ margin: 12 }} onPress={goToSettings}>
+                  <Text style={styles.addIconAppBar}>{" + "}</Text>
+              </TouchableOpacity>
+          }
         />
 
         <Scene
@@ -50,6 +59,12 @@ export default function Routes() {
           component={AddToContact}
           title='AddContact'
         />
+          <Scene
+              key='Settings'
+              titleStyle={styles.scene}
+              component={Settings}
+              title='Settings'
+          />
       </Scene>
     </Router>
   );
