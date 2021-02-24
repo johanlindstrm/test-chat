@@ -77,7 +77,7 @@ DATA.sort(function (a, b) {
 
 const Item = ({ user, msg, initials, time, type }) => {
   const goToMessages = () => {
-    Actions.Messages();
+    Actions.Chats();
   };
 
   const { theme } = useContext(ThemeContext);
