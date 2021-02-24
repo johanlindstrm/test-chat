@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useContext } from "react";
 import { Actions } from "react-native-router-flux";
 import {
   SafeAreaView,
@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { styles } from "../styles/styles";
+import { ThemeContext } from "../context/ThemeContext";
 
 const DATA = [
   {
@@ -78,11 +79,13 @@ const Item = ({ user, msg, initials, time, type }) => {
   const goToMessages = () => {
     Actions.Messages();
   };
+
+  const { theme } = useContext(ThemeContext);
   return (
     <TouchableOpacity
       onPress={goToMessages}
       activeOpacity={0.7}
-      style={styles.item}
+      style={{ ...styles.item, backgroundColor: theme.accentColor }}
     >
       <View style={styles.initalsContainer}>
         <View style={styles.initialsCircle}>
@@ -91,13 +94,13 @@ const Item = ({ user, msg, initials, time, type }) => {
       </View>
 
       <View style={styles.contactContainer}>
-        <Text style={styles.user}>{user}</Text>
+        <Text style={{ ...styles.user, color: theme.color }}>{user}</Text>
         <Text style={styles.message}>{msg}</Text>
       </View>
 
       <View style={styles.timeContainer}>
         <View>
-          <Text>{time}</Text>
+          <Text style={{ color: theme.color }}>{time}</Text>
         </View>
       </View>
     </TouchableOpacity>
@@ -117,6 +120,7 @@ const FlatListItemSeparator = () => {
 };
 
 export function Contacts(props) {
+  const { theme } = useContext(ThemeContext);
   const renderItem = ({ item }) => (
     <Item
       user={item.user}
@@ -138,7 +142,7 @@ export function Contacts(props) {
   return (
     <SafeAreaView>
       <FlatList
-        style={{ height: "100%", backgroundColor: "#f8f8f8" }}
+        style={{ height: "100%", backgroundColor: theme.backgroundColor }}
         ItemSeparatorComponent={FlatListItemSeparator}
         data={DATA}
         renderItem={renderItem}

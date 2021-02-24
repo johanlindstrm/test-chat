@@ -37,7 +37,10 @@ export default function Routes() {
         tintColor={styles.scene.color}
         activeTintColor={"red"}
         swipeEnabled={true}
-        navigationBarStyle={styles.appBar}
+        navigationBarStyle={{
+          ...styles.appBar,
+          backgroundColor: theme.header,
+        }}
       >
         <Scene
           key='Contacts'
