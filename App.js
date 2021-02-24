@@ -22,7 +22,6 @@ export default function App() {
   } else {
     return (
         <SafeAreaProvider>
-
           <Routes/>
           <StatusBar style={colorScheme}/>
         </SafeAreaProvider>

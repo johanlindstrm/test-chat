@@ -2,18 +2,14 @@ import React, { Component, useState } from "react";
 import { Actions, Router, Scene } from "react-native-router-flux";
 import { styles } from "../styles/styles";
 import { Contacts } from "../screens/Contacts";
-import { Messages } from "../screens/Messages";
 import { TouchableOpacity } from "react-native";
-import { FontAwesome } from "@expo/vector-icons";
-import { Text, Modal } from "react-native";
-import { View } from "react-native-web";
-import SafeAreaView from "react-native-web/dist/exports/SafeAreaView";
+import { Text} from "react-native";
 import AddToContact from "../screens/AddToContact";
+import {Chats} from "../screens/Chats";
 
 //Route component
 
 export default function Routes() {
-  const [isVisible, setIsVisible] = useState(false);
   const goToAddToContact = function () {
     Actions.AddToContact();
   };
@@ -42,10 +38,10 @@ export default function Routes() {
         />
 
         <Scene
-          key='Messages'
+          key='Chats'
           titleStyle={styles.scene}
-          component={Messages}
-          title='Messages'
+          component={Chats}
+          title='Chats'
         />
 
         <Scene
