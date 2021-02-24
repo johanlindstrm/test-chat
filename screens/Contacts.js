@@ -1,4 +1,4 @@
-import React, {useRef, useState} from "react";
+import React, { useRef, useState } from "react";
 import { Actions } from "react-native-router-flux";
 import {
   SafeAreaView,
@@ -7,7 +7,7 @@ import {
   Text,
   TouchableOpacity,
 } from "react-native";
-import {styles} from "../styles/styles"
+import { styles } from "../styles/styles";
 
 const DATA = [
   {
@@ -74,10 +74,9 @@ DATA.sort(function (a, b) {
   return 0;
 });
 
-
 const Item = ({ user, msg, initials, time, type }) => {
   const goToMessages = () => {
-    Actions.Chats();
+    Actions.Messages();
   };
   return (
     <TouchableOpacity
@@ -105,7 +104,6 @@ const Item = ({ user, msg, initials, time, type }) => {
   );
 };
 
-
 const FlatListItemSeparator = () => {
   return (
     <View
@@ -118,36 +116,34 @@ const FlatListItemSeparator = () => {
   );
 };
 
+export function Contacts(props) {
+  const renderItem = ({ item }) => (
+    <Item
+      user={item.user}
+      msg={item.msg}
+      initials={item.initials}
+      time={item.time}
+      type={item.type}
+    />
+  );
 
-  export function Contacts(props) {
-
-    const renderItem = ({item}) => (
-        <Item
-            user={item.user}
-            msg={item.msg}
-            initials={item.initials}
-            time={item.time}
-            type={item.type}
-        />
-    );
-
-    if (!DATA.length) {
-      return (
-          <Text style={{textAlign: "center", marginTop: 20}}>
-            Inga Meddelanden 💬
-          </Text>
-      );
-    }
-
+  if (!DATA.length) {
     return (
-        <SafeAreaView>
-          <FlatList
-              style={{height: "100%", backgroundColor: "#f8f8f8"}}
-              ItemSeparatorComponent={FlatListItemSeparator}
-              data={DATA}
-              renderItem={renderItem}
-              keyExtractor={(item) => item.id.toString()}
-          />
-        </SafeAreaView>
+      <Text style={{ textAlign: "center", marginTop: 20 }}>
+        Inga Meddelanden 💬
+      </Text>
     );
   }
+
+  return (
+    <SafeAreaView>
+      <FlatList
+        style={{ height: "100%", backgroundColor: "#f8f8f8" }}
+        ItemSeparatorComponent={FlatListItemSeparator}
+        data={DATA}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id.toString()}
+      />
+    </SafeAreaView>
+  );
+}

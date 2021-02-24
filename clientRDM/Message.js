@@ -1,8 +1,9 @@
-export const message= {
-  "patients": [{
-    "id": [],"userId": [],
-    "message": []
-  }]
-}
-
-
+export const message = {
+  patients: [
+    {
+      id: [],
+      userId: [],
+      message: [],
+    },
+  ],
+};
