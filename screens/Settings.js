@@ -1,10 +1,10 @@
 // import { Actions } from "react-native-router-flux";
-import { Text, TouchableOpacity, View} from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import React from "react";
-import {schemes} from "../Schemes";
+import { schemes } from "../Schemes";
 import { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
-import {styles} from "../styles/styles"
+import { styles } from "../styles/styles";
 
 export const Settings = () => {
   const { toggleTheme, theme } = useContext(ThemeContext);
@@ -67,5 +67,3 @@ export const Settings = () => {
     </View>
   );
 };
-
-
