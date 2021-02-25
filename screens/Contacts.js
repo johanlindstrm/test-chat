@@ -1,4 +1,4 @@
-import React, { useRef, useState, useContext } from "react";
+import React, { useRef, useState, useContext, useEffect } from "react";
 import { Actions } from "react-native-router-flux";
 import {
   SafeAreaView,
@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { styles } from "../styles/styles";
 import { ThemeContext } from "../context/ThemeContext";
+import { LangContext } from "../context/LangContext";
 
 const DATA = [
   {
@@ -76,11 +77,13 @@ DATA.sort(function (a, b) {
 });
 
 const Item = ({ user, msg, initials, time, type }) => {
+  const { theme } = useContext(ThemeContext);
+  const { language } = useContext(LangContext);
+
   const goToMessages = () => {
-    Actions.Messages();
+    Actions.Messages({ title: language.messageTitle });
   };
 
-  const { theme } = useContext(ThemeContext);
   return (
     <TouchableOpacity
       onPress={goToMessages}

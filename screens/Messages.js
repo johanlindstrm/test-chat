@@ -1,5 +1,5 @@
 import { Actions } from "react-native-router-flux";
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 //imports
 import {
   View,
@@ -9,6 +9,9 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
+
+import { ThemeContext } from "../context/ThemeContext";
+import { LangContext } from "../context/LangContext";
 
 import { ChatDB } from "../clientRDM/Chat";
 import Clipboard, { useClipboard } from "@react-native-community/clipboard";
@@ -106,6 +109,8 @@ export function Messages() {
   const goToHome = () => {
     Actions.Chat();
   };
+  const { theme } = useContext(ThemeContext);
+  const { language } = useContext(LangContext);
 
   const user = new User("Dan");
 
@@ -128,7 +133,7 @@ export function Messages() {
     setCount(count + 1);
   };
 
-  const placeholder = "Enter  message:";
+  const placeholder = language.placeholderText;
   const scrollRef = useRef();
 
   return (
@@ -136,7 +141,7 @@ export function Messages() {
       <ScrollView
         ref={scrollRef}
         contentContainerStyle={styles.scrollContainer}
-        style={{ width: "100%" }}
+        style={{ width: "100%", backgroundColor: theme.backgroundColor }}
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}
         scrollsToTop={scrollToView}

@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { Component, useEffect, useState } from "react";
 import { Image, TouchableOpacity } from "react-native";
 import { Actions, Router, Scene } from "react-native-router-flux";
 import { styles } from "../styles/styles";
@@ -24,11 +24,12 @@ export default function Routes() {
   const { language } = useContext(LangContext);
   const { theme } = useContext(ThemeContext);
   const [isVisible, setIsVisible] = useState(false);
+
   const goToAddToContact = function () {
-    Actions.AddToContact();
+    Actions.AddToContact({ title: language.addContactTitle });
   };
   const goToSettings = function () {
-    Actions.Settings();
+    Actions.Settings({ title: language.settingsTitle });
   };
   return (
     <Router>
@@ -48,7 +49,6 @@ export default function Routes() {
           titleStyle={styles.scene}
           component={Contacts}
           title={language.contactTitle}
-          initial={true}
           renderLeftButton={
             <TouchableOpacity onPress={goToSettings}>
               <Image
