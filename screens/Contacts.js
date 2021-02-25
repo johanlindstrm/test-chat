@@ -101,7 +101,7 @@ const Item = ({ user, msg, initials, time, type }) => {
         <Text style={styles.message}>{msg}</Text>
       </View>
 
-      <View style={styles.timeContainer}>
+      <View style={{ ...styles.timeContainer, flex: 0.6 }}>
         <View>
           <Text style={{ color: theme.color }}>{time}</Text>
         </View>
