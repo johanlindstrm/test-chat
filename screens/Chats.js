@@ -27,7 +27,7 @@ const fetchClipboardText=async ()=> {
     return  await Clipboard.getString()
 }
 
-const MessageDB=ChatDB.filter((chat)=>chat !==undefined)
+const messageDB=ChatDB.filter((chat)=>chat !==undefined)
 
 const Messenger = (props) => {
 
@@ -102,7 +102,8 @@ export function Chats () {
     let [editorValue,setEditorValue]=useState('')
     const   [count,setCount]=useState(0)
     let renewMessage=from.sendMessage('');
-   const AddChat = () => {
+
+    const AddChat = () => {
         setMessageStack({
             users: [...messageStack.users, <Messenger isFrom={isFrom} key={count} text={renewMessage}/>]
         })
@@ -139,6 +140,7 @@ export function Chats () {
                         setEditorValue(text)
                         renewMessage=from.sendMessage(text);
                         setMessage(from.sendMessage(text))
+
                         setMessageState(() =>{
                         scrollRef.current?.scrollToEnd({
                             x : 0,
@@ -152,6 +154,7 @@ export function Chats () {
             <View style={{ flexDirection: "row" }}>
                 <TouchableOpacity onPress={(event =>{
                     renewMessage=message;
+
                        setMessage(from.sendMessage(''))
                        if(isFrom){
                            setIsFrom(false)

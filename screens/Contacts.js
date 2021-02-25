@@ -9,6 +9,9 @@ import {
 } from "react-native";
 import { styles } from "../styles/styles";
 import { ThemeContext } from "../context/ThemeContext";
+import {ChatDB} from "../clientRDM/Chat";
+import {ContactDb} from "../clientRDM/Contacts";
+const messageDB=ChatDB.filter((chat)=>chat !==undefined)
 
 const DATA = [
   {
@@ -62,9 +65,9 @@ const DATA = [
 ];
 
 //Alphabetical sort, based on type { arbete, coach, familj }
-DATA.sort(function (a, b) {
-  var typeA = a.type.toUpperCase(); // ignore upper and lowercase
-  var typeB = b.type.toUpperCase(); // ignore upper and lowercase
+DATA.sort(function (compA,compB ) {
+  const typeA = compA.type.toUpperCase(); // ignore upper and lowercase
+  const  typeB = compB.type.toUpperCase(); // ignore upper and lowercase
   if (typeA < typeB) {
     return -1;
   }
@@ -122,17 +125,32 @@ const FlatListItemSeparator = () => {
 
 export function Contacts(props) {
   const { theme } = useContext(ThemeContext);
-  const renderItem = ({ item }) => (
-    <Item
-      user={item.user}
-      msg={item.msg}
-      initials={item.initials}
-      time={item.time}
-      type={item.type}
-    />
-  );
 
-  if (!DATA.length) {
+  const contactDB=ContactDb.filter((contact)=> DATA.map((data,index)=>{
+    contact.id[index]=data.id
+    contact.initials[index]=data.initials
+    contact.msg[index]=data.msg
+    contact.time[index]=data.time
+    contact.type[index]=data.type
+    contact.user[index]=data.user
+  }))
+
+  console.log([].concat.apply([],...contactDB[0]))
+  const renderItem = ({ item }) => {
+    return (
+        <Item
+            user={item.user}
+            msg={item.msg}
+            initials={item.initials}
+            time={item.time}
+            type={item.type}
+        />
+    );
+  }
+
+
+
+  if (!contactDB.length) {
     return (
       <Text style={{ textAlign: "center", marginTop: 20 }}>
         Inga Meddelanden 💬
@@ -145,9 +163,9 @@ export function Contacts(props) {
       <FlatList
         style={{ height: "100%", backgroundColor: theme.backgroundColor }}
         ItemSeparatorComponent={FlatListItemSeparator}
-        data={DATA}
+        data={contactDB}
         renderItem={renderItem}
-        keyExtractor={(item) => item.id.toString()}
+
       />
     </SafeAreaView>
   );

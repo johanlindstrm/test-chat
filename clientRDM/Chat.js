@@ -4,7 +4,7 @@ export const ChatDB = [
     patientId: [],
     bcSupportId: [],
     messages: [
-      {
+      { time:new Date().toLocaleTimeString(),
         id: [],
         sentTS: [],
         chatId: [],
