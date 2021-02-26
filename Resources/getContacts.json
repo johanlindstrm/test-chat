@@ -1,28 +1,29 @@
 {
-  "Patient": [
+  "UserId": [
     {
-      "ID": 0,
       "BCSupport": [
         {
-          "ID": 0,
-          "Name": "Emil Funhammar",
-          "BCSupportType": {
-            "Description": "Coach"
-          }
+          "ID": 1,
+          "Name": "Isabell johansson",
+          "BCSupportTypeId": {
+            "Description": "family"
+          },
+          "Chat": [
+            {
+              "Messeges": [
+                {
+                  "ID": 0,
+                  "ChatId": 0,
+                  "SenderUserId": 0,
+                  "SentTS": "16:45",
+                  "Messages": "hello emil",
+                  "isRead": false
+                }
+              ]
+            }
+          ]
         }
-      ],
-      "Chat": {
-        "Messeges": [
-          {
-            "ID": 0,
-            "ChatId": 0,
-            "SenderUserId": 0,
-            "SentTS": "13:45",
-            "Messages": "hej johan!",
-            "isRead": false
-          }
-        ]
-      }
+      ]
     }
   ]
 }

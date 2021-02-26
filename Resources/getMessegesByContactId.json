@@ -1,26 +1,24 @@
 {
-  "Patient": [
-    {
-      "ID": 0,
-      "FirstName": "Emil",
-      "LastName": "Funhammar",
-
-      "Messeges": [
-        {
-          "ID": 0,
-          "ChatId": 0,
-          "SenderUserId": 0,
-          "SentTS": 0,
-          "Messages": "hej johan!"
-        },
-        {
-          "ID": 0,
-          "ChatId": 0,
-          "SenderUserId": 0,
-          "SentTS": 0,
-          "Messages": "hur gick mötet?"
-        }
-      ]
-    }
-  ]
+  "BCSupportId": {
+    "Chat": [
+      {
+        "Messeges": [
+          {
+            "ID": 0,
+            "ChatId": 0,
+            "SenderUserId": 0,
+            "SentTS": 0,
+            "Messages": "hej johan!"
+          },
+          {
+            "ID": 0,
+            "ChatId": 0,
+            "SenderUserId": 0,
+            "SentTS": 0,
+            "Messages": "hur gick mötet?"
+          }
+        ]
+      }
+    ]
+  }
 }
