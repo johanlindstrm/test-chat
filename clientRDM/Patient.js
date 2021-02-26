@@ -11,6 +11,8 @@ export const Patient ={
       },
    */
     "Patient":[],
+
+    //Foreign key
   BCSupport,
   Messages
 

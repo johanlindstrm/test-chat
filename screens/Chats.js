@@ -1,4 +1,4 @@
-import React, {useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 //imports
 import {
   View,
@@ -90,6 +90,7 @@ export function Chats (index) {
     const contactUser=new User('Johan');
     const to=new User('Johan');
    const   [isFrom,setIsFrom]=useState(false)
+
     let [messageStack,setMessageStack]=useState({ users:[]})
     const   [scrollToView,setScrollToView]=useState()
     const [messageState,setMessageState]=useState((() => {}))
@@ -110,9 +111,12 @@ export function Chats (index) {
 
 
     const contactJoinChatRoom=Patient.Patient[index.data ===undefined?0 : index.data]
-    console.log(contactJoinChatRoom)
-    if(isFrom) {
-        setIsFrom(false)
+
+    useEffect(()=>{
+        console.log('Hole:',contactJoinChatRoom)
+    })
+    if(contactJoinChatRoom) {
+        //setIsFrom(false)
         AddChat()
     }
         return (
