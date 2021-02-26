@@ -14,7 +14,7 @@ import Clipboard, {useClipboard} from '@react-native-community/clipboard';
 import {MaterialCommunityIcons} from '@expo/vector-icons'
 import {User} from "../mediators/User";
 import {styles} from "../styles/styles"
-//import {Patient} from "../clientRDM/Patient";
+import {Patient} from "../clientRDM/Patient";
 const clipboardOptions=(text)=> {
     Clipboard.setString('hlooo')
 }
@@ -107,36 +107,14 @@ export function Chats (index) {
 
     const placeholder = "Enter  message:";
     const scrollRef = useRef();
-/*
-    const patientData=Patient[0].Patient.map((contact=>{
-        return contact
 
-    }));
-    const contact=patientData[0]
-    const messages=patientData[2]
 
-    let contactsTemp=[]
-    contact.id.map((data,key)=>{
-        contactsTemp[key]={
-            id:key,
-            firstName:contact.firstName[key],
-            lastName:contact.lastName[key],
-            userId:key,
-            chatId:messages.Messages[0].chatId[key],
-            messageTs:messages.Messages[0].messageTs[key],
-            message:messages.Messages[0].message[key],
-            senderUserId:messages.Messages[0].senderUserId[key],
-
-        }
-
-    })
-
-    const contactJoinChatRoom=contactsTemp[index.data ===undefined?0 : index.data]
-    console.log(messages)
+    const contactJoinChatRoom=Patient.Patient[index.data ===undefined?0 : index.data]
+    console.log(contactJoinChatRoom)
     if(isFrom) {
         setIsFrom(false)
         AddChat()
-    }*/
+    }
         return (
     <View style={styles.container}>
         <ScrollView ref={scrollRef}

@@ -133,7 +133,7 @@ export function Contacts(props) {
 
 
   const renderItem = ({ item,index }) => {
-   
+
     return (
         <Item
             user={{firstName:item.firstName,lastName:item.lastName}}
