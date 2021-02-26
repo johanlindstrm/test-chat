@@ -1,0 +1,58 @@
+{
+  "DATA": [
+    {
+      "id": 1,
+      "initials": "SJ",
+      "firstName": "Olga",
+      "lastName": "Johnson",
+      "type": "Coach",
+      "msg": "lorem ipsum..",
+      "time": "09:45"
+    },
+    {
+      "id": 2,
+      "initials": "PJ",
+      "firstName": "Emil",
+      "lastName": "Human",
+      "type": "Familj",
+      "msg": "lorem ipsum..",
+      "time": "Igår"
+    },
+    {
+      "id": 3,
+      "initials": "S",
+      "firstName": "Dan",
+      "lastName": "Ayettey",
+      "type": "Arbete",
+      "msg": "lorem ipsum..",
+      "time": "22:30"
+    },
+    {
+      "id": 4,
+      "initials": "P",
+      "firstName": "Joseph",
+      "lastName": "Blackeburg",
+      "type": "Coach",
+      "msg": "lorem ipsum..",
+      "time": "Söndag"
+    },
+    {
+      "id": 5,
+      "initials": "A",
+      "firstName": "Seth",
+      "lastName": "Almqvist",
+      "type": "Familj",
+      "msg": "lorem ipsum..",
+      "time": "10:20"
+    },
+    {
+      "id": 6,
+      "initials": "AJ",
+      "firstName": "Adam",
+      "lastName": "Johnson",
+      "type": "Arbete",
+      "msg": "lorem ipsum..",
+      "time": "10:20"
+    }
+  ]
+}
