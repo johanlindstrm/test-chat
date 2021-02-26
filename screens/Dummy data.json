@@ -3,7 +3,7 @@
     {
       "id": 1,
       "initials": "SJ",
-      "firstName": "Olga",
+      "firstName": "Erika",
       "lastName": "Johnson",
       "type": "Coach",
       "msg": "lorem ipsum..",
@@ -56,3 +56,28 @@
     }
   ]
 }
+/* {
+  "BCSupport": [
+    {
+      "ID": 1,
+      "Name": "Isabell johansson",
+      "BCSupportTypeId": {
+        "Description": "family"
+      },
+      "Chat": [
+        {
+          "Messeges": [
+            {
+              "ID": 0,
+              "ChatId": 0,
+              "SenderUserId": 0,
+              "SentTS": "16:45",
+              "Messages": "hello emil",
+              "isRead": false
+            }
+          ]
+        }
+      ]
+    }
+  ]
+} */

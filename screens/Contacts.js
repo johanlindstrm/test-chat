@@ -1,18 +1,19 @@
-import React, { useRef, useState, useContext } from "react";
-import { Actions } from "react-native-router-flux";
+import React, { useRef, useState, useContext } from 'react';
+import { Actions } from 'react-native-router-flux';
 import {
   SafeAreaView,
   View,
   FlatList,
   Text,
   TouchableOpacity,
-} from "react-native";
-import { styles } from "../styles/styles";
-import { ThemeContext } from "../context/ThemeContext";
-import {Patient} from "../clientRDM/Patient";
-import {BCSupport} from "../clientRDM/BCSupport";
-let ContactsTemp=[]
-const DATA = [
+} from 'react-native';
+import { styles } from '../styles/styles';
+import { ThemeContext } from '../context/ThemeContext';
+import { Patient } from '../clientRDM/Patient';
+import { BCSupport } from '../clientRDM/BCSupport';
+import { DATA } from './Dummy data.json';
+let ContactsTemp = [];
+/* const DATA = [
   {
     id: 1,
     initials: "SJ",
@@ -67,12 +68,12 @@ const DATA = [
     msg: "lorem ipsum..",
     time: "10:20",
   },
-];
+]; */
 
 //Alphabetical sort, based on type { arbete, coach, familj }
-DATA.sort(function (compA,compB ) {
+DATA.sort(function (compA, compB) {
   const typeA = compA.type.toUpperCase(); // ignore upper and lowercase
-  const  typeB = compB.type.toUpperCase(); // ignore upper and lowercase
+  const typeB = compB.type.toUpperCase(); // ignore upper and lowercase
   if (typeA < typeB) {
     return -1;
   }
@@ -83,8 +84,7 @@ DATA.sort(function (compA,compB ) {
   return 0;
 });
 
-
-const Item = ( {user={}, msg, initials, time, type,index }) => {
+const Item = ({ user = {}, msg, initials, time, type, index }) => {
   const goToMessages = (index) => {
     Actions.Chats(index);
   };
@@ -92,7 +92,7 @@ const Item = ( {user={}, msg, initials, time, type,index }) => {
   const { theme } = useContext(ThemeContext);
   return (
     <TouchableOpacity
-      onPress={(event)=>goToMessages(index)}
+      onPress={(event) => goToMessages(index)}
       activeOpacity={0.7}
       style={{ ...styles.item, backgroundColor: theme.accentColor }}
     >
@@ -103,7 +103,9 @@ const Item = ( {user={}, msg, initials, time, type,index }) => {
       </View>
 
       <View style={styles.contactContainer}>
-        <Text style={{ ...styles.user, color: theme.color }}>{user.firstName+' '+user.lastName}</Text>
+        <Text style={{ ...styles.user, color: theme.color }}>
+          {user.firstName + ' ' + user.lastName}
+        </Text>
         <Text style={styles.message}>{msg}</Text>
       </View>
 
@@ -121,8 +123,8 @@ const FlatListItemSeparator = () => {
     <View
       style={{
         height: 0.5,
-        width: "100%",
-        backgroundColor: "#d3d3d3",
+        width: '100%',
+        backgroundColor: '#d3d3d3',
       }}
     />
   );
@@ -131,68 +133,60 @@ const FlatListItemSeparator = () => {
 export function Contacts(props) {
   const { theme } = useContext(ThemeContext);
 
-
-  const renderItem = ({ item,index }) => {
-
+  const renderItem = ({ item, index }) => {
     return (
-        <Item
-            user={{firstName:item.firstName,lastName:item.lastName}}
-            msg={item.message}
-            initials={item.firstName.split('').shift()+''+item.lastName.split('').shift()}
-            time={item.messageTs}
-            type={item.type}
-            index={index}
-        />
+      <Item
+        user={{ firstName: item.firstName, lastName: item.lastName }}
+        msg={item.message}
+        initials={
+          item.firstName.split('').shift() +
+          '' +
+          item.lastName.split('').shift()
+        }
+        time={item.messageTs}
+        type={item.type}
+        index={index}
+      />
     );
-  }
+  };
 
-
-
- //const contact=patientData[0]
+  //const contact=patientData[0]
   //const messages=patientData[2]
 
-  DATA.map((data,index)=>{
-    if( DATA.length>Patient.Patient.length){
+  DATA.map((data, index) => {
+    if (DATA.length > Patient.Patient.length) {
       Patient.Patient.push({
-        "id": data.id,
-        "userID": data.id,
-        "firstName":data.firstName,
-        "lastName":data.lastName,
+        id: data.id,
+        userID: data.id,
+        firstName: data.firstName,
+        lastName: data.lastName,
       });
       Patient.Messages.Messages.push({
-        "id": data.id,
-        "messageTs": data.time,
-        "chatId": data.id,
-        "message": data.msg,
-        "senderUserId": data.id,
-      })
-
+        id: data.id,
+        messageTs: data.time,
+        chatId: data.id,
+        message: data.msg,
+        senderUserId: data.id,
+      });
     }
+  });
 
-  })
-
-   Patient.Patient.map((data,key)=>{
-
-     ContactsTemp[key]={
-       id:key,
-       firstName:data.firstName,
-       lastName:data.lastName,
-       userId:key,
-       chatId:Patient.Messages.Messages[key].chatId,
-       messageTs:Patient.Messages.Messages[key].messageTs,
-       message:Patient.Messages.Messages[key].message,
-       senderUserId:Patient.Messages.Messages[key].senderUserId,
-
-     }
-
-
-
-  })
-
+  Patient.Patient.map((data, key) => {
+    ContactsTemp[key] = {
+      id: key,
+      firstName: data.firstName,
+      lastName: data.lastName,
+      userId: key,
+      chatId: Patient.Messages.Messages[key].chatId,
+      messageTs: Patient.Messages.Messages[key].messageTs,
+      message: Patient.Messages.Messages[key].message,
+      senderUserId: Patient.Messages.Messages[key].senderUserId,
+    };
+  });
 
   if (!ContactsTemp.length) {
     return (
-      <Text style={{ textAlign: "center", marginTop: 20 }}>
+      <Text style={{ textAlign: 'center', marginTop: 20 }}>
         Inga Meddelanden 💬
       </Text>
     );
@@ -201,11 +195,11 @@ export function Contacts(props) {
   return (
     <SafeAreaView>
       <FlatList
-        style={{ height: "100%", backgroundColor: theme.backgroundColor }}
+        style={{ height: '100%', backgroundColor: theme.backgroundColor }}
         ItemSeparatorComponent={FlatListItemSeparator}
         data={ContactsTemp}
         renderItem={renderItem}
-        keyExtractor={((item,id) => id.toString())}
+        keyExtractor={(item, id) => id.toString()}
       />
     </SafeAreaView>
   );
