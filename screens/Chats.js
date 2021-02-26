@@ -10,16 +10,12 @@ import {
 } from "react-native";
 
 
-import {ChatDB} from '../clientRDM/Chat'
+import {ChatDB} from '../clientRDM/Chats'
 import Clipboard, {useClipboard} from '@react-native-community/clipboard';
 import {MaterialCommunityIcons} from '@expo/vector-icons'
 import {User} from "../mediators/User";
 import {styles} from "../styles/styles"
-
-
-
-
-
+import {Patient} from "../clientRDM/Patient";
 const clipboardOptions=(text)=> {
     Clipboard.setString('hlooo')
 }
@@ -89,7 +85,7 @@ const Messenger = (props) => {
     )
 }
 
-export function Chats () {
+export function Chats (index) {
 
   const from=new User('Dan');
     const contactUser=new User('Johan');
@@ -112,6 +108,32 @@ export function Chats () {
 
     const placeholder = "Enter  message:";
     const scrollRef = useRef();
+
+    const patientData=Patient[0].Patient.map((contact=>{
+        return contact
+
+    }));
+    const contact=patientData[0]
+    const messages=patientData[2]
+
+    let contactsTemp=[]
+    contact.id.map((data,key)=>{
+        contactsTemp[key]={
+            id:key,
+            firstName:contact.firstName[key],
+            lastName:contact.lastName[key],
+            userId:key,
+            chatId:messages.Messages[0].chatId[key],
+            messageTs:messages.Messages[0].messageTs[key],
+            message:messages.Messages[0].message[key],
+            senderUserId:messages.Messages[0].senderUserId[key],
+
+        }
+
+    })
+
+    const contactJoinChatRoom=contactsTemp[index.data ===undefined?0 : index.data]
+    console.log(contactJoinChatRoom)
     return (
     <View style={styles.container}>
         <ScrollView ref={scrollRef}
@@ -153,8 +175,7 @@ export function Chats () {
             </View>
             <View style={{ flexDirection: "row" }}>
                 <TouchableOpacity onPress={(event =>{
-                    renewMessage=message;
-
+                       renewMessage=message;
                        setMessage(from.sendMessage(''))
                        if(isFrom){
                            setIsFrom(false)

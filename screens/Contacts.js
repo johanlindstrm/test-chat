@@ -9,15 +9,16 @@ import {
 } from "react-native";
 import { styles } from "../styles/styles";
 import { ThemeContext } from "../context/ThemeContext";
-import {ChatDB} from "../clientRDM/Chat";
+import {Patient} from "../clientRDM/Patient";
 import {ContactDb} from "../clientRDM/Contacts";
-const messageDB=ChatDB.filter((chat)=>chat !==undefined)
-
+import {BCSupport} from "../clientRDM/BCSupport";
+let ContactsTemp=[]
 const DATA = [
   {
     id: 1,
     initials: "SJ",
-    user: "Adam Johnson",
+    firstName: "Olga",
+    lastName: "Johnson",
     type: "Coach",
     msg: "lorem ipsum..",
     time: "09:45",
@@ -25,7 +26,8 @@ const DATA = [
   {
     id: 2,
     initials: "PJ",
-    user: "Petra Johnson",
+    firstName: "Emil",
+    lastName: "Human",
     type: "Familj",
     msg: "lorem ipsum..",
     time: "Igår",
@@ -33,7 +35,8 @@ const DATA = [
   {
     id: 3,
     initials: "S",
-    user: "Sara Johnson",
+    firstName: "Dan",
+    lastName: "Ayettey",
     type: "Arbete",
     msg: "lorem ipsum..",
     time: "22:30",
@@ -41,7 +44,8 @@ const DATA = [
   {
     id: 4,
     initials: "P",
-    user: "Peter Johnson",
+    firstName: "Joseph",
+    lastName: "Blackeburg",
     type: "Coach",
     msg: "lorem ipsum..",
     time: "Söndag",
@@ -49,7 +53,8 @@ const DATA = [
   {
     id: 5,
     initials: "A",
-    user: "Adam Johnson",
+    firstName: "Seth",
+    lastName: "Almqvist",
     type: "Familj",
     msg: "lorem ipsum..",
     time: "10:20",
@@ -57,7 +62,8 @@ const DATA = [
   {
     id: 6,
     initials: "AJ",
-    user: "Adam Johnson",
+    firstName: "Adam",
+    lastName: "Johnson",
     type: "Arbete",
     msg: "lorem ipsum..",
     time: "10:20",
@@ -79,15 +85,15 @@ DATA.sort(function (compA,compB ) {
 });
 
 
-const Item = ({ user, msg, initials, time, type }) => {
-  const goToMessages = () => {
-    Actions.Chats();
+const Item = ( {user={}, msg, initials, time, type,index }) => {
+  const goToMessages = (index) => {
+    Actions.Chats(index);
   };
 
   const { theme } = useContext(ThemeContext);
   return (
     <TouchableOpacity
-      onPress={goToMessages}
+      onPress={(event)=>goToMessages(index)}
       activeOpacity={0.7}
       style={{ ...styles.item, backgroundColor: theme.accentColor }}
     >
@@ -98,7 +104,7 @@ const Item = ({ user, msg, initials, time, type }) => {
       </View>
 
       <View style={styles.contactContainer}>
-        <Text style={{ ...styles.user, color: theme.color }}>{user}</Text>
+        <Text style={{ ...styles.user, color: theme.color }}>{user.firstName+' '+user.lastName}</Text>
         <Text style={styles.message}>{msg}</Text>
       </View>
 
@@ -126,31 +132,57 @@ const FlatListItemSeparator = () => {
 export function Contacts(props) {
   const { theme } = useContext(ThemeContext);
 
-  const contactDB=ContactDb.filter((contact)=> DATA.map((data,index)=>{
-    contact.id[index]=data.id
-    contact.initials[index]=data.initials
-    contact.msg[index]=data.msg
-    contact.time[index]=data.time
-    contact.type[index]=data.type
-    contact.user[index]=data.user
-  }))
 
-  console.log([].concat.apply([],...contactDB[0]))
-  const renderItem = ({ item }) => {
+  const renderItem = ({ item,index }) => {
     return (
         <Item
-            user={item.user}
-            msg={item.msg}
-            initials={item.initials}
-            time={item.time}
+            user={{firstName:item.firstName,lastName:item.lastName}}
+            msg={item.message}
+            initials={item.firstName.split('').shift()+''+item.lastName.split('').shift()}
+            time={item.messageTs}
             type={item.type}
+            index={index}
         />
     );
   }
 
+  const patientData=Patient[0].Patient.map((contact=>{
+    return contact
 
+  }));
+ const contact=patientData[0]
+  const messages=patientData[2]
+  DATA.map((data,index)=>{
+    if( DATA.length>contact.id.length){
+      contact.id.push(data.id)
+      contact.firstName.push(data.firstName)
+      contact.lastName.push(data.lastName)
+      contact.userID.push(data.id)
+      messages.Messages[0].messageTs.push(data.time)
+      messages.Messages[0].message.push(data.msg)
+      messages.Messages[0].id.push(data.id)
+      messages.Messages[0].senderUserId.push(data.id)
+      messages.Messages[0].chatId.push(data.id)
+    }
 
-  if (!contactDB.length) {
+  })
+
+  contact.id.map((data,key)=>{
+    ContactsTemp[key]={
+      id:key,
+      firstName:contact.firstName[key],
+      lastName:contact.lastName[key],
+      userId:key,
+      chatId:messages.Messages[0].chatId[key],
+      messageTs:messages.Messages[0].messageTs[key],
+      message:messages.Messages[0].message[key],
+      senderUserId:messages.Messages[0].senderUserId[key],
+
+    }
+
+  })
+
+  if (!ContactsTemp.length) {
     return (
       <Text style={{ textAlign: "center", marginTop: 20 }}>
         Inga Meddelanden 💬
@@ -163,9 +195,9 @@ export function Contacts(props) {
       <FlatList
         style={{ height: "100%", backgroundColor: theme.backgroundColor }}
         ItemSeparatorComponent={FlatListItemSeparator}
-        data={contactDB}
+        data={ContactsTemp}
         renderItem={renderItem}
-
+        keyExtractor={((item,id) => id.toString())}
       />
     </SafeAreaView>
   );
