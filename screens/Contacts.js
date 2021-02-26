@@ -10,7 +10,6 @@ import {
 import { styles } from "../styles/styles";
 import { ThemeContext } from "../context/ThemeContext";
 import {Patient} from "../clientRDM/Patient";
-import {ContactDb} from "../clientRDM/Contacts";
 import {BCSupport} from "../clientRDM/BCSupport";
 let ContactsTemp=[]
 const DATA = [
@@ -134,6 +133,7 @@ export function Contacts(props) {
 
 
   const renderItem = ({ item,index }) => {
+   
     return (
         <Item
             user={{firstName:item.firstName,lastName:item.lastName}}
@@ -146,41 +146,52 @@ export function Contacts(props) {
     );
   }
 
-  const patientData=Patient[0].Patient.map((contact=>{
-    return contact
 
-  }));
- const contact=patientData[0]
-  const messages=patientData[2]
+
+ //const contact=patientData[0]
+  //const messages=patientData[2]
+
   DATA.map((data,index)=>{
-    if( DATA.length>contact.id.length){
-      contact.id.push(data.id)
-      contact.firstName.push(data.firstName)
-      contact.lastName.push(data.lastName)
-      contact.userID.push(data.id)
-      messages.Messages[0].messageTs.push(data.time)
-      messages.Messages[0].message.push(data.msg)
-      messages.Messages[0].id.push(data.id)
-      messages.Messages[0].senderUserId.push(data.id)
-      messages.Messages[0].chatId.push(data.id)
-    }
-
-  })
-
-  contact.id.map((data,key)=>{
-    ContactsTemp[key]={
-      id:key,
-      firstName:contact.firstName[key],
-      lastName:contact.lastName[key],
-      userId:key,
-      chatId:messages.Messages[0].chatId[key],
-      messageTs:messages.Messages[0].messageTs[key],
-      message:messages.Messages[0].message[key],
-      senderUserId:messages.Messages[0].senderUserId[key],
+    if( DATA.length>Patient.Patient.length){
+      Patient.Patient.push({
+        "id": data.id,
+        "userID": data.id,
+        "firstName":data.firstName,
+        "lastName":data.lastName,
+      });
+      Patient.Messages.Messages.push({
+        "id": data.id,
+        "messageTs": data.time,
+        "chatId": data.id,
+        "message": data.msg,
+        "senderUserId": data.id,
+      })
 
     }
 
   })
+
+  //const contacts=[Patient.Patient,Patient.Messages.Messages].flat(1)
+  //console.log(contacts)
+
+   Patient.Patient.map((data,key)=>{
+
+     ContactsTemp[key]={
+       id:key,
+       firstName:data.firstName,
+       lastName:data.lastName,
+       userId:key,
+       chatId:Patient.Messages.Messages[key].chatId,
+       messageTs:Patient.Messages.Messages[key].messageTs,
+       message:Patient.Messages.Messages[key].message,
+       senderUserId:Patient.Messages.Messages[key].senderUserId,
+
+     }
+
+
+
+  })
+
 
   if (!ContactsTemp.length) {
     return (

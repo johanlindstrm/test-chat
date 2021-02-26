@@ -1,15 +1,15 @@
 import {ChatDB} from "./Chats";
-export const Messages =[ {
+export const Messages ={
 
-  "Messages": [
-    {
-      "id": [],
-      "messageTs": [],
-      "chatId": [],
-      "message": [],
-      "senderUserId": [],
+  /*
+  {
+      "id": Number,
+      "messageTs": String,
+      "chatId": Number,
+      "message": String,
+      "senderUserId": Number,
     },
-    ...ChatDB,
-  ],
-
-}];
+   */
+  "Messages": [],
+  ChatDB,
+};

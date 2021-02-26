@@ -1,4 +1,3 @@
-import { Actions } from "react-native-router-flux";
 import React, {useRef, useState} from "react";
 //imports
 import {
@@ -15,7 +14,7 @@ import Clipboard, {useClipboard} from '@react-native-community/clipboard';
 import {MaterialCommunityIcons} from '@expo/vector-icons'
 import {User} from "../mediators/User";
 import {styles} from "../styles/styles"
-import {Patient} from "../clientRDM/Patient";
+//import {Patient} from "../clientRDM/Patient";
 const clipboardOptions=(text)=> {
     Clipboard.setString('hlooo')
 }
@@ -23,7 +22,7 @@ const fetchClipboardText=async ()=> {
     return  await Clipboard.getString()
 }
 
-const messageDB=ChatDB.filter((chat)=>chat !==undefined)
+//const messageDB=ChatDB.filter((chat)=>chat !==undefined)
 
 const Messenger = (props) => {
 
@@ -108,7 +107,7 @@ export function Chats (index) {
 
     const placeholder = "Enter  message:";
     const scrollRef = useRef();
-
+/*
     const patientData=Patient[0].Patient.map((contact=>{
         return contact
 
@@ -133,8 +132,12 @@ export function Chats (index) {
     })
 
     const contactJoinChatRoom=contactsTemp[index.data ===undefined?0 : index.data]
-    console.log(contactJoinChatRoom)
-    return (
+    console.log(messages)
+    if(isFrom) {
+        setIsFrom(false)
+        AddChat()
+    }*/
+        return (
     <View style={styles.container}>
         <ScrollView ref={scrollRef}
             contentContainerStyle={styles.scrollContainer} style={{width:'100%'}}

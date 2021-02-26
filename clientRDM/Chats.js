@@ -1,9 +1,10 @@
-export const ChatDB =[{
-  "charts":[
+export const ChatDB ={
+  /*
     {
-    "id": [],
-    "patientId": [],
-    "bcSupportId": [],
+    "id": Number,
+    "patientId": String,
+    "bcSupportId": Number,
   }
-  ]
-  }];
+   */
+  "charts":[]
+  };

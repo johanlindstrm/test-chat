@@ -1,17 +1,17 @@
 import {BCSupport} from "./BCSupport";
 import {Messages} from "./Message";
 
-export const Patient =[ {
-    "Patient":[
-      {
-        "id": [],
-        "userID": [],
-        "firstName":[],
-        "lastName":[],
+export const Patient ={
+  /*
+   {
+        "id": Number,
+        "userID": Number,
+        "firstName":String,
+        "lastName":String,
       },
-      ...BCSupport,
-      ...Messages
-    ],
+   */
+    "Patient":[],
+  BCSupport,
+  Messages
 
-
-  }]
+  }
