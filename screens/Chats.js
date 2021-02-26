@@ -114,11 +114,12 @@ export function Chats (index) {
 
     useEffect(()=>{
         console.log('Hole:',contactJoinChatRoom)
+        if(contactJoinChatRoom) {
+            //setIsFrom(false)
+          //  AddChat()
+        }
     })
-    if(contactJoinChatRoom) {
-        //setIsFrom(false)
-        AddChat()
-    }
+
         return (
     <View style={styles.container}>
         <ScrollView ref={scrollRef}

@@ -171,9 +171,6 @@ export function Contacts(props) {
 
   })
 
-  //const contacts=[Patient.Patient,Patient.Messages.Messages].flat(1)
-  //console.log(contacts)
-
    Patient.Patient.map((data,key)=>{
 
      ContactsTemp[key]={
