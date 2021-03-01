@@ -1,0 +1,52 @@
+{
+  "DATA": [
+    {
+      "id": 1,
+      "initials": "SJ",
+      "user": "Adam Johnson",
+      "type": "Coach",
+      "msg": "lorem ipsum..",
+      "time": "09:45"
+    },
+    {
+      "id": 2,
+      "initials": "PJ",
+      "user": "Petra Johnson",
+      "type": "Familj",
+      "msg": "lorem ipsum..",
+      "time": "Igår"
+    },
+    {
+      "id": 3,
+      "initials": "S",
+      "user": "Sara Johnson",
+      "type": "Arbete",
+      "msg": "lorem ipsum..",
+      "time": "22:30"
+    },
+    {
+      "id": 4,
+      "initials": "P",
+      "user": "Peter Johnson",
+      "type": "Coach",
+      "msg": "lorem ipsum..",
+      "time": "Söndag"
+    },
+    {
+      "id": 5,
+      "initials": "A",
+      "user": "Adam Johnson",
+      "type": "Familj",
+      "msg": "lorem ipsum..",
+      "time": "10:20"
+    },
+    {
+      "id": 6,
+      "initials": "AJ",
+      "user": "Adam Johnson",
+      "type": "Arbete",
+      "msg": "lorem ipsum..",
+      "time": "10:20"
+    }
+  ]
+}

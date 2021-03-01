@@ -1,0 +1,33 @@
+{
+  "Response2": {
+    "BCSupport": [
+      {
+        "id": 0,
+        "PatientId": 0,
+        "UserID": 0,
+        "Name": "JOahn",
+        "Title": "",
+        "ContactInfo": "",
+        "Organization": ""
+      },
+      {}
+    ],
+    "Chat": [
+      {
+        "id": 0,
+        "PatientId": 0,
+        "BCSupprtId": 0,
+        "Message": [
+          {
+            "id": 0,
+            "ChatId": 0,
+            "SenderUserId": 0,
+            "MessageTS": "",
+            "Message": "",
+            "IsRead": false
+          }
+        ]
+      }
+    ]
+  }
+}
