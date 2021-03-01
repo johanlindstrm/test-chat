@@ -5,7 +5,33 @@
         "id": 1,
         "PatientId": 0,
         "UserID": 0,
-        "Name": "JOahn",
+        "Name": "Johan L",
+        "Title": "",
+        "ContactInfo": "",
+        "Organization": "",
+        "BCSupportTypeId": {
+          "Name": "",
+          "Description": "Coach"
+        }
+      },
+      {
+        "id": 2,
+        "PatientId": 0,
+        "UserID": 0,
+        "Name": "Emil F",
+        "Title": "",
+        "ContactInfo": "",
+        "Organization": "",
+        "BCSupportTypeId": {
+          "Name": "",
+          "Description": "Coach"
+        }
+      },
+      {
+        "id": 3,
+        "PatientId": 0,
+        "UserID": 0,
+        "Name": "Dan A",
         "Title": "",
         "ContactInfo": "",
         "Organization": "",
