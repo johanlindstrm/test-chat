@@ -1,64 +1,66 @@
-import React, { useRef, useState, useContext, useEffect } from "react";
-import { Actions } from "react-native-router-flux";
+import React, { useRef, useState, useContext, useEffect } from 'react';
+import { Actions } from 'react-native-router-flux';
 import {
   SafeAreaView,
   View,
   FlatList,
   Text,
   TouchableOpacity,
-} from "react-native";
-import { styles } from "../styles/styles";
-import { ThemeContext } from "../context/ThemeContext";
-import { LangContext } from "../context/LangContext";
+} from 'react-native';
+import { styles } from '../styles/styles';
+import { ThemeContext } from '../context/ThemeContext';
+import { LangContext } from '../context/LangContext';
+import { Response } from '../JSON/GetContacts.json';
+import { Response2 } from '../JSON/GetContacts2.json';
 
 const DATA = [
   {
     id: 1,
-    initials: "SJ",
-    user: "Adam Johnson",
-    type: "Coach",
-    msg: "lorem ipsum..",
-    time: "09:45",
+    initials: 'SJ',
+    user: 'Adam Johnson',
+    type: 'Coach',
+    msg: 'lorem ipsum..',
+    time: '09:45',
   },
   {
     id: 2,
-    initials: "PJ",
-    user: "Petra Johnson",
-    type: "Familj",
-    msg: "lorem ipsum..",
-    time: "Igår",
+    initials: 'PJ',
+    user: 'Petra Johnson',
+    type: 'Familj',
+    msg: 'lorem ipsum..',
+    time: 'Igår',
   },
   {
     id: 3,
-    initials: "S",
-    user: "Sara Johnson",
-    type: "Arbete",
-    msg: "lorem ipsum..",
-    time: "22:30",
+    initials: 'S',
+    user: 'Sara Johnson',
+    type: 'Arbete',
+    msg: 'lorem ipsum..',
+    time: '22:30',
   },
   {
     id: 4,
-    initials: "P",
-    user: "Peter Johnson",
-    type: "Coach",
-    msg: "lorem ipsum..",
-    time: "Söndag",
+    initials: 'P',
+    user: 'Peter Johnson',
+    type: 'Coach',
+    msg: 'lorem ipsum..',
+    time: 'Söndag',
   },
   {
     id: 5,
-    initials: "A",
-    user: "Adam Johnson",
-    type: "Familj",
-    msg: "lorem ipsum..",
-    time: "10:20",
+    initials: 'A',
+    user: 'Adam Johnson',
+    type: 'Familj',
+    msg: 'lorem ipsum..',
+    time: '10:20',
   },
   {
     id: 6,
-    initials: "AJ",
-    user: "Adam Johnson",
-    type: "Arbete",
-    msg: "lorem ipsum..",
-    time: "10:20",
+    initials: 'AJ',
+    user: 'Adam Johnson',
+    type: 'Arbete',
+    msg: 'lorem ipsum..',
+    time: '10:20',
   },
 ];
 
@@ -76,7 +78,12 @@ DATA.sort(function (a, b) {
   return 0;
 });
 
-const Item = ({ user, msg, initials, time, type }) => {
+const Item = ({ user }) => {
+  //console.log('emil', Response.BCSupport[0].BCSupportType.Description);
+  //console.log('emil', Response.Chat[0].Message[0].Message);
+  console.log('johan', user);
+  console.log('här');
+
   const { theme } = useContext(ThemeContext);
   const { language } = useContext(LangContext);
 
@@ -97,7 +104,7 @@ const Item = ({ user, msg, initials, time, type }) => {
       </View>
 
       <View style={styles.contactContainer}>
-        <Text style={{ ...styles.user, color: theme.color }}>{user}</Text>
+        <Text style={{ ...styles.user, color: theme.color }}>emil{user}</Text>
         <Text style={styles.message}>{msg}</Text>
       </View>
 
@@ -115,8 +122,8 @@ const FlatListItemSeparator = () => {
     <View
       style={{
         height: 0.5,
-        width: "100%",
-        backgroundColor: "#d3d3d3",
+        width: '100%',
+        backgroundColor: '#d3d3d3',
       }}
     />
   );
@@ -124,19 +131,11 @@ const FlatListItemSeparator = () => {
 
 export function Contacts(props) {
   const { theme } = useContext(ThemeContext);
-  const renderItem = ({ item }) => (
-    <Item
-      user={item.user}
-      msg={item.msg}
-      initials={item.initials}
-      time={item.time}
-      type={item.type}
-    />
-  );
+  const renderItem = ({ item }) => <Text>emil{item}</Text>;
 
   if (!DATA.length) {
     return (
-      <Text style={{ textAlign: "center", marginTop: 20 }}>
+      <Text style={{ textAlign: 'center', marginTop: 20 }}>
         Inga Meddelanden 💬
       </Text>
     );
@@ -145,9 +144,10 @@ export function Contacts(props) {
   return (
     <SafeAreaView>
       <FlatList
-        style={{ height: "100%", backgroundColor: theme.backgroundColor }}
+        style={{ height: '100%', backgroundColor: theme.backgroundColor }}
         ItemSeparatorComponent={FlatListItemSeparator}
-        data={DATA}
+        //data={DATA}
+        data={Response}
         renderItem={renderItem}
         keyExtractor={(item) => item.id.toString()}
       />
