@@ -1,19 +1,18 @@
-import React, { useRef, useState, useContext } from 'react';
-import { Actions } from 'react-native-router-flux';
+import React, { useRef, useState, useContext } from "react";
+import { Actions } from "react-native-router-flux";
 import {
   SafeAreaView,
   View,
   FlatList,
   Text,
   TouchableOpacity,
-} from 'react-native';
-import { styles } from '../styles/styles';
-import { ThemeContext } from '../context/ThemeContext';
-import { Patient } from '../clientRDM/Patient';
-import { BCSupport } from '../clientRDM/BCSupport';
-import { DATA } from './Dummy data.json';
+} from "react-native";
+import { styles } from "../styles/styles";
+import { ThemeContext } from "../context/ThemeContext";
+import { Patient } from "../clientRDM/Patient";
+import { BCSupport } from "../clientRDM/BCSupport";
 let ContactsTemp = [];
-/* const DATA = [
+const DATA = [
   {
     id: 1,
     initials: "SJ",
@@ -68,7 +67,7 @@ let ContactsTemp = [];
     msg: "lorem ipsum..",
     time: "10:20",
   },
-]; */
+];
 
 //Alphabetical sort, based on type { arbete, coach, familj }
 DATA.sort(function (compA, compB) {
@@ -104,7 +103,7 @@ const Item = ({ user = {}, msg, initials, time, type, index }) => {
 
       <View style={styles.contactContainer}>
         <Text style={{ ...styles.user, color: theme.color }}>
-          {user.firstName + ' ' + user.lastName}
+          {user.firstName + " " + user.lastName}
         </Text>
         <Text style={styles.message}>{msg}</Text>
       </View>
@@ -123,8 +122,8 @@ const FlatListItemSeparator = () => {
     <View
       style={{
         height: 0.5,
-        width: '100%',
-        backgroundColor: '#d3d3d3',
+        width: "100%",
+        backgroundColor: "#d3d3d3",
       }}
     />
   );
@@ -139,9 +138,9 @@ export function Contacts(props) {
         user={{ firstName: item.firstName, lastName: item.lastName }}
         msg={item.message}
         initials={
-          item.firstName.split('').shift() +
-          '' +
-          item.lastName.split('').shift()
+          item.firstName.split("").shift() +
+          "" +
+          item.lastName.split("").shift()
         }
         time={item.messageTs}
         type={item.type}
@@ -186,7 +185,7 @@ export function Contacts(props) {
 
   if (!ContactsTemp.length) {
     return (
-      <Text style={{ textAlign: 'center', marginTop: 20 }}>
+      <Text style={{ textAlign: "center", marginTop: 20 }}>
         Inga Meddelanden 💬
       </Text>
     );
@@ -195,7 +194,7 @@ export function Contacts(props) {
   return (
     <SafeAreaView>
       <FlatList
-        style={{ height: '100%', backgroundColor: theme.backgroundColor }}
+        style={{ height: "100%", backgroundColor: theme.backgroundColor }}
         ItemSeparatorComponent={FlatListItemSeparator}
         data={ContactsTemp}
         renderItem={renderItem}
