@@ -97,7 +97,6 @@ export function Chats (index) {
     const [message,setMessage]=useState(from.sendMessage(''))
     let [editorValue,setEditorValue]=useState('')
     const   [count,setCount]=useState(0)
-    const [messageText,setMessageText]=useState({})
     let renewMessage=from.sendMessage('');
 
     const AddChat = () => {
@@ -110,53 +109,16 @@ export function Chats (index) {
     const placeholder = "Enter  message:";
     const scrollRef = useRef();
 
-    const elementIndex=index.data ===undefined?0 : index.data
-    const contactJoinChatRoom=Patient.Patient[elementIndex];
-    Patient.Messages.Messages.push( {"id":elementIndex+1 ,
-        "messageTs": from.getDate(),
-        "chatId":elementIndex+1,
-        "message": 'You are awesome',
-        "senderUserId":elementIndex})
-    let renew=[]
-    const contactMessageRoom=Patient.Messages.Messages.filter((msg=> renew.push(from.sendMessage(msg.message))))
-    console.log(renew)
+
+    const contactJoinChatRoom=Patient.Patient[index.data ===undefined?0 : index.data]
+
     useEffect(()=>{
-
+        console.log('Hole:',contactJoinChatRoom)
         if(contactJoinChatRoom) {
-
-                let renewMessage=[from.sendMessage("hello"),from.sendMessage("hello"),from.sendMessage("hate")]
-                //AddChat()
-            let counter=1
-            if(renewMessage.length>counter){
-
-
-                setMessageStack({
-                    users: [...messageStack.users,renewMessage.map((renewMessage)=>{
-                        counter++
-                        return <Messenger isFrom={isFrom} key={counter} text={renewMessage}/>
-                    })]
-                })
-            }
-
-
-
-
-           // contactMessageRoom.map(msg=> renewMessage=from.sendMessage(msg.message))
-
-                //setMessage(from.sendMessage())
-
-
-            setMessageState(() =>{
-                scrollRef.current?.scrollToEnd({
-                    x : 0,
-                    animated : true
-                });
-            })
-
             //setIsFrom(false)
-           //AddChat()
+          //  AddChat()
         }
-    },[])
+    })
 
         return (
     <View style={styles.container}>
