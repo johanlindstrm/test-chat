@@ -9,10 +9,10 @@ import {
 } from "react-native";
 import { styles } from "../styles/styles";
 import { ThemeContext } from "../context/ThemeContext";
-import {Patient} from "../clientRDM/Patient";
-import axios from 'axios'
-import {BCSupport} from "../clientRDM/BCSupport";
-let ContactsTemp=[]
+import { Patient } from "../clientRDM/Patient";
+import axios from "axios";
+import { BCSupport } from "../clientRDM/BCSupport";
+let ContactsTemp = [];
 
 const DATA = [
   {
@@ -72,9 +72,9 @@ const DATA = [
 ];
 
 //Alphabetical sort, based on type { arbete, coach, familj }
-DATA.sort(function (compA,compB ) {
+DATA.sort(function (compA, compB) {
   const typeA = compA.type.toUpperCase(); // ignore upper and lowercase
-  const  typeB = compB.type.toUpperCase(); // ignore upper and lowercase
+  const typeB = compB.type.toUpperCase(); // ignore upper and lowercase
   if (typeA < typeB) {
     return -1;
   }
@@ -84,36 +84,34 @@ DATA.sort(function (compA,compB ) {
   // names must be equal
   return 0;
 });
-
+//exp://192.168.0.155:
 function test() {
-  fetch('http://192.168.0.2:8081/contacts',{
-    method: 'GET',
+  fetch("http://192.168.0.155:8081/contacts", {
+    method: "GET",
     headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    }
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
   })
-      .then((response) => response.json())
-      .then((responseJson) => {
-
-        console.log(responseJson);
-
-      })
-      .catch((error) =>{
-        console.error(error);
-      });
+    .then((response) => response.json())
+    .then((responseJson) => {
+      console.log(responseJson);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 }
-const Item = ( {user={}, msg, initials, time, type,index }) => {
-
-test()
+const Item = ({ user = {}, msg, initials, time, type, index }) => {
   const goToMessages = (index) => {
+    const results = test();
+    console.log(results);
     Actions.Chats(index);
   };
 
   const { theme } = useContext(ThemeContext);
   return (
     <TouchableOpacity
-      onPress={(event)=>goToMessages(index)}
+      onPress={(event) => goToMessages(index)}
       activeOpacity={0.7}
       style={{ ...styles.item, backgroundColor: theme.accentColor }}
     >
@@ -124,7 +122,9 @@ test()
       </View>
 
       <View style={styles.contactContainer}>
-        <Text style={{ ...styles.user, color: theme.color }}>{user.firstName+' '+user.lastName}</Text>
+        <Text style={{ ...styles.user, color: theme.color }}>
+          {user.firstName + " " + user.lastName}
+        </Text>
         <Text style={styles.message}>{msg}</Text>
       </View>
 
@@ -152,64 +152,56 @@ const FlatListItemSeparator = () => {
 export function Contacts(props) {
   const { theme } = useContext(ThemeContext);
 
-
-  const renderItem = ({ item,index }) => {
-
+  const renderItem = ({ item, index }) => {
     return (
-        <Item
-            user={{firstName:item.firstName,lastName:item.lastName}}
-            msg={item.message}
-            initials={item.firstName.split('').shift()+''+item.lastName.split('').shift()}
-            time={item.messageTs}
-            type={item.type}
-            index={index}
-        />
+      <Item
+        user={{ firstName: item.firstName, lastName: item.lastName }}
+        msg={item.message}
+        initials={
+          item.firstName.split("").shift() +
+          "" +
+          item.lastName.split("").shift()
+        }
+        time={item.messageTs}
+        type={item.type}
+        index={index}
+      />
     );
-  }
+  };
 
-
-
- //const contact=patientData[0]
+  //const contact=patientData[0]
   //const messages=patientData[2]
 
-  DATA.map((data,index)=>{
-    if( DATA.length>Patient.Patient.length){
+  DATA.map((data, index) => {
+    if (DATA.length > Patient.Patient.length) {
       Patient.Patient.push({
-        "id": data.id,
-        "userID": data.id,
-        "firstName":data.firstName,
-        "lastName":data.lastName,
+        id: data.id,
+        userID: data.id,
+        firstName: data.firstName,
+        lastName: data.lastName,
       });
       Patient.Messages.Messages.push({
-        "id": data.id,
-        "messageTs": data.time,
-        "chatId": data.id,
-        "message": data.msg,
-        "senderUserId": data.id,
-      })
-
+        id: data.id,
+        messageTs: data.time,
+        chatId: data.id,
+        message: data.msg,
+        senderUserId: data.id,
+      });
     }
+  });
 
-  })
-
-   Patient.Patient.map((data,key)=>{
-
-     ContactsTemp[key]={
-       id:key,
-       firstName:data.firstName,
-       lastName:data.lastName,
-       userId:key,
-       chatId:Patient.Messages.Messages[key].chatId,
-       messageTs:Patient.Messages.Messages[key].messageTs,
-       message:Patient.Messages.Messages[key].message,
-       senderUserId:Patient.Messages.Messages[key].senderUserId,
-
-     }
-
-
-
-  })
-
+  Patient.Patient.map((data, key) => {
+    ContactsTemp[key] = {
+      id: key,
+      firstName: data.firstName,
+      lastName: data.lastName,
+      userId: key,
+      chatId: Patient.Messages.Messages[key].chatId,
+      messageTs: Patient.Messages.Messages[key].messageTs,
+      message: Patient.Messages.Messages[key].message,
+      senderUserId: Patient.Messages.Messages[key].senderUserId,
+    };
+  });
 
   if (!ContactsTemp.length) {
     return (
@@ -226,7 +218,7 @@ export function Contacts(props) {
         ItemSeparatorComponent={FlatListItemSeparator}
         data={ContactsTemp}
         renderItem={renderItem}
-        keyExtractor={((item,id) => id.toString())}
+        keyExtractor={(item, id) => id.toString()}
       />
     </SafeAreaView>
   );
