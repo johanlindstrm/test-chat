@@ -1,73 +1,73 @@
-import React, { useRef, useState, useContext } from "react";
-import { Actions } from "react-native-router-flux";
+import React, { useRef, useState, useContext } from 'react';
+import { Actions } from 'react-native-router-flux';
 import {
   SafeAreaView,
   View,
   FlatList,
   Text,
   TouchableOpacity,
-} from "react-native";
-import { styles } from "../styles/styles";
-import { ThemeContext } from "../context/ThemeContext";
-import { Patient } from "../clientRDM/Patient";
-import axios from "axios";
-import { BCSupport } from "../clientRDM/BCSupport";
+} from 'react-native';
+import { styles } from '../styles/styles';
+import { ThemeContext } from '../context/ThemeContext';
+import { Patient } from '../clientRDM/Patient';
+import axios from 'axios';
+import { BCSupport } from '../clientRDM/BCSupport';
 let ContactsTemp = [];
 
 const DATA = [
   {
     id: 1,
-    initials: "SJ",
-    firstName: "Olga",
-    lastName: "Johnson",
-    type: "Coach",
-    msg: "lorem ipsum..",
-    time: "09:45",
+    initials: 'SJ',
+    firstName: 'Olga',
+    lastName: 'Johnson',
+    type: 'Coach',
+    msg: 'lorem ipsum..',
+    time: '09:45',
   },
   {
     id: 2,
-    initials: "PJ",
-    firstName: "Emil",
-    lastName: "Human",
-    type: "Familj",
-    msg: "lorem ipsum..",
-    time: "Igår",
+    initials: 'PJ',
+    firstName: 'Emil',
+    lastName: 'Human',
+    type: 'Familj',
+    msg: 'lorem ipsum..',
+    time: 'Igår',
   },
   {
     id: 3,
-    initials: "S",
-    firstName: "Dan",
-    lastName: "Ayettey",
-    type: "Arbete",
-    msg: "lorem ipsum..",
-    time: "22:30",
+    initials: 'S',
+    firstName: 'Dan',
+    lastName: 'Ayettey',
+    type: 'Arbete',
+    msg: 'lorem ipsum..',
+    time: '22:30',
   },
   {
     id: 4,
-    initials: "P",
-    firstName: "Joseph",
-    lastName: "Blackeburg",
-    type: "Coach",
-    msg: "lorem ipsum..",
-    time: "Söndag",
+    initials: 'P',
+    firstName: 'Joseph',
+    lastName: 'Blackeburg',
+    type: 'Coach',
+    msg: 'lorem ipsum..',
+    time: 'Söndag',
   },
   {
     id: 5,
-    initials: "A",
-    firstName: "Seth",
-    lastName: "Almqvist",
-    type: "Familj",
-    msg: "lorem ipsum..",
-    time: "10:20",
+    initials: 'A',
+    firstName: 'Seth',
+    lastName: 'Almqvist',
+    type: 'Familj',
+    msg: 'lorem ipsum..',
+    time: '10:20',
   },
   {
     id: 6,
-    initials: "AJ",
-    firstName: "Adam",
-    lastName: "Johnson",
-    type: "Arbete",
-    msg: "lorem ipsum..",
-    time: "10:20",
+    initials: 'AJ',
+    firstName: 'Adam',
+    lastName: 'Johnson',
+    type: 'Arbete',
+    msg: 'lorem ipsum..',
+    time: '10:20',
   },
 ];
 
@@ -85,12 +85,28 @@ DATA.sort(function (compA, compB) {
   return 0;
 });
 //exp://192.168.0.155:
-function test() {
-  fetch("http://192.168.0.155:8081/contacts", {
-    method: "GET",
+function GetContacts() {
+  fetch('http://192.168.0.155:8081/contacts', {
+    method: 'GET',
     headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((responseJson) => {
+      console.log(responseJson);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
+function ContactsChat() {
+  fetch('http://192.168.0.155:8081/contacts', {
+    method: 'GET',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
     },
   })
     .then((response) => response.json())
@@ -103,7 +119,8 @@ function test() {
 }
 const Item = ({ user = {}, msg, initials, time, type, index }) => {
   const goToMessages = (index) => {
-    const results = test();
+    //const results = GetContacts();
+    const results2 = ContactsChat();
     console.log(results);
     Actions.Chats(index);
   };
@@ -123,7 +140,7 @@ const Item = ({ user = {}, msg, initials, time, type, index }) => {
 
       <View style={styles.contactContainer}>
         <Text style={{ ...styles.user, color: theme.color }}>
-          {user.firstName + " " + user.lastName}
+          {user.firstName + ' ' + user.lastName}
         </Text>
         <Text style={styles.message}>{msg}</Text>
       </View>
@@ -142,8 +159,8 @@ const FlatListItemSeparator = () => {
     <View
       style={{
         height: 0.5,
-        width: "100%",
-        backgroundColor: "#d3d3d3",
+        width: '100%',
+        backgroundColor: '#d3d3d3',
       }}
     />
   );
@@ -158,9 +175,9 @@ export function Contacts(props) {
         user={{ firstName: item.firstName, lastName: item.lastName }}
         msg={item.message}
         initials={
-          item.firstName.split("").shift() +
-          "" +
-          item.lastName.split("").shift()
+          item.firstName.split('').shift() +
+          '' +
+          item.lastName.split('').shift()
         }
         time={item.messageTs}
         type={item.type}
@@ -205,7 +222,7 @@ export function Contacts(props) {
 
   if (!ContactsTemp.length) {
     return (
-      <Text style={{ textAlign: "center", marginTop: 20 }}>
+      <Text style={{ textAlign: 'center', marginTop: 20 }}>
         Inga Meddelanden 💬
       </Text>
     );
@@ -214,7 +231,7 @@ export function Contacts(props) {
   return (
     <SafeAreaView>
       <FlatList
-        style={{ height: "100%", backgroundColor: theme.backgroundColor }}
+        style={{ height: '100%', backgroundColor: theme.backgroundColor }}
         ItemSeparatorComponent={FlatListItemSeparator}
         data={ContactsTemp}
         renderItem={renderItem}
