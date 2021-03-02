@@ -15,6 +15,8 @@ import {MaterialCommunityIcons} from '@expo/vector-icons'
 import {User} from "../mediators/User";
 import {styles} from "../styles/styles"
 import {Patient} from "../clientRDM/Patient";
+import {schemes} from "../colorSchemes/Schemes";
+import {color} from "react-native-reanimated";
 const clipboardOptions=(text)=> {
     Clipboard.setString('hlooo')
 }
@@ -22,6 +24,25 @@ const fetchClipboardText=async ()=> {
     return  await Clipboard.getString()
 }
 
+/*
+const Emos = () => {import EmojiBoard from 'react-native-emoji-board'
+    const [show, setShow] = useState(false);
+    const onClick = emoji => {
+        console.log(emoji);
+    };
+
+    return (
+             <View>
+
+                 <TouchableOpacity onPress={() => setShow(!show)}>
+                     <Text>click here</Text>
+                 </TouchableOpacity>
+                 <EmojiBoard showBoard={show} onClick={onClick} />
+             </View>
+
+
+    );
+}*/
 
 const Messenger = (props) => {
 
@@ -33,7 +54,8 @@ const Messenger = (props) => {
     return (
         <View>
             {isClipboard ?<View  style={{flexDirection:'row',width:160,marginLeft:80,marginRight:30,padding:6,borderRadius:20,
-                backgroundColor: schemes.DEF.bottomChatBar,justifyContent:'space-evenly'}}>
+                backgroundColor:styles.messageContainerChild.backgroundColor
+                ,justifyContent:'space-evenly'}}>
                <TouchableOpacity>
                    <Text onPress={()=>{
                        setIsClipboard(false)
@@ -46,7 +68,7 @@ const Messenger = (props) => {
                 </TouchableOpacity>
             </View> :null}
             {props.isFrom ?
-                <View style={styles.messageContainer}>
+                <View style={[styles.messageContainer]}>
                     <View  style={styles.messageContainerChild} >
                         <Image style={{width:40,height:40}} source={require('../assets/user.png')}/>
                         <TouchableOpacity   activeOpacity={.6} onLongPress={()=>{
@@ -67,10 +89,10 @@ const Messenger = (props) => {
 
                 </View>:
             <View style={styles.receiverContainer}>
-                <View  style={styles.receiverContainerChild}>
+                <View  style={[styles.receiverContainerChild,{backgroundColor:schemes.DEF.bottomChatBar}]}>
                     <Image style={{width:40,height:40}} source={require('../assets/user.png')}/>
                     <View>
-                        <Text style={styles.receiverMessageText} >
+                        <Text style={[styles.receiverMessageText,{color:schemes.DEF.backgroundColor}]} >
                             {props.text.date+'\n'+ props.text.message}
                         </Text>
                     </View>
@@ -96,7 +118,7 @@ export function Chats (index) {
     const [message,setMessage]=useState(from.sendMessage(''))
     let [editorValue,setEditorValue]=useState('')
     const   [count,setCount]=useState(0)
-    const [messageText,setMessageText]=useState({})
+    const [isEmosVisible,setIsEmosVisible]=useState(false)
     let renewMessage=from.sendMessage('');
 
     const AddChat = () => {
@@ -157,7 +179,8 @@ export function Chats (index) {
         }
     },[])
 
-        return (
+
+    return (
     <View style={styles.container}>
         <ScrollView ref={scrollRef}
             contentContainerStyle={styles.scrollContainer} style={{width:'100%'}}
@@ -170,12 +193,13 @@ export function Chats (index) {
             {messageStack.users}
 
         </ScrollView>
-        <View  style={styles.chatInputContainer}>
 
+        <View  style={styles.chatInputContainer}>
         <View style={styles.chatInputContainerChild}>
             <View style={{ flexDirection: "row" }}>
-                <TouchableOpacity>
-                    <MaterialCommunityIcons name={'bars'} size={40}/>
+                <TouchableOpacity onPress={()=>setIsEmosVisible(true)}>
+
+                   <Text></Text>
                 </TouchableOpacity>
                 <TextInput
                     style={styles.inputChat}
