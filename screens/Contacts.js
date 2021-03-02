@@ -10,8 +10,10 @@ import {
 import { styles } from "../styles/styles";
 import { ThemeContext } from "../context/ThemeContext";
 import {Patient} from "../clientRDM/Patient";
+import axios from 'axios'
 import {BCSupport} from "../clientRDM/BCSupport";
 let ContactsTemp=[]
+
 const DATA = [
   {
     id: 1,
@@ -83,8 +85,27 @@ DATA.sort(function (compA,compB ) {
   return 0;
 });
 
+function test() {
+  fetch('http://192.168.0.2:8081/contacts',{
+    method: 'GET',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    }
+  })
+      .then((response) => response.json())
+      .then((responseJson) => {
 
+        console.log(responseJson);
+
+      })
+      .catch((error) =>{
+        console.error(error);
+      });
+}
 const Item = ( {user={}, msg, initials, time, type,index }) => {
+
+test()
   const goToMessages = (index) => {
     Actions.Chats(index);
   };

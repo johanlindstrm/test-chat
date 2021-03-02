@@ -1,0 +1,47 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Users\ictte\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add cors --dev
+
+PATH: 
+  C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Users\ictte\.jdks\openjdk-15.0.1;C:\Python27\Scripts;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\nodejs\;C:\ProgramData\chocolatey\bin;C:\Program Files\nodejs\node_modules\npm\bin;C:\Program Files\nodejs;C:\Program Files\PostgreSQL\12\bin;C:\Program Files\Git\cmd;C:\Program Files\Git\bin;C:\flutter2\bin;C:\Program Files (x86)\NoteBook FanControl\;C:\Program Files\dotnet\;C:\Program Files\UnxUtils\bin;C:\Program Files\UnxUtils\usr\local\wbin;C:\Program Files\Java\jdk-13.0.2\bin;C:\Library\Swift-development\bin;C:\Library\icu-67\usr\bin;C:\Program Files\Microsoft\Web Platform Installer\;C:\Users\ictte\AppData\Local\Android\Sdk;;C:\Program Files\Docker\Docker\resources\bin;C:\ProgramData\DockerDesktop\version-bin;C:\Users\ictte\scoop\shims;C:\Program Files\MySQL\MySQL Shell 8.0\bin\;C:\Users\ictte\AppData\Local\Microsoft\WindowsApps;C:\Users\ictte\AppData\Roaming\npm;C:\Program Files\JetBrains\IntelliJ IDEA 2019.2.3\bin;;C:\Program Files\Git\bin;C:\Users\ictte\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\ictte\AppData\Local\Android\Sdk\platform-tools;C:\Users\ictte\.dotnet\tools;C:\Users\ictte\AppData\Local\GitHubDesktop\bin;C:\Program Files\UnxUtils;
+
+Yarn version: 
+  1.22.10
+
+Node version: 
+  12.16.1
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: EPERM: operation not permitted, unlink 'C:\Users\ictte\Desktop\test-chat-new\chat-api\node_modules\make-dir\node_modules\.bin'
+
+npm manifest: 
+  {
+    "name": "chat-api",
+    "version": "1.0.0",
+    "description": "chat api",
+    "main": "index.js",
+    "scripts": {
+      "test": "'test'",
+      "start": "node nodemon ../chat-api/app.js"
+    },
+    "keywords": [
+      "'just",
+      "test'"
+    ],
+    "author": "'Dan, Johan , Emil'",
+    "license": "ISC",
+    "dependencies": {
+      "body-parser": "^1.19.0",
+      "debug": "^4.3.1",
+      "express": "^4.17.1",
+      "nodemon": "^2.0.7"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

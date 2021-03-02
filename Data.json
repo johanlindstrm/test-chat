@@ -1,5 +1,10 @@
-{
-  "contact":{
-    "id": 2
+{"DATA":[
+  {
+    "id": 1,
+    "initials": "SJ",
+    "name": "Olga Johnson",
+    "type": "Coach",
+    "msg": "lorem ipsum..",
+    "time": "09:45"
   }
-}
+]}
