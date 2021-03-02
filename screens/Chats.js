@@ -22,7 +22,6 @@ const fetchClipboardText=async ()=> {
     return  await Clipboard.getString()
 }
 
-//const messageDB=ChatDB.filter((chat)=>chat !==undefined)
 
 const Messenger = (props) => {
 
@@ -34,7 +33,7 @@ const Messenger = (props) => {
     return (
         <View>
             {isClipboard ?<View  style={{flexDirection:'row',width:160,marginLeft:80,marginRight:30,padding:6,borderRadius:20,
-                backgroundColor:styles.messageContainerChild.backgroundColor,justifyContent:'space-evenly'}}>
+                backgroundColor: schemes.DEF.bottomChatBar,justifyContent:'space-evenly'}}>
                <TouchableOpacity>
                    <Text onPress={()=>{
                        setIsClipboard(false)
