@@ -1,4 +1,10 @@
-import React, { useRef, useState, useContext, useEffect } from 'react';
+import React, {
+  useRef,
+  useState,
+  useContext,
+  useEffect,
+  Component,
+} from 'react';
 import { Actions } from 'react-native-router-flux';
 import {
   SafeAreaView,
@@ -6,6 +12,7 @@ import {
   FlatList,
   Text,
   TouchableOpacity,
+  Button,
 } from 'react-native';
 import { styles } from '../styles/styles';
 import { ThemeContext } from '../context/ThemeContext';
@@ -15,9 +22,10 @@ import axios from 'axios';
 import { BCSupport } from '../clientRDM/BCSupport';
 import { ContactChattest, GetContactstest } from '../API/endpoints';
 import { Messages } from '../clientRDM/Message';
+import { idText } from 'typescript';
 let ContactsTemp = [];
 
-const DATA = [
+/* const DATA = [
   {
     id: 1,
     initials: 'SJ',
@@ -72,10 +80,10 @@ const DATA = [
     msg: 'lorem ipsum..',
     time: '10:20',
   },
-];
+]; */
 
 //Alphabetical sort, based on type { arbete, coach, familj }
-DATA.sort(function (compA, compB) {
+/* DATA.sort(function (compA, compB) {
   const typeA = compA.type.toUpperCase(); // ignore upper and lowercase
   const typeB = compB.type.toUpperCase(); // ignore upper and lowercase
   if (typeA < typeB) {
@@ -86,7 +94,7 @@ DATA.sort(function (compA, compB) {
   }
   // names must be equal
   return 0;
-});
+}); */
 //exp://192.168.0.155:
 /* function GetContacts() {
   fetch('http://192.168.0.155:8081/contacts', {
@@ -120,7 +128,7 @@ DATA.sort(function (compA, compB) {
       console.error(error);
     });
 } */
-const Item = ({ user = {}, msg, initials, time, type, index }) => {
+/* const Item = ({ user = {}, msg, initials, time, type, index }) => {
   const { theme } = useContext(ThemeContext);
   const { language } = useContext(LangContext);
 
@@ -170,23 +178,41 @@ const FlatListItemSeparator = () => {
       }}
     />
   );
-};
+}; */
 
-export function Contacts(props) {
-  const { theme } = useContext(ThemeContext);
+export function Contacts() {
+  //const { theme } = useContext(ThemeContext);
+  const [contacts, setContacts] = useState({});
 
-  const Contacts = GetContactstest();
-  const Message = ContactChattest();
+  useEffect(() => {
+    fetch('http://192.168.1.86:8081/contacts', {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        setContacts(responseJson);
+      })
+      .catch((error) => {
+        console.error('error', error);
+      });
+  }, []);
 
   return (
     <View>
-      <Text
-        onPress={() => {
-          console.log('pressed', Message);
-        }}
-      >
-        Hello
-      </Text>
+      <Button
+        title="read"
+        onPress={() =>
+          console.log('emillll', contacts.Chat[1].Message[1].Message)
+        }
+      ></Button>
+      <FlatList
+        data={contacts.BCSupport}
+        renderItem={({ item, index }) => <CusomComponent item={item} />}
+      />
     </View>
   );
   // const renderItem = ({ item, index }) => {
@@ -260,3 +286,13 @@ export function Contacts(props) {
   //   </SafeAreaView>
   // );
 }
+
+const CusomComponent = ({ item }) => {
+  return (
+    <View>
+      <Text>{item.Name}</Text>
+      <Text onPress={() => {}}>{item.Chat.Message[0].Message}</Text>
+      <Text></Text>
+    </View>
+  );
+};

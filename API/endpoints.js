@@ -8,7 +8,8 @@ export function GetContactstest() {
   })
     .then((response) => response.json())
     .then((responseJson) => {
-      console.log('GET CONTACTS : ', responseJson);
+      return responseJson;
+      // console.log('GET CONTACTS : ', responseJson);
     })
     .catch((error) => {
       console.error('error', error);
@@ -25,7 +26,7 @@ export function ContactChattest() {
   })
     .then((response) => response.json())
     .then((responseJson) => {
-      console.log('GET CHAT : ', responseJson);
+      console.log('GET CHAT : ');
     })
     .catch((error) => {
       console.error(error);
