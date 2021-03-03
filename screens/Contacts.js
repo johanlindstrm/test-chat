@@ -85,7 +85,23 @@ DATA.sort(function (compA, compB) {
   return 0;
 });
 //exp://192.168.0.155:
-function test() {
+function GetContacts() {
+  fetch("http://192.168.0.155:8081/contacts", {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => response.json())
+    .then((responseJson) => {
+      console.log(responseJson);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
+function ContactsChat() {
   fetch("http://192.168.0.155:8081/messages", {
     method: "GET",
     headers: {
@@ -103,7 +119,8 @@ function test() {
 }
 const Item = ({ user = {}, msg, initials, time, type, index }) => {
   const goToMessages = (index) => {
-    const results = test();
+    // const resultsContact = GetContacts();
+    const resultsChat = ContactsChat();
     console.log(results);
     Actions.Chats(index);
   };
