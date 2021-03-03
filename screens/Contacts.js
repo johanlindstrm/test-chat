@@ -177,6 +177,16 @@ export function Contacts(props) {
       .catch((error) => console.error(error));
   }, []);
 
+  var getInitials = function (string) {
+    var names = string.split(" "),
+      initials = names[0].substring(0, 1).toUpperCase();
+
+    if (names.length > 1) {
+      initials += names[names.length - 1].substring(0, 1).toUpperCase();
+    }
+    return initials;
+  };
+
   return (
     <SafeAreaView>
       <FlatList
@@ -186,12 +196,15 @@ export function Contacts(props) {
         renderItem={({ item }) => (
           <TouchableOpacity
             style={{ ...styles.item, backgroundColor: theme.accentColor }}
+            activeOpacity={0.7}
           >
             <View style={styles.initalsContainer}>
-              <Text>Initials</Text>
+              <View style={styles.initialsCircle}>
+                <Text>{getInitials(item.name)}</Text>
+              </View>
             </View>
             <View style={styles.contactContainer}>
-              <Text>{item.name}</Text>
+              <Text style={styles.user}>{item.name}</Text>
             </View>
             <View style={styles.timeContainer}>
               <Text>Time</Text>
