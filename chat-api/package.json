@@ -1,0 +1,26 @@
+{
+  "name": "chat-api",
+  "version": "1.0.0",
+  "description": "chat api",
+  "main": "index.js",
+  "scripts": {
+    "test": "'test'",
+    "start": "node ../chat-api/app.js"
+  },
+  "keywords": [
+    "'just",
+    "test'"
+  ],
+  "author": "'Dan, Johan , Emil'",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "debug": "^4.3.1",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.7",
+    "react-native-emoji-board": "^1.2.1",
+    "react-native-vector-icons": "^8.1.0"
+  }
+}

@@ -1,9 +1,15 @@
-export const message = {
-  patients: [
-    {
-      id: [],
-      userId: [],
-      message: [],
+import { ChatDB } from "./Chats";
+export const Messages = {
+  /*
+  {
+      "id": Number,
+      "messageTs": String,
+      "chatId": Number,
+      "message": String,
+      "senderUserId": Number,
     },
-  ],
+   */
+  Messages: [],
+  //Foreign key
+  ChatDB,
 };

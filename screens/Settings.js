@@ -1,16 +1,14 @@
 // import { Actions } from "react-native-router-flux";
-import { Text, TouchableOpacity, View, StyleSheet } from "react-native";
-import React, { useEffect } from "react";
-import { Actions } from "react-native-router-flux";
-
+import { Text, TouchableOpacity, View, StyleSheet } from 'react-native';
+import React from 'react';
 // Theme & Language Scheme import
-import schemes from "../Resources/Schemes";
-import languageScheme from "../Resources/LangScheme";
+import schemes from '../Resources/Schemes';
+import languageScheme from '../Resources/LangScheme';
 
 // Theme & Language Context import
-import { useContext } from "react";
-import { ThemeContext } from "../context/ThemeContext";
-import { LangContext } from "../context/LangContext";
+import { useContext } from 'react';
+import { ThemeContext } from '../context/ThemeContext';
+import { LangContext } from '../context/LangContext';
 
 //import { styles } from '../styles/styles';
 
@@ -21,9 +19,9 @@ export const Settings = () => {
   return (
     <View
       style={{
-        height: "100%",
+        height: '100%',
         backgroundColor: theme.backgroundColor,
-        alignItems: "center",
+        alignItems: 'center',
         padding: 5,
       }}
     >
@@ -52,6 +50,28 @@ export const Settings = () => {
       <TouchableOpacity
         style={{ ...styles.settingBtn, backgroundColor: theme.accentColor }}
         onPress={() => {
+          toggleLanguage(languageScheme.SV);
+        }}
+      >
+        <Text style={{ fontSize: 22, paddingLeft: 10 }}>
+          {language.settingsSV}
+        </Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.settingBtn}
+        onPress={() => {
+          toggleLanguage(languageScheme.EN);
+        }}
+      >
+        <Text style={{ fontSize: 22, paddingLeft: 10 }}>
+          {language.settingsEN}
+        </Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.settingBtn}
+        onPress={() => {
           toggleTheme(schemes.DEF);
         }}
       >
@@ -65,7 +85,7 @@ export const Settings = () => {
           style={{
             width: 40,
             height: 40,
-            backgroundColor: "#3484ff",
+            backgroundColor: '#3484ff',
           }}
         ></View>
       </TouchableOpacity>
@@ -86,7 +106,7 @@ export const Settings = () => {
           style={{
             width: 40,
             height: 40,
-            backgroundColor: "#ff8534",
+            backgroundColor: '#ff8534',
           }}
         ></View>
       </TouchableOpacity>
@@ -106,7 +126,7 @@ export const Settings = () => {
           style={{
             width: 40,
             height: 40,
-            backgroundColor: "#00a48a",
+            backgroundColor: '#00a48a',
           }}
         ></View>
       </TouchableOpacity>
@@ -116,14 +136,14 @@ export const Settings = () => {
 
 const styles = StyleSheet.create({
   settingBtn: {
-    width: "100%",
+    width: '100%',
     height: 60,
-    backgroundColor: "white",
-    justifyContent: "flex-start",
-    alignItems: "center",
-    flexDirection: "row",
+    backgroundColor: 'white',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    flexDirection: 'row',
     borderWidth: 2,
-    borderColor: "black",
+    borderColor: 'black',
     paddingRight: 50,
     marginBottom: 10,
   },

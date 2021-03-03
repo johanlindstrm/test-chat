@@ -1,20 +1,18 @@
-export const patient = [
-  {
-    BCSupport: [
-      {
-        Id: [],
-        UserUID: [],
-        Name: [],
-        BCSupportTypeId: [],
-        Title: [],
+import { BCSupport } from "./BCSupport";
+import { Messages } from "./Message";
+
+export const Patient = {
+  /*
+   {
+        "id": Number,
+        "userID": Number,
+        "firstName":String,
+        "lastName":String,
       },
-    ],
-    BCSupportType: [
-      {
-        Id: [],
-        Name: [],
-        Description: [],
-      },
-    ],
-  },
-];
+   */
+  Patient: [],
+
+  //Foreign key
+  BCSupport,
+  Messages,
+};
