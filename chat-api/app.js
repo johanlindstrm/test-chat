@@ -7,8 +7,8 @@ app.use(cors());
 app.get("/", async (request, response, next) => {
   await response.status(200).send({ ver: 1 });
 });
-app.get("/message", async (request, response, next) => {
-  console.log("message");
+app.get("/messages", async (request, response, next) => {
+  console.log("Message");
   await response.status(200).send({
     Response: {
       Chat: {
