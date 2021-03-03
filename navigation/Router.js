@@ -83,12 +83,12 @@ export default function Routes() {
           component={Settings}
           title={language.settingsTitle}
         />
-        <Scene
+        {/*  <Scene
           key="AddToContact"
           titleStyle={styles.scene}
           component={AddToContact}
           title="Add Contact"
-        />
+        /> */}
       </Scene>
     </Router>
   );
