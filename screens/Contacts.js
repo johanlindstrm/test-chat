@@ -13,6 +13,8 @@ import { LangContext } from '../context/LangContext';
 import { Patient } from '../clientRDM/Patient';
 import axios from 'axios';
 import { BCSupport } from '../clientRDM/BCSupport';
+import { ContactChattest, GetContactstest } from '../API/endpoints';
+import { Messages } from '../clientRDM/Message';
 let ContactsTemp = [];
 
 const DATA = [
@@ -86,7 +88,7 @@ DATA.sort(function (compA, compB) {
   return 0;
 });
 //exp://192.168.0.155:
-function GetContacts() {
+/* function GetContacts() {
   fetch('http://192.168.0.155:8081/contacts', {
     method: 'GET',
     headers: {
@@ -101,8 +103,8 @@ function GetContacts() {
     .catch((error) => {
       console.error(error);
     });
-}
-function ContactsChat() {
+} */
+/* function ContactsChat() {
   fetch('http://192.168.0.155:8081/messages', {
     method: 'GET',
     headers: {
@@ -117,7 +119,7 @@ function ContactsChat() {
     .catch((error) => {
       console.error(error);
     });
-}
+} */
 const Item = ({ user = {}, msg, initials, time, type, index }) => {
   const { theme } = useContext(ThemeContext);
   const { language } = useContext(LangContext);
@@ -172,9 +174,19 @@ const FlatListItemSeparator = () => {
 
 export function Contacts(props) {
   const { theme } = useContext(ThemeContext);
+
+  const Contacts = GetContactstest();
+  const Message = ContactChattest();
+
   return (
     <View>
-      <Text>Hello</Text>
+      <Text
+        onPress={() => {
+          console.log('pressed', Message);
+        }}
+      >
+        Hello
+      </Text>
     </View>
   );
   // const renderItem = ({ item, index }) => {

@@ -1,38 +1,45 @@
 {
-    "Response": {
-      "BCSupport": [
-        {
-          "id": 1,
-          "PatientId": 0,
-          "UserID": 1,
-          "Name": "Emil",
-          "Title": "",
-          "ContactInfo": "",
-          "Organization": "",
-          "BCSupportTypeId": {
-            "Name": "",
-            "Description": "family",
-            "SortNbr": 0
+  "Response": {
+    "BCSupport": [
+      {
+        "id": 1,
+        "PatientId": 0,
+        "UserID": 1,
+        "Name": "Emil",
+        "Title": "",
+        "ContactInfo": "",
+        "Organization": "",
+        "BCSupportTypeId": {
+          "Name": "",
+          "Description": "family",
+          "SortNbr": 0
+        }
+      }
+    ],
+    "Chat": [
+      {
+        "id": 1,
+        "PatientId": 0,
+        "BCSupprtId": 0,
+        "Message": [
+          {
+            "id": 1,
+            "ChatId": 0,
+            "SenderUserId": 0,
+            "MessageTS": "",
+            "Message": "HEJ emil",
+            "IsRead": false
+          },
+          {
+            "id": 2,
+            "ChatId": 0,
+            "SenderUserId": 0,
+            "MessageTS": "",
+            "Message": "mår du bra",
+            "IsRead": false
           }
-        }
-      ],
-      "Chat": [
-        {
-          "id": 1,
-          "PatientId": 0,
-          "BCSupprtId": 0,
-          "Message": [
-            {
-              "id": 0,
-              "ChatId": 0,
-              "SenderUserId": 0,
-              "MessageTS": "",
-              "Message": "HEJ emil",
-              "IsRead": false
-            }
-          ]
-        }
-      ]
-    }
+        ]
+      }
+    ]
   }
-  
+}

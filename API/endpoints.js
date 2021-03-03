@@ -1,5 +1,5 @@
-export function GetContacts() {
-  fetch('http://192.168.0.155:8081/contacts', {
+export function GetContactstest() {
+  fetch('http://192.168.1.86:8081/contacts', {
     method: 'GET',
     headers: {
       Accept: 'application/json',
@@ -11,12 +11,12 @@ export function GetContacts() {
       console.log('GET CONTACTS : ', responseJson);
     })
     .catch((error) => {
-      console.error(error);
+      console.error('error', error);
     });
 }
 
-export function ContactsChat() {
-  fetch('http://192.168.0.155:8081/messages', {
+export function ContactChattest() {
+  fetch('http://192.168.1.86:8081/messages', {
     method: 'GET',
     headers: {
       Accept: 'application/json',
