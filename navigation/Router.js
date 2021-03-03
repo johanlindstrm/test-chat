@@ -9,8 +9,7 @@ import SafeAreaView from 'react-native-web/dist/exports/SafeAreaView';
 import AddToContact from '../screens/AddToContact';
 
 // Screens
-import { Messages } from '../screens/Messages';
-//import { Messages } from "../screens/Messages";
+import { Chats } from '../screens/Chats';
 import { Contacts } from '../screens/Contacts';
 import { Settings } from '../screens/Settings';
 
@@ -18,7 +17,6 @@ import { Settings } from '../screens/Settings';
 import { useContext } from 'react';
 import { ThemeContext } from '../context/ThemeContext';
 import { LangContext } from '../context/LangContext';
-import { Chats } from '../screens/Chats';
 
 //Route component
 
@@ -33,9 +31,7 @@ export default function Routes() {
   const goToSettings = function () {
     Actions.Settings({ title: language.settingsTitle });
   };
-  const goToSettings = function () {
-    Actions.Settings();
-  };
+
   return (
     <Router>
       <Scene
@@ -74,14 +70,14 @@ export default function Routes() {
           key="Chats"
           titleStyle={styles.scene}
           component={Chats}
-          title={language.messageTitle}
+          title={'Chats'}
         />
 
         <Scene
           key="Settings"
           titleStyle={styles.scene}
           component={Settings}
-          title={language.settingsTitle}
+          title={'Settings'}
         />
         {/*  <Scene
           key="AddToContact"

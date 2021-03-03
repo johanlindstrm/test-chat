@@ -1,74 +1,74 @@
-import React, { useRef, useState, useContext, useEffect } from 'react';
-import { Actions } from 'react-native-router-flux';
+import React, { useRef, useState, useContext, useEffect } from "react";
+import { Actions } from "react-native-router-flux";
 import {
   SafeAreaView,
   View,
   FlatList,
   Text,
   TouchableOpacity,
-} from 'react-native';
-import { styles } from '../styles/styles';
-import { ThemeContext } from '../context/ThemeContext';
-import { LangContext } from '../context/LangContext';
-import { Patient } from '../clientRDM/Patient';
-import axios from 'axios';
-import { BCSupport } from '../clientRDM/BCSupport';
+} from "react-native";
+import { styles } from "../styles/styles";
+import { ThemeContext } from "../context/ThemeContext";
+import { LangContext } from "../context/LangContext";
+import { Patient } from "../clientRDM/Patient";
+import axios from "axios";
+import { BCSupport } from "../clientRDM/BCSupport";
 let ContactsTemp = [];
 
 const DATA = [
   {
     id: 1,
-    initials: 'SJ',
-    firstName: 'Olga',
-    lastName: 'Johnson',
-    type: 'Coach',
-    msg: 'lorem ipsum..',
-    time: '09:45',
+    initials: "SJ",
+    firstName: "Olga",
+    lastName: "Johnson",
+    type: "Coach",
+    msg: "lorem ipsum..",
+    time: "09:45",
   },
   {
     id: 2,
-    initials: 'PJ',
-    firstName: 'Emil',
-    lastName: 'Human',
-    type: 'Familj',
-    msg: 'lorem ipsum..',
-    time: 'Igår',
+    initials: "PJ",
+    firstName: "Emil",
+    lastName: "Human",
+    type: "Familj",
+    msg: "lorem ipsum..",
+    time: "Igår",
   },
   {
     id: 3,
-    initials: 'S',
-    firstName: 'Dan',
-    lastName: 'Ayettey',
-    type: 'Arbete',
-    msg: 'lorem ipsum..',
-    time: '22:30',
+    initials: "S",
+    firstName: "Dan",
+    lastName: "Ayettey",
+    type: "Arbete",
+    msg: "lorem ipsum..",
+    time: "22:30",
   },
   {
     id: 4,
-    initials: 'P',
-    firstName: 'Joseph',
-    lastName: 'Blackeburg',
-    type: 'Coach',
-    msg: 'lorem ipsum..',
-    time: 'Söndag',
+    initials: "P",
+    firstName: "Joseph",
+    lastName: "Blackeburg",
+    type: "Coach",
+    msg: "lorem ipsum..",
+    time: "Söndag",
   },
   {
     id: 5,
-    initials: 'A',
-    firstName: 'Seth',
-    lastName: 'Almqvist',
-    type: 'Familj',
-    msg: 'lorem ipsum..',
-    time: '10:20',
+    initials: "A",
+    firstName: "Seth",
+    lastName: "Almqvist",
+    type: "Familj",
+    msg: "lorem ipsum..",
+    time: "10:20",
   },
   {
     id: 6,
-    initials: 'AJ',
-    firstName: 'Adam',
-    lastName: 'Johnson',
-    type: 'Arbete',
-    msg: 'lorem ipsum..',
-    time: '10:20',
+    initials: "AJ",
+    firstName: "Adam",
+    lastName: "Johnson",
+    type: "Arbete",
+    msg: "lorem ipsum..",
+    time: "10:20",
   },
 ];
 
@@ -87,11 +87,11 @@ DATA.sort(function (compA, compB) {
 });
 //exp://192.168.0.155:
 function GetContacts() {
-  fetch('http://192.168.0.155:8081/contacts', {
-    method: 'GET',
+  fetch("http://192.168.0.155:8081/contacts", {
+    method: "GET",
     headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
+      Accept: "application/json",
+      "Content-Type": "application/json",
     },
   })
     .then((response) => response.json())
@@ -103,11 +103,11 @@ function GetContacts() {
     });
 }
 function ContactsChat() {
-  fetch('http://192.168.0.155:8081/messages', {
-    method: 'GET',
+  fetch("http://192.168.0.155:8081/messages", {
+    method: "GET",
     headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
+      Accept: "application/json",
+      "Content-Type": "application/json",
     },
   })
     .then((response) => response.json())
@@ -121,6 +121,7 @@ function ContactsChat() {
 const Item = ({ user = {}, msg, initials, time, type, index }) => {
   const { theme } = useContext(ThemeContext);
   const { language } = useContext(LangContext);
+
   const goToMessages = (index) => {
     // const resultsContact = GetContacts();
     const resultsChat = ContactsChat();
@@ -128,7 +129,6 @@ const Item = ({ user = {}, msg, initials, time, type, index }) => {
     Actions.Chats(index);
   };
 
-  const { theme } = useContext(ThemeContext);
   return (
     <TouchableOpacity
       onPress={(event) => goToMessages(index)}
@@ -144,7 +144,7 @@ const Item = ({ user = {}, msg, initials, time, type, index }) => {
       <View style={styles.contactContainer}>
         <Text style={{ ...styles.user, color: theme.color }}>{user}</Text>
         <Text style={{ ...styles.user, color: theme.color }}>
-          {user.firstName + ' ' + user.lastName}
+          {user.firstName + " " + user.lastName}
         </Text>
         <Text style={styles.message}>{msg}</Text>
       </View>
@@ -163,8 +163,8 @@ const FlatListItemSeparator = () => {
     <View
       style={{
         height: 0.5,
-        width: '100%',
-        backgroundColor: '#d3d3d3',
+        width: "100%",
+        backgroundColor: "#d3d3d3",
       }}
     />
   );
@@ -172,75 +172,79 @@ const FlatListItemSeparator = () => {
 
 export function Contacts(props) {
   const { theme } = useContext(ThemeContext);
-
-  const renderItem = ({ item, index }) => {
-    return (
-      <Item
-        user={{ firstName: item.firstName, lastName: item.lastName }}
-        msg={item.message}
-        initials={
-          item.firstName.split('').shift() +
-          '' +
-          item.lastName.split('').shift()
-        }
-        time={item.messageTs}
-        type={item.type}
-        index={index}
-      />
-    );
-  };
+  return (
+    <View>
+      <Text>Hello</Text>
+    </View>
+  );
+  // const renderItem = ({ item, index }) => {
+  //   return (
+  //     <Item
+  //       user={{ firstName: item.firstName, lastName: item.lastName }}
+  //       msg={item.message}
+  //       initials={
+  //         item.firstName.split("").shift() +
+  //         "" +
+  //         item.lastName.split("").shift()
+  //       }
+  //       time={item.messageTs}
+  //       type={item.type}
+  //       index={index}
+  //     />
+  //   );
+  // };
 
   //const contact=patientData[0]
   //const messages=patientData[2]
 
-  DATA.map((data, index) => {
-    if (DATA.length > Patient.Patient.length) {
-      Patient.Patient.push({
-        id: data.id,
-        userID: data.id,
-        firstName: data.firstName,
-        lastName: data.lastName,
-      });
-      Patient.Messages.Messages.push({
-        id: data.id,
-        messageTs: data.time,
-        chatId: data.id,
-        message: data.msg,
-        senderUserId: data.id,
-      });
-    }
-  });
+  // DATA.map((data, index) => {
+  //   if (DATA.length > Patient.Patient.length) {
+  //     Patient.Patient.push({
+  //       id: data.id,
+  //       userID: data.id,
+  //       firstName: data.firstName,
+  //       lastName: data.lastName,
+  //     });
+  //     Patient.Messages.Messages.push({
+  //       id: data.id,
+  //       messageTs: data.time,
+  //       chatId: data.id,
+  //       message: data.msg,
+  //       senderUserId: data.id,
+  //     });
+  //   }
+  // });
 
-  Patient.Patient.map((data, key) => {
-    ContactsTemp[key] = {
-      id: key,
-      firstName: data.firstName,
-      lastName: data.lastName,
-      userId: key,
-      chatId: Patient.Messages.Messages[key].chatId,
-      messageTs: Patient.Messages.Messages[key].messageTs,
-      message: Patient.Messages.Messages[key].message,
-      senderUserId: Patient.Messages.Messages[key].senderUserId,
-    };
-  });
+  // Patient.Patient.map((data, key) => {
+  //   ContactsTemp[key] = {
+  //     id: key,
+  //     firstName: data.firstName,
+  //     lastName: data.lastName,
+  //     userId: key,
+  //     chatId: Patient.Messages.Messages[key].chatId,
+  //     messageTs: Patient.Messages.Messages[key].messageTs,
+  //     message: Patient.Messages.Messages[key].message,
+  //     senderUserId: Patient.Messages.Messages[key].senderUserId,
+  //   };
+  // });
 
-  if (!ContactsTemp.length) {
-    return (
-      <Text style={{ textAlign: 'center', marginTop: 20 }}>
-        Inga Meddelanden 💬
-      </Text>
-    );
-  }
+  // if (!ContactsTemp.length) {
+  //   return (
+  //     <Text style={{ textAlign: "center", marginTop: 20 }}>
+  //       Inga Meddelanden 💬
+  //     </Text>
+  //   );
+  // }
 
-  return (
-    <SafeAreaView>
-      <FlatList
-        style={{ height: '100%', backgroundColor: theme.backgroundColor }}
-        ItemSeparatorComponent={FlatListItemSeparator}
-        data={ContactsTemp}
-        renderItem={renderItem}
-        keyExtractor={(item, id) => id.toString()}
-      />
-    </SafeAreaView>
-  );
+  // return (
+  //   <SafeAreaView>
+  //     <FlatList
+  //       style={{ height: "100%", backgroundColor: theme.backgroundColor }}
+  //       ItemSeparatorComponent={FlatListItemSeparator}
+  //       data={ContactsTemp}
+  //       renderItem={renderItem}
+  //       keyExtractor={(item, id) => id.toString()}
+  //     />
+  //   </SafeAreaView>
+  // );
 }
