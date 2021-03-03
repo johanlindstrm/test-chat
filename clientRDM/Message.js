@@ -1,6 +1,5 @@
-import {ChatDB} from "./Chats";
-export const Messages ={
-
+import { ChatDB } from "./Chats";
+export const Messages = {
   /*
   {
       "id": Number,
@@ -10,7 +9,7 @@ export const Messages ={
       "senderUserId": Number,
     },
    */
-  "Messages": [],
+  Messages: [],
   //Foreign key
   ChatDB,
 };

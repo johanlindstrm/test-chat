@@ -1,7 +1,7 @@
-import {BCSupport} from "./BCSupport";
-import {Messages} from "./Message";
+import { BCSupport } from "./BCSupport";
+import { Messages } from "./Message";
 
-export const Patient ={
+export const Patient = {
   /*
    {
         "id": Number,
@@ -10,10 +10,9 @@ export const Patient ={
         "lastName":String,
       },
    */
-    "Patient":[],
+  Patient: [],
 
-    //Foreign key
+  //Foreign key
   BCSupport,
-  Messages
-
-  }
+  Messages,
+};

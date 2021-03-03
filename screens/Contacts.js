@@ -86,7 +86,7 @@ DATA.sort(function (compA, compB) {
 });
 //exp://192.168.0.155:
 function test() {
-  fetch("http://192.168.0.155:8081/contacts", {
+  fetch("http://192.168.0.155:8081/messages", {
     method: "GET",
     headers: {
       Accept: "application/json",

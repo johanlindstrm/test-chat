@@ -1,4 +1,4 @@
-export const ChatDB ={
+export const ChatDB = {
   /*
     {
     "id": Number,
@@ -7,5 +7,5 @@ export const ChatDB ={
   }
    */
 
-  "charts":[]
-  };
+  chats: [],
+};
