@@ -9,7 +9,7 @@ app.get("/", async (request, response, next) => {
 });
 
 app.get("/messages", async (request, response, next) => {
-  console.log("Message");
+  // console.log("Message");
   await response.status(200).send({
     Chat: {
       id: 1, // should be contected to contact id
@@ -54,7 +54,7 @@ app.get("/messages", async (request, response, next) => {
 });
 
 app.get("/contacts", async (request, response, next) => {
-  console.log("Contact");
+  // console.log("Contact");
   await response.status(200).send({
     BCSupport: [
       {

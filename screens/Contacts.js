@@ -77,13 +77,6 @@ const Item = ({ user = {}, setData, msg, initials, time, type, index }) => {
   const { theme } = useContext(ThemeContext);
   const { language } = useContext(LangContext);
 
-  // useEffect(() => {
-  //   fetch("http://192.168.0.155:8081/contacts")
-  //     .then((response) => response.json())
-  //     .then((json) => setData(json.BCSupport))
-  //     .catch((error) => console.error(error));
-  // }, []);
-
   const goToMessages = (index) => {
     console.log(resultsChat);
     Actions.Chats(index);
@@ -130,55 +123,56 @@ const FlatListItemSeparator = () => {
   );
 };
 
-function fetchContacts() {
-  fetch("http://192.168.0.155:8081/contacts", {
-    method: "GET",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-  })
-    .then((response) => response.json())
-    .then(function (data) {
-      let contacts = data.results;
-      console.log(data);
-      // return contacts.map(function(contact) {
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-}
-function fetchChat() {
-  fetch("http://192.168.0.155:8081/messages", {
-    method: "GET",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-  })
-    .then((response) => response.json())
-    .then((responseJson) => {
-      console.log(responseJson);
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-}
+// function fetchContacts() {
+//   fetch("http://192.168.0.155:8081/contacts", {
+//     method: "GET",
+//     headers: {
+//       Accept: "application/json",
+//       "Content-Type": "application/json",
+//     },
+//   })
+//     .then((response) => response.json())
+//     .then(function (data) {
+//       let contacts = data.results;
+//       console.log(data);
+//       // return contacts.map(function(contact) {
+//     })
+//     .catch((error) => {
+//       console.error(error);
+//     });
+// }
+// function fetchChat() {
+//   fetch("http://192.168.0.155:8081/messages", {
+//     method: "GET",
+//     headers: {
+//       Accept: "application/json",
+//       "Content-Type": "application/json",
+//     },
+//   })
+//     .then((response) => response.json())
+//     .then((responseJson) => {
+//       console.log(responseJson);
+//     })
+//     .catch((error) => {
+//       console.error(error);
+//     });
+// }
 
 export function Contacts(props) {
   const { theme } = useContext(ThemeContext);
-  const [data, setData] = useState([]);
+  const [contacts, setContact] = useState([]);
+  const [messages, setMessages] = useState([]);
 
-  console.log(data);
   useEffect(() => {
     fetch("http://192.168.0.155:8081/contacts")
       .then((response) => response.json())
-      .then((json) => setData(json.BCSupport))
+      .then((json) => setContact(json.BCSupport))
       .catch((error) => console.error(error));
   }, []);
 
-  var getInitials = function (string) {
-    var names = string.split(" "),
+  // Get the names and creating initals
+  const getInitials = function (string) {
+    let names = string.split(" "),
       initials = names[0].substring(0, 1).toUpperCase();
 
     if (names.length > 1) {
@@ -192,11 +186,14 @@ export function Contacts(props) {
       <FlatList
         style={{ height: "100%", backgroundColor: theme.backgroundColor }}
         ItemSeparatorComponent={FlatListItemSeparator}
-        data={data}
+        data={contacts}
         renderItem={({ item }) => (
           <TouchableOpacity
             style={{ ...styles.item, backgroundColor: theme.accentColor }}
             activeOpacity={0.7}
+            onPress={() => {
+              console.log(` CONTACT NAME: ${item.name} WITH ID: ${item.id} `);
+            }}
           >
             <View style={styles.initalsContainer}>
               <View style={styles.initialsCircle}>
@@ -207,7 +204,7 @@ export function Contacts(props) {
               <Text style={styles.user}>{item.name}</Text>
             </View>
             <View style={styles.timeContainer}>
-              <Text>Time</Text>
+              <Text>{item.messageTS}</Text>
             </View>
           </TouchableOpacity>
         )}
@@ -215,74 +212,4 @@ export function Contacts(props) {
       />
     </SafeAreaView>
   );
-  // const renderItem = ({ item, index }) => {
-  //   return (
-  //     <Item
-  //       user={{ firstName: item.firstName, lastName: item.lastName }}
-  //       msg={item.message}
-  //       initials={
-  //         item.firstName.split("").shift() +
-  //         "" +
-  //         item.lastName.split("").shift()
-  //       }
-  //       time={item.messageTs}
-  //       type={item.type}
-  //       index={index}
-  //     />
-  //   );
-  // };
-
-  //const contact=patientData[0]
-  //const messages=patientData[2]
-
-  // DATA.map((data, index) => {
-  //   if (DATA.length > Patient.Patient.length) {
-  //     Patient.Patient.push({
-  //       id: data.id,
-  //       userID: data.id,
-  //       firstName: data.firstName,
-  //       lastName: data.lastName,
-  //     });
-  //     Patient.Messages.Messages.push({
-  //       id: data.id,
-  //       messageTs: data.time,
-  //       chatId: data.id,
-  //       message: data.msg,
-  //       senderUserId: data.id,
-  //     });
-  //   }
-  // });
-
-  // Patient.Patient.map((data, key) => {
-  //   ContactsTemp[key] = {
-  //     id: key,
-  //     firstName: data.firstName,
-  //     lastName: data.lastName,
-  //     userId: key,
-  //     chatId: Patient.Messages.Messages[key].chatId,
-  //     messageTs: Patient.Messages.Messages[key].messageTs,
-  //     message: Patient.Messages.Messages[key].message,
-  //     senderUserId: Patient.Messages.Messages[key].senderUserId,
-  //   };
-  // });
-
-  // if (!ContactsTemp.length) {
-  //   return (
-  //     <Text style={{ textAlign: "center", marginTop: 20 }}>
-  //       Inga Meddelanden 💬
-  //     </Text>
-  //   );
-  // }
-
-  // return (
-  //   <SafeAreaView>
-  //     <FlatList
-  //       style={{ height: "100%", backgroundColor: theme.backgroundColor }}
-  //       ItemSeparatorComponent={FlatListItemSeparator}
-  //       data={ContactsTemp}
-  //       renderItem={renderItem}
-  //       keyExtractor={(item, id) => id.toString()}
-  //     />
-  //   </SafeAreaView>
-  // );
 }
