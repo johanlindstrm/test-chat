@@ -163,6 +163,7 @@ export function Contacts(props) {
   const [contacts, setContact] = useState([]);
   const [messages, setMessages] = useState([]);
 
+  console.log(contacts);
   useEffect(() => {
     fetch("http://192.168.0.155:8081/contacts")
       .then((response) => response.json())
@@ -187,6 +188,7 @@ export function Contacts(props) {
         style={{ height: "100%", backgroundColor: theme.backgroundColor }}
         ItemSeparatorComponent={FlatListItemSeparator}
         data={contacts}
+        extraData={messages}
         renderItem={({ item }) => (
           <TouchableOpacity
             style={{ ...styles.item, backgroundColor: theme.accentColor }}
@@ -202,9 +204,10 @@ export function Contacts(props) {
             </View>
             <View style={styles.contactContainer}>
               <Text style={styles.user}>{item.name}</Text>
+              <Text style={styles.user}>{item.Chat.message[0].message}</Text>
             </View>
             <View style={styles.timeContainer}>
-              <Text>{item.messageTS}</Text>
+              <Text>{item.Chat.message[0].messageTS}</Text>
             </View>
           </TouchableOpacity>
         )}

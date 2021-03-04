@@ -13,7 +13,7 @@ app.get("/messages", async (request, response, next) => {
   await response.status(200).send({
     Chat: {
       id: 1, // should be contected to contact id
-      PatientId: 0,
+      PatientId: 0, // Något stämmer inte ?? Chat borde vara array inte object ? /Johan
       BCSupprtId: 0,
       Message: [
         {
@@ -70,6 +70,21 @@ app.get("/contacts", async (request, response, next) => {
           description: "Coach",
           sortNbr: 1,
         },
+        Chat: {
+          id: 1, // Same as the specfic id
+          patientId: 0,
+          bcSupportId: 0,
+          message: [
+            {
+              id: 1,
+              chatId: 0,
+              senderUserId: 0,
+              messageTS: "14:30",
+              message: "Hej Filip",
+              isRead: false,
+            },
+          ],
+        },
       },
       {
         id: 2, // Setting this id to specific contact
@@ -83,6 +98,21 @@ app.get("/contacts", async (request, response, next) => {
           name: "",
           description: "family",
           sortNbr: 0,
+        },
+        Chat: {
+          id: 1, // Same as the specfic id
+          patientId: 0,
+          bcSupportId: 0,
+          message: [
+            {
+              id: 1,
+              chatId: 0,
+              senderUserId: 0,
+              messageTS: "09:30",
+              message: "Hej Peter",
+              isRead: false,
+            },
+          ],
         },
       },
       {
@@ -98,54 +128,21 @@ app.get("/contacts", async (request, response, next) => {
           description: "family",
           sortNbr: 0,
         },
-      },
-    ],
-    Chat: [
-      {
-        id: 1, // Same as the specfic id
-        patientId: 0,
-        bcSupportId: 0,
-        message: [
-          {
-            id: 1,
-            chatId: 0,
-            senderUserId: 0,
-            messageTS: "12:30",
-            message: "Hej Emil",
-            isRead: false,
-          },
-          {
-            id: 2,
-            chatId: 0,
-            senderUserId: 0,
-            messageTS: "08:30",
-            message: "mår du bra?",
-            isRead: true,
-          },
-        ],
-      },
-      {
-        id: 2, // Same as the specfic id
-        patientId: 0,
-        bcSupportId: 0,
-        message: [
-          {
-            id: 1,
-            chatId: 0,
-            senderUserId: 0,
-            messageTS: "09.35",
-            message: "Vill du med och kasta frissbe?",
-            isRead: false,
-          },
-          {
-            id: 2,
-            chatId: 0,
-            senderUserId: 0,
-            messageTS: "10.20",
-            message: "JO fan det vill jag!!!!",
-            isRead: false,
-          },
-        ],
+        Chat: {
+          id: 2, // Same as the specfic id
+          patientId: 0,
+          bcSupportId: 0,
+          message: [
+            {
+              id: 1,
+              chatId: 0,
+              senderUserId: 0,
+              messageTS: "12:30",
+              message: "Hej Test",
+              isRead: false,
+            },
+          ],
+        },
       },
     ],
   });
