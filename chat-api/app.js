@@ -13,7 +13,7 @@ app.get("/messages", async (request, response, next) => {
   await response.status(200).send({
     Chat: {
       id: 1, // should be contected to contact id
-      PatientId: 0, // Något stämmer inte ?? Chat borde vara array inte object ? /Johan
+      PatientId: 0,
       BCSupprtId: 0,
       Message: [
         {
@@ -29,7 +29,7 @@ app.get("/messages", async (request, response, next) => {
           ChatId: 0,
           SenderUserId: 0,
           MessageTS: "",
-          Message: "JO fan det vill jag!!!!",
+          Message: "Jo fan det vill jag!!!!",
           IsRead: false,
         },
         {

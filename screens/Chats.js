@@ -15,7 +15,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { User } from "../mediators/User";
 import { styles } from "../styles/styles";
 import { Patient } from "../clientRDM/Patient";
-import { schemes } from "../colorSchemes/Schemes";
+import { schemes } from "../Resources/Schemes";
 import { color } from "react-native-reanimated";
 const clipboardOptions = (text) => {
   Clipboard.setString("hlooo");

@@ -14,64 +14,6 @@ import { LangContext } from "../context/LangContext";
 import { Patient } from "../clientRDM/Patient";
 import axios from "axios";
 import { BCSupport } from "../clientRDM/BCSupport";
-let ContactsTemp = [];
-
-// const DATA = [
-//   {
-//     id: 1,
-//     initials: "SJ",
-//     firstName: "Olga",
-//     lastName: "Johnson",
-//     type: "Coach",
-//     msg: "lorem ipsum..",
-//     time: "09:45",
-//   },
-//   {
-//     id: 2,
-//     initials: "PJ",
-//     firstName: "Emil",
-//     lastName: "Human",
-//     type: "Familj",
-//     msg: "lorem ipsum..",
-//     time: "Igår",
-//   },
-//   {
-//     id: 3,
-//     initials: "S",
-//     firstName: "Dan",
-//     lastName: "Ayettey",
-//     type: "Arbete",
-//     msg: "lorem ipsum..",
-//     time: "22:30",
-//   },
-//   {
-//     id: 4,
-//     initials: "P",
-//     firstName: "Joseph",
-//     lastName: "Blackeburg",
-//     type: "Coach",
-//     msg: "lorem ipsum..",
-//     time: "Söndag",
-//   },
-//   {
-//     id: 5,
-//     initials: "A",
-//     firstName: "Seth",
-//     lastName: "Almqvist",
-//     type: "Familj",
-//     msg: "lorem ipsum..",
-//     time: "10:20",
-//   },
-//   {
-//     id: 6,
-//     initials: "AJ",
-//     firstName: "Adam",
-//     lastName: "Johnson",
-//     type: "Arbete",
-//     msg: "lorem ipsum..",
-//     time: "10:20",
-//   },
-// ];
 
 const Item = ({ user = {}, setData, msg, initials, time, type, index }) => {
   const { theme } = useContext(ThemeContext);
@@ -123,53 +65,40 @@ const FlatListItemSeparator = () => {
   );
 };
 
-// function fetchContacts() {
-//   fetch("http://192.168.0.155:8081/contacts", {
-//     method: "GET",
-//     headers: {
-//       Accept: "application/json",
-//       "Content-Type": "application/json",
-//     },
-//   })
-//     .then((response) => response.json())
-//     .then(function (data) {
-//       let contacts = data.results;
-//       console.log(data);
-//       // return contacts.map(function(contact) {
-//     })
-//     .catch((error) => {
-//       console.error(error);
-//     });
-// }
-// function fetchChat() {
-//   fetch("http://192.168.0.155:8081/messages", {
-//     method: "GET",
-//     headers: {
-//       Accept: "application/json",
-//       "Content-Type": "application/json",
-//     },
-//   })
-//     .then((response) => response.json())
-//     .then((responseJson) => {
-//       console.log(responseJson);
-//     })
-//     .catch((error) => {
-//       console.error(error);
-//     });
-// }
-
-export function Contacts(props) {
+export function Contacts({ index }) {
   const { theme } = useContext(ThemeContext);
   const [contacts, setContact] = useState([]);
-  const [messages, setMessages] = useState([]);
+  const test = JSON.stringify(contacts);
 
-  console.log(contacts);
   useEffect(() => {
-    fetch("http://192.168.0.155:8081/contacts")
+    // fetch("http://192.168.0.155:8081/contacts")
+    //   // handle the response
+    //   .then((response) => response.json())
+    //   .then((json) => setContact(json.BCSupport))
+    //   // handle the error
+    //   .catch((error) => {
+    //     console.error("Error: ", error);
+    //   });
+    fetch("http://192.168.0.155:8081/contacts", {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
       .then((response) => response.json())
-      .then((json) => setContact(json.BCSupport))
-      .catch((error) => console.error(error));
+      .then((json) => {
+        setContact(json.BCSupport);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }, []);
+
+  const goToMessages = (index) => {
+    console.log();
+    Actions.Chats(index);
+  };
 
   // Get the names and creating initals
   const getInitials = function (string) {
@@ -188,12 +117,12 @@ export function Contacts(props) {
         style={{ height: "100%", backgroundColor: theme.backgroundColor }}
         ItemSeparatorComponent={FlatListItemSeparator}
         data={contacts}
-        extraData={messages}
         renderItem={({ item }) => (
           <TouchableOpacity
             style={{ ...styles.item, backgroundColor: theme.accentColor }}
             activeOpacity={0.7}
-            onPress={() => {
+            onPress={(event) => goToMessages(index)}
+            onPressOut={() => {
               console.log(` CONTACT NAME: ${item.name} WITH ID: ${item.id} `);
             }}
           >
