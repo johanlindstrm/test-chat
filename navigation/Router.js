@@ -2,11 +2,8 @@ import React, { Component, useEffect, useState } from 'react';
 import { Image, TouchableOpacity } from 'react-native';
 import { Actions, Router, Scene } from 'react-native-router-flux';
 import { styles } from '../styles/styles';
-import { FontAwesome } from '@expo/vector-icons';
 import { Text, Modal } from 'react-native';
-import { View } from 'react-native-web';
-import SafeAreaView from 'react-native-web/dist/exports/SafeAreaView';
-import AddToContact from '../screens/AddToContact';
+
 
 // Screens
 import { Chats } from '../screens/Chats';

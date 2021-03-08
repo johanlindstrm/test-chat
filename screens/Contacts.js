@@ -113,13 +113,12 @@ export function Contacts({ index }) {
              .catch((error) => {
                console.error(error);
              });
-
-
        }, []);
 
 
 
     const {Chat}=messages
+
       const goToMessages = (data) => {
           Actions.Chats(data);
       };

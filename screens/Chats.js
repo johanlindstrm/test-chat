@@ -8,7 +8,7 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-
+import shortid from 'shortid';
 import { ChatDB } from "../clientRDM/Chats";
 import Clipboard, { useClipboard } from "@react-native-community/clipboard";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -17,6 +17,8 @@ import { styles } from "../styles/styles";
 import { Patient } from "../clientRDM/Patient";
 import { schemes } from "../Resources/Schemes";
 import { color } from "react-native-reanimated";
+import {counter} from "@fortawesome/fontawesome-svg-core";
+import { Picker } from 'emoji-mart-native'
 const clipboardOptions = (text) => {
   Clipboard.setString("hlooo");
 };
@@ -124,7 +126,7 @@ const Messenger = (props) => {
           <View
             style={[
               styles.receiverContainerChild,
-              { backgroundColor: schemes.DEF.color},
+              { backgroundColor: schemes.DEF.bottomChatBar},
             ]}
           >
             <Image
@@ -134,7 +136,6 @@ const Messenger = (props) => {
             <View>
               <Text
                 style={[
-                  styles.receiverMessageText,
                   { color: schemes.DEF.backgroundColor },
                 ]}
               >
@@ -161,18 +162,24 @@ export function Chats(props) {
   const [messageState, setMessageState] = useState(() => {});
   const [message, setMessage] = useState(from.sendMessage(""));
   let [editorValue, setEditorValue] = useState("");
-  const [count, setCount] = useState(0);
+  let [counter, setCounter] = useState(0);
+  const [sendersMessageCounter, setSendersMessageCounter] = useState(0);
   const [isEmosVisible, setIsEmosVisible] = useState(false);
-  let renewMessage = from.sendMessage("");
-console.log(isFrom)
-  const AddChat = () => {
+  let renewSendersMessage=[];
+  let renewOwnersMessage=[]
+
+  const AddChat = (isFrom,renewMessage) => {
+
     setMessageStack({
       users: [
         ...messageStack.users,
-        <Messenger isFrom={isFrom} key={count} text={renewMessage} />,
+        renewMessage.map((renewMessage) => {
+          return (
+              <Messenger isFrom={isFrom} key={shortid.generate()} text={renewMessage} />
+          );
+        }),
       ],
     });
-    setCount(count + 1);
   };
 
   const placeholder = "Enter  message:";
@@ -233,23 +240,21 @@ console.log(isFrom)
 
    */
 
- // renewMessage = message;
- // setMessage(from.sendMessage(""));
 
   useEffect(()=>{
-    renewMessage = from.sendMessage("");
+    setMessage(from.sendMessage(""));
     setEditorValue("");
-    renewMessage = from.sendMessage("text");
-    setMessage(from.sendMessage("text"));
-    if (!isFrom===false) {
 
-      AddChat();
-      setIsFrom(true);
+    if(sendersMessageCounter!==chats.length ){
+      renewSendersMessage=chats.map(chats=>{
+        setSendersMessageCounter(++counter);
+       return  from.sendMessage(chats.Message)
+
+      })
+
+      AddChat(false,renewSendersMessage);
     }
-
   },[])
-
-
   setTimeout(() => {
     scrollRef.current?.scrollToEnd({
       x: 0,
@@ -258,6 +263,7 @@ console.log(isFrom)
 
     clearInterval(this);
   }, 10);
+  const textInputRef=useRef();
   return (
     <View style={styles.container}>
       <ScrollView
@@ -273,22 +279,39 @@ console.log(isFrom)
         <View />
         {messageStack.users}
       </ScrollView>
-
+      {isEmosVisible?<Picker title='Pick your emoji…' emoji='point_up' onSelect={(selected=>{
+        setEditorValue(selected.native);
+        setMessage(from.sendMessage(selected.native));
+        if(isEmosVisible){
+          setIsEmosVisible(false)
+        }else
+          setIsEmosVisible(true)
+      })}/>:null}
       <View style={styles.chatInputContainer}>
+
+
+
+
         <View style={styles.chatInputContainerChild}>
           <View style={{ flexDirection: "row" }}>
-            <TouchableOpacity onPress={() => setIsEmosVisible(true)}>
-              <Text></Text>
+
+            <TouchableOpacity onPress={() =>{
+              if(isEmosVisible){
+                setIsEmosVisible(false)
+              }else
+              setIsEmosVisible(true)
+
+            }}>
+              <Image style={styles.emoji} source={require('../assets/240px-Emoji_u1f610.svg.png')}/>
             </TouchableOpacity>
               <TextInput
+              editable={true}
               style={styles.inputChat}
               placeholderTextColor='black'
               placeholder={placeholder}
               onChangeText={(text) => {
                 setEditorValue(text);
-                renewMessage = from.sendMessage(text);
                 setMessage(from.sendMessage(text));
-
                 setMessageState(() => {
                   scrollRef.current?.scrollToEnd({
                     x: 0,
@@ -302,15 +325,12 @@ console.log(isFrom)
           <View style={{ flexDirection: "row" }}>
             <TouchableOpacity
               onPress={(event) => {
-                renewMessage = message;
+                renewOwnersMessage=[message]
+                AddChat(true,renewOwnersMessage);
                 setMessage(from.sendMessage(""));
-                setIsFrom(true);
-                if (isFrom) {
-
-                  AddChat();
-                }
-                renewMessage = from.sendMessage("");
                 setEditorValue("");
+
+
                 setTimeout(() => {
                   scrollRef.current?.scrollToEnd({
                     x: 0,
