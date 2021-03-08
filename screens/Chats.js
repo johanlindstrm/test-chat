@@ -124,7 +124,7 @@ const Messenger = (props) => {
           <View
             style={[
               styles.receiverContainerChild,
-              { backgroundColor: schemes.DEF.bottomChatBar },
+              { backgroundColor: schemes.DEF.color},
             ]}
           >
             <Image
@@ -148,7 +148,9 @@ const Messenger = (props) => {
   );
 };
 
-export function Chats(index) {
+export function Chats(props) {
+  const {index,chats}=props.data
+
   const from = new User("Dan");
   const contactUser = new User("Johan");
   const to = new User("Johan");
@@ -162,7 +164,7 @@ export function Chats(index) {
   const [count, setCount] = useState(0);
   const [isEmosVisible, setIsEmosVisible] = useState(false);
   let renewMessage = from.sendMessage("");
-
+console.log(isFrom)
   const AddChat = () => {
     setMessageStack({
       users: [
@@ -175,8 +177,8 @@ export function Chats(index) {
 
   const placeholder = "Enter  message:";
   const scrollRef = useRef();
-
-  const elementIndex = index.data === undefined ? 0 : index.data;
+  /*
+//  const elementIndex = index.data === undefined ? 0 : index.data;
   const contactJoinChatRoom = Patient.Patient[elementIndex];
   Patient.Messages.Messages.push({
     id: elementIndex + 1,
@@ -190,6 +192,7 @@ export function Chats(index) {
     renew.push(from.sendMessage(msg.message))
   );
   //   console.log(renew);
+
   useEffect(() => {
     if (contactJoinChatRoom) {
       let renewMessage = [
@@ -228,6 +231,33 @@ export function Chats(index) {
     }
   }, []);
 
+   */
+
+ // renewMessage = message;
+ // setMessage(from.sendMessage(""));
+
+  useEffect(()=>{
+    renewMessage = from.sendMessage("");
+    setEditorValue("");
+    renewMessage = from.sendMessage("text");
+    setMessage(from.sendMessage("text"));
+    if (!isFrom===false) {
+
+      AddChat();
+      setIsFrom(true);
+    }
+
+  },[])
+
+
+  setTimeout(() => {
+    scrollRef.current?.scrollToEnd({
+      x: 0,
+      animated: true,
+    });
+
+    clearInterval(this);
+  }, 10);
   return (
     <View style={styles.container}>
       <ScrollView
@@ -241,7 +271,6 @@ export function Chats(index) {
       >
         <View />
         <View />
-
         {messageStack.users}
       </ScrollView>
 
@@ -251,7 +280,7 @@ export function Chats(index) {
             <TouchableOpacity onPress={() => setIsEmosVisible(true)}>
               <Text></Text>
             </TouchableOpacity>
-            <TextInput
+              <TextInput
               style={styles.inputChat}
               placeholderTextColor='black'
               placeholder={placeholder}
@@ -275,11 +304,9 @@ export function Chats(index) {
               onPress={(event) => {
                 renewMessage = message;
                 setMessage(from.sendMessage(""));
+                setIsFrom(true);
                 if (isFrom) {
-                  setIsFrom(false);
-                  AddChat();
-                } else {
-                  setIsFrom(true);
+
                   AddChat();
                 }
                 renewMessage = from.sendMessage("");

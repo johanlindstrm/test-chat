@@ -4,7 +4,6 @@ import {
   SafeAreaView,
   View,
   FlatList,
-  Button,
   Text,
   TouchableOpacity,
 } from "react-native";
@@ -14,6 +13,7 @@ import { LangContext } from "../context/LangContext";
 import { Patient } from "../clientRDM/Patient";
 import axios from "axios";
 import { BCSupport } from "../clientRDM/BCSupport";
+import {UseFetch} from "../facades/UseFetch";
 
 const Item = ({ user = {}, setData, msg, initials, time, type, index }) => {
   const { theme } = useContext(ThemeContext);
@@ -65,83 +65,108 @@ const FlatListItemSeparator = () => {
   );
 };
 
+
 export function Contacts({ index }) {
   const { theme } = useContext(ThemeContext);
   const [contacts, setContact] = useState([]);
-  const test = JSON.stringify(contacts);
+  const [messages, setMessages] = useState(0);
+  const [id, setId] = useState(0);
+  const fetch=new UseFetch()
 
   useEffect(() => {
-    // fetch("http://192.168.0.155:8081/contacts")
-    //   // handle the response
-    //   .then((response) => response.json())
-    //   .then((json) => setContact(json.BCSupport))
-    //   // handle the error
-    //   .catch((error) => {
-    //     console.error("Error: ", error);
-    //   });
-    fetch("http://192.168.0.155:8081/contacts", {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((json) => {
-        setContact(json.BCSupport);
+      // fetch("http://192.168.0.155:8081/contacts")
+      //   // handle the response
+      //   .then((response) => response.json())
+      //   .then((json) => setContact(json.BCSupport))
+      //   // handle the error
+      //   .catch((error) => {
+      //     console.error("Error: ", error);
+      //   });
+
+
+      fetch.useFetch("http://192.168.0.2:8081/contacts", {
+          method: "GET",
+          headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+          },
       })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, []);
+          .then((response) => response.json())
+          .then((json) => {
+              setContact(json.BCSupport);
+          })
+          .catch((error) => {
+              console.error(error);
+          });
 
-  const goToMessages = (index) => {
-    console.log();
-    Actions.Chats(index);
-  };
+      fetch.useFetch("http://192.168.0.2:8081/messages/"+id, {
+           method: "GET",
+           headers: {
+             Accept: "application/json",
+             "Content-Type": "application/json",
+           },
+         })
+             .then((response) => response.json())
+             .then((json) => {
+               setMessages(json);
+             })
+             .catch((error) => {
+               console.error(error);
+             });
 
-  // Get the names and creating initals
-  const getInitials = function (string) {
-    let names = string.split(" "),
-      initials = names[0].substring(0, 1).toUpperCase();
 
-    if (names.length > 1) {
-      initials += names[names.length - 1].substring(0, 1).toUpperCase();
-    }
-    return initials;
-  };
+       }, []);
 
-  return (
-    <SafeAreaView>
-      <FlatList
-        style={{ height: "100%", backgroundColor: theme.backgroundColor }}
-        ItemSeparatorComponent={FlatListItemSeparator}
-        data={contacts}
-        renderItem={({ item }) => (
-          <TouchableOpacity
-            style={{ ...styles.item, backgroundColor: theme.accentColor }}
-            activeOpacity={0.7}
-            onPress={(event) => goToMessages(index)}
-            onPressOut={() => {
-              console.log(` CONTACT NAME: ${item.name} WITH ID: ${item.id} `);
-            }}
-          >
-            <View style={styles.initalsContainer}>
-              <View style={styles.initialsCircle}>
-                <Text>{getInitials(item.name)}</Text>
-              </View>
-            </View>
-            <View style={styles.contactContainer}>
-              <Text style={styles.user}>{item.name}</Text>
-              <Text style={styles.user}>{item.Chat.message[0].message}</Text>
-            </View>
-            <View style={styles.timeContainer}>
-              <Text>{item.Chat.message[0].messageTS}</Text>
-            </View>
-          </TouchableOpacity>
-        )}
-        keyExtractor={(item, id) => id.toString()}
-      />
-    </SafeAreaView>
-  );
+
+
+    const {Chat}=messages
+      const goToMessages = (data) => {
+          Actions.Chats(data);
+      };
+
+       // Get the names and creating initials
+       const getInitials = function (string) {
+         let names = string.split(" "),
+           initials = names[0].substring(0, 1).toUpperCase();
+
+         if (names.length > 1) {
+           initials += names[names.length - 1].substring(0, 1).toUpperCase();
+         }
+         return initials;
+       };
+
+       return (
+         <SafeAreaView>
+           <FlatList
+             style={{ height: "100%", backgroundColor: theme.backgroundColor }}
+             ItemSeparatorComponent={FlatListItemSeparator}
+             data={contacts}
+             renderItem={({ item }) => (
+               <TouchableOpacity
+                 style={{ ...styles.item, backgroundColor: theme.accentColor }}
+                 activeOpacity={0.7}
+                 onPress={(event) => goToMessages({data:{index:item.id,chats:Chat.Message.filter(messages=>messages.SenderUserId===item.Chat.message[0].senderUserId)}})}
+               >
+                 <View style={styles.initalsContainer}>
+                   <View style={styles.initialsCircle}>
+                     <Text>{getInitials(item.name)}</Text>
+                   </View>
+                 </View>
+                 <View style={styles.contactContainer}>
+                   <Text style={styles.user}>{item.name}</Text>
+                   <Text style={styles.user}>{item.Chat.message[0].message}</Text>
+                 </View>
+                 <View style={styles.timeContainer}>
+                   <Text>{item.Chat.message[0].messageTS}</Text>
+                 </View>
+               </TouchableOpacity>
+             )}
+             keyExtractor={(item, id) => id.toString()}
+           />
+         </SafeAreaView>
+
+
+       );
+
+
 }

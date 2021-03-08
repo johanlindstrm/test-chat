@@ -8,9 +8,9 @@ app.get("/", async (request, response, next) => {
   await response.status(200).send({ ver: 1 });
 });
 
-app.get("/messages", async (request, response, next) => {
+app.get("/messages/:id", async (request, response, next) => {
   // console.log("Message");
-  await response.status(200).send({
+  await response.status(200).json({
     Chat: {
       id: 1, // should be contected to contact id
       PatientId: 0,
@@ -55,7 +55,7 @@ app.get("/messages", async (request, response, next) => {
 
 app.get("/contacts", async (request, response, next) => {
   // console.log("Contact");
-  await response.status(200).send({
+  await response.status(200).json({
     BCSupport: [
       {
         id: 1, // Setting this id to specific contact

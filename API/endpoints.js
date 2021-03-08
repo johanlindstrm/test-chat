@@ -16,7 +16,7 @@ export function GetContactstest() {
 }
 
 export function ContactChattest() {
-  fetch('http://192.168.1.86:8081/messages', {
+  fetch('http://192.168.0.2:8081/messages/:id', {
     method: 'GET',
     headers: {
       Accept: 'application/json',
