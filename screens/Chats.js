@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from 'react';
 //imports
 import {
   View,
@@ -7,20 +7,20 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
-} from "react-native";
+} from 'react-native';
 import shortid from 'shortid';
-import { ChatDB } from "../clientRDM/Chats";
-import Clipboard, { useClipboard } from "@react-native-community/clipboard";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { User } from "../mediators/User";
-import { styles } from "../styles/styles";
-import { Patient } from "../clientRDM/Patient";
-import { schemes } from "../Resources/Schemes";
-import { color } from "react-native-reanimated";
-import {counter} from "@fortawesome/fontawesome-svg-core";
-import { Picker } from 'emoji-mart-native'
+import { ChatDB } from '../clientRDM/Chats';
+import Clipboard, { useClipboard } from '@react-native-community/clipboard';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { User } from '../mediators/User';
+import { styles } from '../styles/styles';
+import { Patient } from '../clientRDM/Patient';
+import { schemes } from '../Resources/Schemes';
+import { color } from 'react-native-reanimated';
+import { counter } from '@fortawesome/fontawesome-svg-core';
+import { Picker } from 'emoji-mart-native';
 const clipboardOptions = (text) => {
-  Clipboard.setString("hlooo");
+  Clipboard.setString('hlooo');
 };
 const fetchClipboardText = async () => {
   return await Clipboard.getString();
@@ -43,25 +43,53 @@ const fetchClipboardText = async () => {
 //   );
 // };
 
-const Messenger = (props) => {
+const Messenger = ({ route, props }) => {
   const [isSelectAll, setIsSelectAll] = useState(false);
   const setSelectTextFocus = useRef();
   const [isEnable, setIsEnable] = useState(false);
   const [isClipboard, setIsClipboard] = useState(false);
+
+  const [newMessage, setNewMessege] = useState(false);
+
+  //route with id from contact page
+  const { contactId } = route.params;
+
+  useEffect(() => {
+    fetch
+      .useFetch('http://192.168.0.2:8081/messages/' + contactId, {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      })
+      .then((response) => response.json())
+      .then((json) => {
+        setMessages(json);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
+
+  useEffect(() => {
+    // post messages
+    setNewMessege(false);
+  }, [newMessage]);
 
   return (
     <View>
       {isClipboard ? (
         <View
           style={{
-            flexDirection: "row",
+            flexDirection: 'row',
             width: 160,
             marginLeft: 80,
             marginRight: 30,
             padding: 6,
             borderRadius: 20,
             backgroundColor: styles.messageContainerChild.backgroundColor,
-            justifyContent: "space-evenly",
+            justifyContent: 'space-evenly',
           }}
         >
           <TouchableOpacity>
@@ -89,7 +117,7 @@ const Messenger = (props) => {
           <View style={styles.messageContainerChild}>
             <Image
               style={{ width: 40, height: 40 }}
-              source={require("../assets/user.png")}
+              source={require('../assets/user.png')}
             />
             <TouchableOpacity
               activeOpacity={0.6}
@@ -116,7 +144,7 @@ const Messenger = (props) => {
                     : styles.messageContainerChildTextMessage
                 }
               >
-                {props.text.date + "\n" + props.text.message}
+                {props.text.date + '\n' + props.text.message}
               </Text>
             </TouchableOpacity>
           </View>
@@ -126,20 +154,16 @@ const Messenger = (props) => {
           <View
             style={[
               styles.receiverContainerChild,
-              { backgroundColor: schemes.DEF.bottomChatBar},
+              { backgroundColor: schemes.DEF.bottomChatBar },
             ]}
           >
             <Image
               style={{ width: 40, height: 40 }}
-              source={require("../assets/user.png")}
+              source={require('../assets/user.png')}
             />
             <View>
-              <Text
-                style={[
-                  { color: schemes.DEF.backgroundColor },
-                ]}
-              >
-                {props.text.date + "\n" + props.text.message}
+              <Text style={[{ color: schemes.DEF.backgroundColor }]}>
+                {props.text.date + '\n' + props.text.message}
               </Text>
             </View>
           </View>
@@ -150,39 +174,42 @@ const Messenger = (props) => {
 };
 
 export function Chats(props) {
-  const {index,chats}=props.data
+  const { index, chats } = props.data;
 
-  const from = new User("Dan");
-  const contactUser = new User("Johan");
-  const to = new User("Johan");
+  const from = new User('Dan');
+  const contactUser = new User('Johan');
+  const to = new User('Johan');
   const [isFrom, setIsFrom] = useState(false);
 
   let [messageStack, setMessageStack] = useState({ users: [] });
   const [scrollToView, setScrollToView] = useState();
   const [messageState, setMessageState] = useState(() => {});
-  const [message, setMessage] = useState(from.sendMessage(""));
-  let [editorValue, setEditorValue] = useState("");
+  const [message, setMessage] = useState(from.sendMessage(''));
+  let [editorValue, setEditorValue] = useState('');
   let [counter, setCounter] = useState(0);
   const [sendersMessageCounter, setSendersMessageCounter] = useState(0);
   const [isEmosVisible, setIsEmosVisible] = useState(false);
-  let renewSendersMessage=[];
-  let renewOwnersMessage=[]
+  let renewSendersMessage = [];
+  let renewOwnersMessage = [];
 
-  const AddChat = (isFrom,renewMessage) => {
-
+  const AddChat = (isFrom, renewMessage) => {
     setMessageStack({
       users: [
         ...messageStack.users,
         renewMessage.map((renewMessage) => {
           return (
-              <Messenger isFrom={isFrom} key={shortid.generate()} text={renewMessage} />
+            <Messenger
+              isFrom={isFrom}
+              key={shortid.generate()}
+              text={renewMessage}
+            />
           );
         }),
       ],
     });
   };
 
-  const placeholder = "Enter  message:";
+  const placeholder = 'Enter  message:';
   const scrollRef = useRef();
   /*
 //  const elementIndex = index.data === undefined ? 0 : index.data;
@@ -240,21 +267,19 @@ export function Chats(props) {
 
    */
 
+  useEffect(() => {
+    setMessage(from.sendMessage(''));
+    setEditorValue('');
 
-  useEffect(()=>{
-    setMessage(from.sendMessage(""));
-    setEditorValue("");
-
-    if(sendersMessageCounter!==chats.length ){
-      renewSendersMessage=chats.map(chats=>{
+    if (sendersMessageCounter !== chats.length) {
+      renewSendersMessage = chats.map((chats) => {
         setSendersMessageCounter(++counter);
-       return  from.sendMessage(chats.Message)
+        return from.sendMessage(chats.Message);
+      });
 
-      })
-
-      AddChat(false,renewSendersMessage);
+      AddChat(false, renewSendersMessage);
     }
-  },[])
+  }, []);
   setTimeout(() => {
     scrollRef.current?.scrollToEnd({
       x: 0,
@@ -263,13 +288,13 @@ export function Chats(props) {
 
     clearInterval(this);
   }, 10);
-  const textInputRef=useRef();
+  const textInputRef = useRef();
   return (
     <View style={styles.container}>
       <ScrollView
         ref={scrollRef}
         contentContainerStyle={styles.scrollContainer}
-        style={{ width: "100%" }}
+        style={{ width: '100%' }}
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}
         scrollsToTop={scrollToView}
@@ -279,35 +304,38 @@ export function Chats(props) {
         <View />
         {messageStack.users}
       </ScrollView>
-      {isEmosVisible?<Picker title='Pick your emoji…' emoji='point_up' onSelect={(selected=>{
-        setEditorValue(selected.native);
-        setMessage(from.sendMessage(selected.native));
-        if(isEmosVisible){
-          setIsEmosVisible(false)
-        }else
-          setIsEmosVisible(true)
-      })}/>:null}
+      {isEmosVisible ? (
+        <Picker
+          title="Pick your emoji…"
+          emoji="point_up"
+          onSelect={(selected) => {
+            setEditorValue(selected.native);
+            setMessage(from.sendMessage(selected.native));
+            if (isEmosVisible) {
+              setIsEmosVisible(false);
+            } else setIsEmosVisible(true);
+          }}
+        />
+      ) : null}
       <View style={styles.chatInputContainer}>
-
-
-
-
         <View style={styles.chatInputContainerChild}>
-          <View style={{ flexDirection: "row" }}>
-
-            <TouchableOpacity onPress={() =>{
-              if(isEmosVisible){
-                setIsEmosVisible(false)
-              }else
-              setIsEmosVisible(true)
-
-            }}>
-              <Image style={styles.emoji} source={require('../assets/240px-Emoji_u1f610.svg.png')}/>
+          <View style={{ flexDirection: 'row' }}>
+            <TouchableOpacity
+              onPress={() => {
+                if (isEmosVisible) {
+                  setIsEmosVisible(false);
+                } else setIsEmosVisible(true);
+              }}
+            >
+              <Image
+                style={styles.emoji}
+                source={require('../assets/240px-Emoji_u1f610.svg.png')}
+              />
             </TouchableOpacity>
-              <TextInput
+            <TextInput
               editable={true}
               style={styles.inputChat}
-              placeholderTextColor='black'
+              placeholderTextColor="black"
               placeholder={placeholder}
               onChangeText={(text) => {
                 setEditorValue(text);
@@ -322,14 +350,13 @@ export function Chats(props) {
               value={editorValue}
             />
           </View>
-          <View style={{ flexDirection: "row" }}>
+          <View style={{ flexDirection: 'row' }}>
             <TouchableOpacity
               onPress={(event) => {
-                renewOwnersMessage=[message]
-                AddChat(true,renewOwnersMessage);
-                setMessage(from.sendMessage(""));
-                setEditorValue("");
-
+                renewOwnersMessage = [message];
+                AddChat(true, renewOwnersMessage);
+                setMessage(from.sendMessage(''));
+                setEditorValue('');
 
                 setTimeout(() => {
                   scrollRef.current?.scrollToEnd({
@@ -343,9 +370,9 @@ export function Chats(props) {
             >
               <View style={styles.sendMessage}>
                 <Image
-                  name={"send"}
+                  name={'send'}
                   style={styles.sendMessage}
-                  source={require("../assets/send-512.webp")}
+                  source={require('../assets/send-512.webp')}
                 />
               </View>
             </TouchableOpacity>
