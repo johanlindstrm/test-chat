@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 //imports
 import {
   View,
@@ -8,7 +8,7 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-import shortid from 'shortid';
+import shortid from "shortid";
 import { ChatDB } from "../clientRDM/Chats";
 import Clipboard, { useClipboard } from "@react-native-community/clipboard";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -17,8 +17,11 @@ import { styles } from "../styles/styles";
 import { Patient } from "../clientRDM/Patient";
 import { schemes } from "../Resources/Schemes";
 import { color } from "react-native-reanimated";
-import {counter} from "@fortawesome/fontawesome-svg-core";
-import { Picker } from 'emoji-mart-native'
+import { counter } from "@fortawesome/fontawesome-svg-core";
+import { Picker } from "emoji-mart-native";
+import { LangContext } from "../context/LangContext";
+import { ThemeContext } from "../context/ThemeContext";
+
 const clipboardOptions = (text) => {
   Clipboard.setString("hlooo");
 };
@@ -44,6 +47,8 @@ const fetchClipboardText = async () => {
 // };
 
 const Messenger = (props) => {
+  const { language } = useContext(LangContext);
+  const { theme } = useContext(ThemeContext);
   const [isSelectAll, setIsSelectAll] = useState(false);
   const setSelectTextFocus = useRef();
   const [isEnable, setIsEnable] = useState(false);
@@ -126,7 +131,7 @@ const Messenger = (props) => {
           <View
             style={[
               styles.receiverContainerChild,
-              { backgroundColor: schemes.DEF.bottomChatBar},
+              { backgroundColor: theme.bottomChatBar },
             ]}
           >
             <Image
@@ -134,11 +139,7 @@ const Messenger = (props) => {
               source={require("../assets/user.png")}
             />
             <View>
-              <Text
-                style={[
-                  { color: schemes.DEF.backgroundColor },
-                ]}
-              >
+              <Text style={[{ color: theme.chatText }]}>
                 {props.text.date + "\n" + props.text.message}
               </Text>
             </View>
@@ -150,7 +151,7 @@ const Messenger = (props) => {
 };
 
 export function Chats(props) {
-  const {index,chats}=props.data
+  const { index, chats } = props.data;
 
   const from = new User("Dan");
   const contactUser = new User("Johan");
@@ -165,24 +166,29 @@ export function Chats(props) {
   let [counter, setCounter] = useState(0);
   const [sendersMessageCounter, setSendersMessageCounter] = useState(0);
   const [isEmosVisible, setIsEmosVisible] = useState(false);
-  let renewSendersMessage=[];
-  let renewOwnersMessage=[]
+  let renewSendersMessage = [];
+  let renewOwnersMessage = [];
 
-  const AddChat = (isFrom,renewMessage) => {
+  const { language } = useContext(LangContext);
 
+  const AddChat = (isFrom, renewMessage) => {
     setMessageStack({
       users: [
         ...messageStack.users,
         renewMessage.map((renewMessage) => {
           return (
-              <Messenger isFrom={isFrom} key={shortid.generate()} text={renewMessage} />
+            <Messenger
+              isFrom={isFrom}
+              key={shortid.generate()}
+              text={renewMessage}
+            />
           );
         }),
       ],
     });
   };
 
-  const placeholder = "Enter  message:";
+  const placeholder = language.placeholderText;
   const scrollRef = useRef();
   /*
 //  const elementIndex = index.data === undefined ? 0 : index.data;
@@ -240,21 +246,19 @@ export function Chats(props) {
 
    */
 
-
-  useEffect(()=>{
+  useEffect(() => {
     setMessage(from.sendMessage(""));
     setEditorValue("");
 
-    if(sendersMessageCounter!==chats.length ){
-      renewSendersMessage=chats.map(chats=>{
+    if (sendersMessageCounter !== chats.length) {
+      renewSendersMessage = chats.map((chats) => {
         setSendersMessageCounter(++counter);
-       return  from.sendMessage(chats.Message)
+        return from.sendMessage(chats.Message);
+      });
 
-      })
-
-      AddChat(false,renewSendersMessage);
+      AddChat(false, renewSendersMessage);
     }
-  },[])
+  }, []);
   setTimeout(() => {
     scrollRef.current?.scrollToEnd({
       x: 0,
@@ -263,7 +267,7 @@ export function Chats(props) {
 
     clearInterval(this);
   }, 10);
-  const textInputRef=useRef();
+  const textInputRef = useRef();
   return (
     <View style={styles.container}>
       <ScrollView
@@ -279,32 +283,35 @@ export function Chats(props) {
         <View />
         {messageStack.users}
       </ScrollView>
-      {isEmosVisible?<Picker title='Pick your emoji…' emoji='point_up' onSelect={(selected=>{
-        setEditorValue(selected.native);
-        setMessage(from.sendMessage(selected.native));
-        if(isEmosVisible){
-          setIsEmosVisible(false)
-        }else
-          setIsEmosVisible(true)
-      })}/>:null}
+      {isEmosVisible ? (
+        <Picker
+          title='Pick your emoji…'
+          emoji='point_up'
+          onSelect={(selected) => {
+            setEditorValue(selected.native);
+            setMessage(from.sendMessage(selected.native));
+            if (isEmosVisible) {
+              setIsEmosVisible(false);
+            } else setIsEmosVisible(true);
+          }}
+        />
+      ) : null}
       <View style={styles.chatInputContainer}>
-
-
-
-
         <View style={styles.chatInputContainerChild}>
           <View style={{ flexDirection: "row" }}>
-
-            <TouchableOpacity onPress={() =>{
-              if(isEmosVisible){
-                setIsEmosVisible(false)
-              }else
-              setIsEmosVisible(true)
-
-            }}>
-              <Image style={styles.emoji} source={require('../assets/240px-Emoji_u1f610.svg.png')}/>
+            <TouchableOpacity
+              onPress={() => {
+                if (isEmosVisible) {
+                  setIsEmosVisible(false);
+                } else setIsEmosVisible(true);
+              }}
+            >
+              <Image
+                style={styles.emoji}
+                source={require("../assets/240px-Emoji_u1f610.svg.png")}
+              />
             </TouchableOpacity>
-              <TextInput
+            <TextInput
               editable={true}
               style={styles.inputChat}
               placeholderTextColor='black'
@@ -325,11 +332,10 @@ export function Chats(props) {
           <View style={{ flexDirection: "row" }}>
             <TouchableOpacity
               onPress={(event) => {
-                renewOwnersMessage=[message]
-                AddChat(true,renewOwnersMessage);
+                renewOwnersMessage = [message];
+                AddChat(true, renewOwnersMessage);
                 setMessage(from.sendMessage(""));
                 setEditorValue("");
-
 
                 setTimeout(() => {
                   scrollRef.current?.scrollToEnd({

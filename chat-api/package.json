@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "'test'",
-    "start": "nodemon ../chat-api/app.js"
+    "start": "node ../chat-api/app.js"
   },
   "keywords": [
     "'just",

@@ -1,19 +1,18 @@
-import React, { Component, useEffect, useState } from 'react';
-import { Image, TouchableOpacity } from 'react-native';
-import { Actions, Router, Scene } from 'react-native-router-flux';
-import { styles } from '../styles/styles';
-import { Text, Modal } from 'react-native';
-
+import React, { Component, useEffect, useState } from "react";
+import { Image, TouchableOpacity } from "react-native";
+import { Actions, Router, Scene } from "react-native-router-flux";
+import { styles } from "../styles/styles";
+import { Text, Modal } from "react-native";
 
 // Screens
-import { Chats } from '../screens/Chats';
-import { Contacts } from '../screens/Contacts';
-import { Settings } from '../screens/Settings';
+import { Chats } from "../screens/Chats";
+import { Contacts } from "../screens/Contacts";
+import { Settings } from "../screens/Settings";
 
 // Theme & Language Context import
-import { useContext } from 'react';
-import { ThemeContext } from '../context/ThemeContext';
-import { LangContext } from '../context/LangContext';
+import { useContext } from "react";
+import { ThemeContext } from "../context/ThemeContext";
+import { LangContext } from "../context/LangContext";
 
 //Route component
 
@@ -22,9 +21,6 @@ export default function Routes() {
   const { theme } = useContext(ThemeContext);
   const [isVisible, setIsVisible] = useState(false);
 
-  const goToAddToContact = function () {
-    Actions.AddToContact({ title: language.addContactTitle });
-  };
   const goToSettings = function () {
     Actions.Settings({ title: language.settingsTitle });
   };
@@ -32,9 +28,9 @@ export default function Routes() {
   return (
     <Router>
       <Scene
-        key="root"
+        key='root'
         tintColor={styles.scene.color}
-        activeTintColor={'red'}
+        activeTintColor={"red"}
         swipeEnabled={true}
         navigationBarStyle={{
           ...styles.appBar,
@@ -42,7 +38,7 @@ export default function Routes() {
         }}
       >
         <Scene
-          key="Contacts"
+          key='Contacts'
           activeTintColor={styles.scene}
           titleStyle={styles.scene}
           component={Contacts}
@@ -51,30 +47,30 @@ export default function Routes() {
           renderLeftButton={
             <TouchableOpacity onPress={goToSettings}>
               <Image
-                source={require('../assets/settingsIcon.png')}
+                source={require("../assets/settingsIcon.png")}
                 style={{ width: 25, height: 25, marginLeft: 30 }}
               />
             </TouchableOpacity>
           }
-          renderRightButton={
-            <TouchableOpacity style={{ margin: 12 }} onPress={goToAddToContact}>
-              <Text style={styles.addIconAppBar}>{' + '}</Text>
-            </TouchableOpacity>
-          }
+          // renderRightButton={
+          //   <TouchableOpacity style={{ margin: 12 }} onPress={goToAddToContact}>
+          //     <Text style={styles.addIconAppBar}>{' + '}</Text>
+          //   </TouchableOpacity>
+          // }
         />
 
         <Scene
-          key="Chats"
+          key='Chats'
           titleStyle={styles.scene}
           component={Chats}
-          title={'Chats'}
+          title={"Chats"}
         />
 
         <Scene
-          key="Settings"
+          key='Settings'
           titleStyle={styles.scene}
           component={Settings}
-          title={'Settings'}
+          title={"Settings"}
         />
         {/*  <Scene
           key="AddToContact"
