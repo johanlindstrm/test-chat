@@ -1,5 +1,5 @@
-import React, { useRef, useState, useContext, useEffect } from "react";
-import { Actions } from "react-native-router-flux";
+import React, { useRef, useState, useContext, useEffect } from 'react';
+import { Actions } from 'react-native-router-flux';
 import {
   SafeAreaView,
   View,
@@ -7,13 +7,13 @@ import {
   Button,
   Text,
   TouchableOpacity,
-} from "react-native";
-import { styles } from "../styles/styles";
-import { ThemeContext } from "../context/ThemeContext";
-import { LangContext } from "../context/LangContext";
-import { Patient } from "../clientRDM/Patient";
-import axios from "axios";
-import { BCSupport } from "../clientRDM/BCSupport";
+} from 'react-native';
+import { styles } from '../styles/styles';
+import { ThemeContext } from '../context/ThemeContext';
+import { LangContext } from '../context/LangContext';
+import { Patient } from '../clientRDM/Patient';
+import axios from 'axios';
+import { BCSupport } from '../clientRDM/BCSupport';
 
 const Item = ({ user = {}, setData, msg, initials, time, type, index }) => {
   const { theme } = useContext(ThemeContext);
@@ -39,7 +39,7 @@ const Item = ({ user = {}, setData, msg, initials, time, type, index }) => {
       <View style={styles.contactContainer}>
         <Text style={{ ...styles.user, color: theme.color }}>{user}</Text>
         <Text style={{ ...styles.user, color: theme.color }}>
-          {user.firstName + " " + user.lastName}
+          {user.firstName + ' ' + user.lastName}
         </Text>
         <Text style={styles.message}>{msg}</Text>
       </View>
@@ -58,8 +58,8 @@ const FlatListItemSeparator = () => {
     <View
       style={{
         height: 0.5,
-        width: "100%",
-        backgroundColor: "#d3d3d3",
+        width: '100%',
+        backgroundColor: '#d3d3d3',
       }}
     />
   );
@@ -79,11 +79,11 @@ export function Contacts({ index }) {
     //   .catch((error) => {
     //     console.error("Error: ", error);
     //   });
-    fetch("http://192.168.0.155:8081/contacts", {
-      method: "GET",
+    fetch('http://127.0.0.1:8081/contacts', {
+      method: 'GET',
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
       },
     })
       .then((response) => response.json())
@@ -102,7 +102,7 @@ export function Contacts({ index }) {
 
   // Get the names and creating initals
   const getInitials = function (string) {
-    let names = string.split(" "),
+    let names = string.split(' '),
       initials = names[0].substring(0, 1).toUpperCase();
 
     if (names.length > 1) {
@@ -114,7 +114,7 @@ export function Contacts({ index }) {
   return (
     <SafeAreaView>
       <FlatList
-        style={{ height: "100%", backgroundColor: theme.backgroundColor }}
+        style={{ height: '100%', backgroundColor: theme.backgroundColor }}
         ItemSeparatorComponent={FlatListItemSeparator}
         data={contacts}
         renderItem={({ item }) => (
@@ -132,11 +132,17 @@ export function Contacts({ index }) {
               </View>
             </View>
             <View style={styles.contactContainer}>
-              <Text style={styles.user}>{item.name}</Text>
-              <Text style={styles.user}>{item.Chat.message[0].message}</Text>
+              <Text style={{ ...styles.user, color: theme.color }}>
+                {item.name}
+              </Text>
+              <Text style={{ ...styles.user, color: theme.color }}>
+                {item.Chat.message[0].message}
+              </Text>
             </View>
             <View style={styles.timeContainer}>
-              <Text>{item.Chat.message[0].messageTS}</Text>
+              <Text style={{ color: theme.color }}>
+                {item.Chat.message[0].messageTS}
+              </Text>
             </View>
           </TouchableOpacity>
         )}

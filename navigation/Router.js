@@ -6,7 +6,6 @@ import { FontAwesome } from '@expo/vector-icons';
 import { Text, Modal } from 'react-native';
 import { View } from 'react-native-web';
 import SafeAreaView from 'react-native-web/dist/exports/SafeAreaView';
-import AddToContact from '../screens/AddToContact';
 
 // Screens
 import { Chats } from '../screens/Chats';
@@ -59,11 +58,6 @@ export default function Routes() {
               />
             </TouchableOpacity>
           }
-          renderRightButton={
-            <TouchableOpacity style={{ margin: 12 }} onPress={goToAddToContact}>
-              <Text style={styles.addIconAppBar}>{' + '}</Text>
-            </TouchableOpacity>
-          }
         />
 
         <Scene
@@ -79,12 +73,6 @@ export default function Routes() {
           component={Settings}
           title={'Settings'}
         />
-        {/*  <Scene
-          key="AddToContact"
-          titleStyle={styles.scene}
-          component={AddToContact}
-          title="Add Contact"
-        /> */}
       </Scene>
     </Router>
   );
