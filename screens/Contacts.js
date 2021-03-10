@@ -10,9 +10,7 @@ import {
 import { styles } from "../styles/styles";
 import { ThemeContext } from "../context/ThemeContext";
 import { LangContext } from "../context/LangContext";
-import { Patient } from "../clientRDM/Patient";
 import axios from "axios";
-import { BCSupport } from "../clientRDM/BCSupport";
 import { UseFetch } from "../facades/UseFetch";
 
 const Item = ({ user = {}, setData, msg, initials, time, type, index }) => {
