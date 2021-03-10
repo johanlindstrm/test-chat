@@ -1,19 +1,19 @@
-import React, { useRef, useState, useContext, useEffect } from "react";
-import { Actions } from "react-native-router-flux";
+import React, { useRef, useState, useContext, useEffect } from 'react';
+import { Actions } from 'react-native-router-flux';
 import {
   SafeAreaView,
   View,
   FlatList,
   Text,
   TouchableOpacity,
-} from "react-native";
-import { styles } from "../styles/styles";
-import { ThemeContext } from "../context/ThemeContext";
-import { LangContext } from "../context/LangContext";
-import { Patient } from "../clientRDM/Patient";
-import axios from "axios";
-import { BCSupport } from "../clientRDM/BCSupport";
-import { UseFetch } from "../facades/UseFetch";
+} from 'react-native';
+import { styles } from '../styles/styles';
+import { ThemeContext } from '../context/ThemeContext';
+import { LangContext } from '../context/LangContext';
+import { Patient } from '../clientRDM/Patient';
+import axios from 'axios';
+import { BCSupport } from '../clientRDM/BCSupport';
+import { UseFetch } from '../facades/UseFetch';
 
 const Item = ({ user = {}, setData, msg, initials, time, type, index }) => {
   const { theme } = useContext(ThemeContext);
@@ -39,7 +39,7 @@ const Item = ({ user = {}, setData, msg, initials, time, type, index }) => {
       <View style={styles.contactContainer}>
         <Text style={{ ...styles.user, color: theme.color }}>{user}</Text>
         <Text style={{ ...styles.user, color: theme.color }}>
-          {user.firstName + " " + user.lastName}
+          {user.firstName + ' ' + user.lastName}
         </Text>
         <Text style={styles.message}>{msg}</Text>
       </View>
@@ -58,8 +58,8 @@ const FlatListItemSeparator = () => {
     <View
       style={{
         height: 0.5,
-        width: "100%",
-        backgroundColor: "#d3d3d3",
+        width: '100%',
+        backgroundColor: '#d3d3d3',
       }}
     />
   );
@@ -73,12 +73,39 @@ export function Contacts({ index }) {
   const fetch = new UseFetch();
 
   useEffect(() => {
+    // fetch("http://192.168.0.155:8081/contacts")
+    //   // handle the response
+    //   .then((response) => response.json())
+    //   .then((json) => setContact(json.BCSupport))
+    //   // handle the error
+    //   .catch((error) => {
+    //     console.error("Error: ", error);
+    //   });
+    /* fetch('http://127.0.0.1:8081/contacts', {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        setContact(json.BCSupport); */
+    // fetch("http://192.168.0.155:8081/contacts")
+    //   // handle the response
+    //   .then((response) => response.json())
+    //   .then((json) => setContact(json.BCSupport))
+    //   // handle the error
+    //   .catch((error) => {
+    //     console.error("Error: ", error);
+    //   });
+
     fetch
-      .useFetch("http://192.168.0.2:8081/contacts", {
-        method: "GET",
+      .useFetch('http://192.168.0.2:8081/contacts', {
+        method: 'GET',
         headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
         },
       })
       .then((response) => response.json())
@@ -90,11 +117,11 @@ export function Contacts({ index }) {
       });
 
     fetch
-      .useFetch("http://192.168.0.2:8081/messages/" + id, {
-        method: "GET",
+      .useFetch('http://192.168.0.2:8081/messages/' + id, {
+        method: 'GET',
         headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
         },
       })
       .then((response) => response.json())
@@ -105,17 +132,17 @@ export function Contacts({ index }) {
         console.error(error);
       });
   }, []);
+}
 
-  // Get the names and creating initals
-  const getInitials = function (string) {
-    let names = string.split(" "),
-      initials = names[0].substring(0, 1).toUpperCase();
-  };
+// Get the names and creating initals
+const getInitials = function (string) {
+  let names = string.split(' '),
+    initials = names[0].substring(0, 1).toUpperCase();
 
   return (
     <SafeAreaView>
       <FlatList
-        style={{ height: "100%", backgroundColor: theme.backgroundColor }}
+        style={{ height: '100%', backgroundColor: theme.backgroundColor }}
         ItemSeparatorComponent={FlatListItemSeparator}
         data={contacts}
         renderItem={({ item }) => (
@@ -151,4 +178,4 @@ export function Contacts({ index }) {
       />
     </SafeAreaView>
   );
-}
+};
