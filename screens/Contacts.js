@@ -74,7 +74,7 @@ export function Contacts({ index }) {
 
   useEffect(() => {
     fetch
-      .useFetch("http://192.168.0.155:8081/contacts", {
+      .useFetch("http://192.168.0.2:8081/contacts", {
         method: "GET",
         headers: {
           Accept: "application/json",
@@ -90,7 +90,7 @@ export function Contacts({ index }) {
       });
 
     fetch
-      .useFetch("http://192.168.0.155:8081/messages/" + id, {
+      .useFetch("http://192.168.0.2:8081/messages/" + id, {
         method: "GET",
         headers: {
           Accept: "application/json",
@@ -106,15 +106,10 @@ export function Contacts({ index }) {
       });
   }, []);
 
-  // Get the names and creating initials
+  // Get the names and creating initals
   const getInitials = function (string) {
     let names = string.split(" "),
       initials = names[0].substring(0, 1).toUpperCase();
-
-    if (names.length > 1) {
-      initials += names[names.length - 1].substring(0, 1).toUpperCase();
-    }
-    return initials;
   };
 
   return (
