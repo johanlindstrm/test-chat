@@ -1,5 +1,4 @@
 import { StyleSheet } from 'react-native';
-import {schemes} from "../Resources/Schemes";
 export const styles = StyleSheet.create({
   settingBtn: {
     width: 40,
@@ -246,7 +245,7 @@ export const styles = StyleSheet.create({
     margin: 6,
     borderRadius: 40,
     backgroundColor: 'rgb(242,243,245)',
-    padding: 10,
+    padding: 4,
     flexWrap: 'wrap',
   },
   receiverMessage: {
@@ -272,7 +271,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   inputChat: {
-    width: '74%',
+    width: '83%',
     margin: 4,
     marginRight: 4,
     marginLeft: 10,
@@ -283,13 +282,4 @@ export const styles = StyleSheet.create({
     height: 30,
     marginLeft: -4,
   },
-  emoji: {
-    width: 30,
-    margin:4,
-    borderRadius:20,
-    borderColor:'rgb(237,238,237)',
-    borderWidth:2,
-    height: 30,
-  }
-
 });

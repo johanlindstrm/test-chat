@@ -1,4 +1,4 @@
-export let schemes = {};
+let schemes = {};
 export default schemes = {
   DEF: {
     backgroundColor: 'white',

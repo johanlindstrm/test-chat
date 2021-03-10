@@ -8,7 +8,7 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-import shortid from 'shortid';
+
 import { ChatDB } from "../clientRDM/Chats";
 import Clipboard, { useClipboard } from "@react-native-community/clipboard";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -17,8 +17,6 @@ import { styles } from "../styles/styles";
 import { Patient } from "../clientRDM/Patient";
 import { schemes } from "../Resources/Schemes";
 import { color } from "react-native-reanimated";
-import {counter} from "@fortawesome/fontawesome-svg-core";
-import { Picker } from 'emoji-mart-native'
 const clipboardOptions = (text) => {
   Clipboard.setString("hlooo");
 };
@@ -126,7 +124,7 @@ const Messenger = (props) => {
           <View
             style={[
               styles.receiverContainerChild,
-              { backgroundColor: schemes.DEF.bottomChatBar},
+              { backgroundColor: schemes.DEF.bottomChatBar },
             ]}
           >
             <Image
@@ -136,6 +134,7 @@ const Messenger = (props) => {
             <View>
               <Text
                 style={[
+                  styles.receiverMessageText,
                   { color: schemes.DEF.backgroundColor },
                 ]}
               >
@@ -149,9 +148,7 @@ const Messenger = (props) => {
   );
 };
 
-export function Chats(props) {
-  const {index,chats}=props.data
-
+export function Chats(index) {
   const from = new User("Dan");
   const contactUser = new User("Johan");
   const to = new User("Johan");
@@ -162,30 +159,24 @@ export function Chats(props) {
   const [messageState, setMessageState] = useState(() => {});
   const [message, setMessage] = useState(from.sendMessage(""));
   let [editorValue, setEditorValue] = useState("");
-  let [counter, setCounter] = useState(0);
-  const [sendersMessageCounter, setSendersMessageCounter] = useState(0);
+  const [count, setCount] = useState(0);
   const [isEmosVisible, setIsEmosVisible] = useState(false);
-  let renewSendersMessage=[];
-  let renewOwnersMessage=[]
+  let renewMessage = from.sendMessage("");
 
-  const AddChat = (isFrom,renewMessage) => {
-
+  const AddChat = () => {
     setMessageStack({
       users: [
         ...messageStack.users,
-        renewMessage.map((renewMessage) => {
-          return (
-              <Messenger isFrom={isFrom} key={shortid.generate()} text={renewMessage} />
-          );
-        }),
+        <Messenger isFrom={isFrom} key={count} text={renewMessage} />,
       ],
     });
+    setCount(count + 1);
   };
 
   const placeholder = "Enter  message:";
   const scrollRef = useRef();
-  /*
-//  const elementIndex = index.data === undefined ? 0 : index.data;
+
+  const elementIndex = index.data === undefined ? 0 : index.data;
   const contactJoinChatRoom = Patient.Patient[elementIndex];
   Patient.Messages.Messages.push({
     id: elementIndex + 1,
@@ -199,7 +190,6 @@ export function Chats(props) {
     renew.push(from.sendMessage(msg.message))
   );
   //   console.log(renew);
-
   useEffect(() => {
     if (contactJoinChatRoom) {
       let renewMessage = [
@@ -238,32 +228,6 @@ export function Chats(props) {
     }
   }, []);
 
-   */
-
-
-  useEffect(()=>{
-    setMessage(from.sendMessage(""));
-    setEditorValue("");
-
-    if(sendersMessageCounter!==chats.length ){
-      renewSendersMessage=chats.map(chats=>{
-        setSendersMessageCounter(++counter);
-       return  from.sendMessage(chats.Message)
-
-      })
-
-      AddChat(false,renewSendersMessage);
-    }
-  },[])
-  setTimeout(() => {
-    scrollRef.current?.scrollToEnd({
-      x: 0,
-      animated: true,
-    });
-
-    clearInterval(this);
-  }, 10);
-  const textInputRef=useRef();
   return (
     <View style={styles.container}>
       <ScrollView
@@ -277,41 +241,25 @@ export function Chats(props) {
       >
         <View />
         <View />
+
         {messageStack.users}
       </ScrollView>
-      {isEmosVisible?<Picker title='Pick your emoji…' emoji='point_up' onSelect={(selected=>{
-        setEditorValue(selected.native);
-        setMessage(from.sendMessage(selected.native));
-        if(isEmosVisible){
-          setIsEmosVisible(false)
-        }else
-          setIsEmosVisible(true)
-      })}/>:null}
+
       <View style={styles.chatInputContainer}>
-
-
-
-
         <View style={styles.chatInputContainerChild}>
           <View style={{ flexDirection: "row" }}>
-
-            <TouchableOpacity onPress={() =>{
-              if(isEmosVisible){
-                setIsEmosVisible(false)
-              }else
-              setIsEmosVisible(true)
-
-            }}>
-              <Image style={styles.emoji} source={require('../assets/240px-Emoji_u1f610.svg.png')}/>
+            <TouchableOpacity onPress={() => setIsEmosVisible(true)}>
+              <Text></Text>
             </TouchableOpacity>
-              <TextInput
-              editable={true}
+            <TextInput
               style={styles.inputChat}
               placeholderTextColor='black'
               placeholder={placeholder}
               onChangeText={(text) => {
                 setEditorValue(text);
+                renewMessage = from.sendMessage(text);
                 setMessage(from.sendMessage(text));
+
                 setMessageState(() => {
                   scrollRef.current?.scrollToEnd({
                     x: 0,
@@ -325,12 +273,17 @@ export function Chats(props) {
           <View style={{ flexDirection: "row" }}>
             <TouchableOpacity
               onPress={(event) => {
-                renewOwnersMessage=[message]
-                AddChat(true,renewOwnersMessage);
+                renewMessage = message;
                 setMessage(from.sendMessage(""));
+                if (isFrom) {
+                  setIsFrom(false);
+                  AddChat();
+                } else {
+                  setIsFrom(true);
+                  AddChat();
+                }
+                renewMessage = from.sendMessage("");
                 setEditorValue("");
-
-
                 setTimeout(() => {
                   scrollRef.current?.scrollToEnd({
                     x: 0,
