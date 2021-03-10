@@ -10,13 +10,11 @@ import {
 } from "react-native";
 import shortid from "shortid";
 import Clipboard, { useClipboard } from "@react-native-community/clipboard";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { User } from "../mediators/User";
 import { styles } from "../styles/styles";
-import { schemes } from "../Resources/Schemes";
-import { color } from "react-native-reanimated";
-import { counter } from "@fortawesome/fontawesome-svg-core";
+
 import { Picker } from "emoji-mart-native";
+
 import { LangContext } from "../context/LangContext";
 import { ThemeContext } from "../context/ThemeContext";
 
