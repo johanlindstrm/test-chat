@@ -4,7 +4,6 @@ import {
   SafeAreaView,
   View,
   FlatList,
-  Button,
   Text,
   TouchableOpacity,
 } from 'react-native';
@@ -14,6 +13,7 @@ import { LangContext } from '../context/LangContext';
 import { Patient } from '../clientRDM/Patient';
 import axios from 'axios';
 import { BCSupport } from '../clientRDM/BCSupport';
+import { UseFetch } from '../facades/UseFetch';
 
 const Item = ({ user = {}, setData, msg, initials, time, type, index }) => {
   const { theme } = useContext(ThemeContext);
@@ -68,7 +68,9 @@ const FlatListItemSeparator = () => {
 export function Contacts({ index }) {
   const { theme } = useContext(ThemeContext);
   const [contacts, setContact] = useState([]);
-  const test = JSON.stringify(contacts);
+  const [messages, setMessages] = useState(0);
+  const [id, setId] = useState(0);
+  const fetch = new UseFetch();
 
   useEffect(() => {
     // fetch("http://192.168.0.155:8081/contacts")
@@ -79,7 +81,7 @@ export function Contacts({ index }) {
     //   .catch((error) => {
     //     console.error("Error: ", error);
     //   });
-    fetch('http://127.0.0.1:8081/contacts', {
+    /* fetch('http://127.0.0.1:8081/contacts', {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -88,28 +90,54 @@ export function Contacts({ index }) {
     })
       .then((response) => response.json())
       .then((json) => {
+        setContact(json.BCSupport); */
+    // fetch("http://192.168.0.155:8081/contacts")
+    //   // handle the response
+    //   .then((response) => response.json())
+    //   .then((json) => setContact(json.BCSupport))
+    //   // handle the error
+    //   .catch((error) => {
+    //     console.error("Error: ", error);
+    //   });
+
+    fetch
+      .useFetch('http://192.168.0.2:8081/contacts', {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      })
+      .then((response) => response.json())
+      .then((json) => {
         setContact(json.BCSupport);
       })
       .catch((error) => {
         console.error(error);
       });
+
+    fetch
+      .useFetch('http://192.168.0.2:8081/messages/' + id, {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      })
+      .then((response) => response.json())
+      .then((json) => {
+        setMessages(json);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }, []);
+}
 
-  const goToMessages = (index) => {
-    console.log();
-    Actions.Chats(index);
-  };
-
-  // Get the names and creating initals
-  const getInitials = function (string) {
-    let names = string.split(' '),
-      initials = names[0].substring(0, 1).toUpperCase();
-
-    if (names.length > 1) {
-      initials += names[names.length - 1].substring(0, 1).toUpperCase();
-    }
-    return initials;
-  };
+// Get the names and creating initals
+const getInitials = function (string) {
+  let names = string.split(' '),
+    initials = names[0].substring(0, 1).toUpperCase();
 
   return (
     <SafeAreaView>
@@ -150,4 +178,4 @@ export function Contacts({ index }) {
       />
     </SafeAreaView>
   );
-}
+};
