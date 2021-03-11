@@ -1,5 +1,5 @@
 export class ChatRoom {
-  static showMessage = function (User, message) {
+  static showMessage = function (User:any, message: any) {
     return {
       date: User.getDate(),
       userIcon: User.getUserIcon(),

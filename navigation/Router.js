@@ -1,11 +1,10 @@
-import React, { Component, useEffect, useState } from "react";
-import { Image, TouchableOpacity } from "react-native";
+import React, {useState } from "react";
+import { Image, TouchableOpacity,View,Text } from "react-native";
 import { Actions, Router, Scene } from "react-native-router-flux";
 import { styles } from "../styles/styles";
-import { Text, Modal } from "react-native";
 
 // Screens
-import { Chats } from "../screens/Chats";
+import {Chats, userAppBarDetails} from "../screens/Chats";
 import { Contacts } from "../screens/Contacts";
 import { Settings } from "../screens/Settings";
 
@@ -15,6 +14,8 @@ import { ThemeContext } from "../context/ThemeContext";
 import { LangContext } from "../context/LangContext";
 
 //Route component
+
+
 
 export default function Routes() {
   const { language } = useContext(LangContext);
@@ -64,6 +65,7 @@ export default function Routes() {
           titleStyle={styles.scene}
           component={Chats}
           title={"Chats"}
+          renderTitle={userAppBarDetails}
         />
 
         <Scene

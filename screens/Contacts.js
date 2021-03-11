@@ -5,7 +5,7 @@ import {
   View,
   FlatList,
   Text,
-  TouchableOpacity,
+  TouchableOpacity, Image,
 } from "react-native";
 import { styles } from "../styles/styles";
 import { ThemeContext } from "../context/ThemeContext";
@@ -73,17 +73,9 @@ export function Contacts({ index }) {
   const fetch = new UseFetch();
 
   useEffect(() => {
-    // fetch("http://192.168.0.155:8081/contacts")
-    //   // handle the response
-    //   .then((response) => response.json())
-    //   .then((json) => setContact(json.BCSupport))
-    //   // handle the error
-    //   .catch((error) => {
-    //     console.error("Error: ", error);
-    //   });
 
     fetch
-      .useFetch("http://192.168.0.155:8081/contacts", {
+      .useFetch("http://192.168.0.2:8081/contacts", {
         method: "GET",
         headers: {
           Accept: "application/json",
@@ -99,7 +91,7 @@ export function Contacts({ index }) {
       });
 
     fetch
-      .useFetch("http://192.168.0.155:8081/messages/" + id, {
+      .useFetch("http://192.168.0.2:8081/messages/" + id, {
         method: "GET",
         headers: {
           Accept: "application/json",
@@ -119,7 +111,6 @@ export function Contacts({ index }) {
 
   const goToMessages = (data) => {
     Actions.Chats(data);
-    // Actions.Chats({ title: language.messageTitle });
   };
 
   // Get the names and creating initials
@@ -146,6 +137,9 @@ export function Contacts({ index }) {
             onPress={(event) =>
               goToMessages({
                 data: {
+                  userDetails:{userName:item.name,
+                    lastSeen: new Date().toLocaleDateString()+' '+item.Chat.message[0].messageTS,
+                  image:''},
                   index: item.id,
                   chats: Chat.Message.filter(
                     (messages) =>

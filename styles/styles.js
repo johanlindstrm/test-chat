@@ -95,9 +95,8 @@ export const styles = StyleSheet.create({
     color: 'orange',
   },
   addIconAppBar: {
-    color: 'white',
-    fontSize: 26,
-    marginRight: 26,
+ width: 40,height:40,borderRadius:40,margin:8
+
   },
   iconDefaultSize: {
     fontSize: 16,
@@ -209,6 +208,7 @@ export const styles = StyleSheet.create({
   messageContainerChild: {
     flexDirection: 'row',
     marginBottom: 10,
+
     margin: 6,
     borderRadius: 40,
     backgroundColor: 'rgb(242,243,245)',
@@ -247,6 +247,8 @@ export const styles = StyleSheet.create({
     borderRadius: 40,
     backgroundColor: 'rgb(242,243,245)',
     padding: 10,
+    paddingLeft:16,
+    paddingRight:16,
     flexWrap: 'wrap',
   },
   receiverMessage: {
@@ -290,6 +292,14 @@ export const styles = StyleSheet.create({
     borderColor:'rgb(237,238,237)',
     borderWidth:2,
     height: 30,
-  }
+  },
+  appBarLabel: {
+    color:'white',
+    marginTop:10,
+      fontSize:13,
+  },
+    messageFont: {
+      fontSize:17,
+    }
 
 });

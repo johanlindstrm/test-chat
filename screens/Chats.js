@@ -1,22 +1,14 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
-//imports
-import {
-  View,
-  Text,
-  ScrollView,
-  Image,
-  TextInput,
-  TouchableOpacity,
-} from "react-native";
+import React, {useContext, useEffect, useRef, useState} from "react";
+import {Image, ScrollView, Text, TextInput, TouchableOpacity, View,} from "react-native";
 import shortid from "shortid";
-import Clipboard, { useClipboard } from "@react-native-community/clipboard";
-import { User } from "../mediators/User";
-import { styles } from "../styles/styles";
+import Clipboard from "@react-native-community/clipboard";
+import {User} from "../mediators/User";
+import {styles} from "../styles/styles";
 
-import { Picker } from "emoji-mart-native";
+import {Picker} from "emoji-mart-native";
 
-import { LangContext } from "../context/LangContext";
-import { ThemeContext } from "../context/ThemeContext";
+import {LangContext} from "../context/LangContext";
+import {ThemeContext} from "../context/ThemeContext";
 
 const clipboardOptions = (text) => {
   Clipboard.setString("hlooo");
@@ -24,24 +16,21 @@ const clipboardOptions = (text) => {
 const fetchClipboardText = async () => {
   return await Clipboard.getString();
 };
+export function userAppBarDetails(navigation) {
+  const {data}=navigation
+  const {userDetails}=data
+  const {lastSeen,userName,image}=userDetails
 
-// const Emos = () => {
-//   import EmojiBoard from "react-native-emoji-board";
-//   const [show, setShow] = useState(false);
-//   const onClick = (emoji) => {
-//     console.log(emoji);
-//   };
+  const iconCheck=image !==''? require('../assets/user.png'):require('../assets/user.png')
 
-//   return (
-//     <View>
-//       <TouchableOpacity onPress={() => setShow(!show)}>
-//         <Text>click here</Text>
-//       </TouchableOpacity>
-//       <EmojiBoard showBoard={show} onClick={onClick} />
-//     </View>
-//   );
-// };
+  return(   <View style={{flexDirection:'row',justifyContent:'space-evenly'}}>
+    <TouchableOpacity  onPress={(event => event)}>
+      <Image style={styles.addIconAppBar}  source={iconCheck}/>
+    </TouchableOpacity>
+    <Text style={styles.appBarLabel}>{userName+'\nlast seen '+lastSeen}</Text>
 
+  </View>)
+}
 const Messenger = (props) => {
   const { language } = useContext(LangContext);
   const { theme } = useContext(ThemeContext);
@@ -56,10 +45,7 @@ const Messenger = (props) => {
         <View
           style={{
             flexDirection: "row",
-            width: 160,
-            marginLeft: 80,
-            marginRight: 30,
-            padding: 6,
+            padding: 10,
             borderRadius: 20,
             backgroundColor: styles.messageContainerChild.backgroundColor,
             justifyContent: "space-evenly",
@@ -86,56 +72,31 @@ const Messenger = (props) => {
         </View>
       ) : null}
       {props.isFrom ? (
-        <View style={[styles.messageContainer]}>
-          <View style={styles.messageContainerChild}>
-            <Image
-              style={{ width: 40, height: 40 }}
-              source={require("../assets/user.png")}
-            />
-            <TouchableOpacity
-              activeOpacity={0.6}
-              onLongPress={() => {
-                if (isClipboard) {
-                  setIsClipboard(false);
-                } else {
-                  setIsClipboard(true);
-                }
-              }}
-            >
-              <Text
-                ref={setSelectTextFocus}
-                selectable
-                style={
-                  isSelectAll
-                    ? [
-                        {
-                          color: styles.appBar.backgroundColor,
-                          borderRadius: 4,
-                        },
-                        styles.messageContainerChildTextMessage,
-                      ]
-                    : styles.messageContainerChildTextMessage
-                }
-              >
-                {props.text.date + "\n" + props.text.message}
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
+              <View style={styles.messageContainer}>
+                <View
+                    style={[
+                      styles.receiverContainerChild,
+                      {backgroundColor: 'rgb(242,243,245)' },
+                    ]}
+                >
+                  <View>
+                    <Text style={[{ color: '#242329'},styles.messageFont]}>
+                      {props.text.date + "\n" + props.text.message}
+                    </Text>
+                  </View>
+                </View>
+              </View>
+
       ) : (
-        <View style={styles.receiverContainer}>
+        <View style={[styles.receiverContainer]}>
           <View
             style={[
               styles.receiverContainerChild,
               { backgroundColor: theme.bottomChatBar },
             ]}
           >
-            <Image
-              style={{ width: 40, height: 40 }}
-              source={require("../assets/user.png")}
-            />
             <View>
-              <Text style={[{ color: theme.chatText }]}>
+              <Text style={[{ color: theme.chatText},styles.messageFont]}>
                 {props.text.date + "\n" + props.text.message}
               </Text>
             </View>
@@ -151,7 +112,7 @@ export function Chats(props) {
 
   const from = new User("Dan");
   const contactUser = new User("Johan");
-  const to = new User("Johan");
+  const to = new User("Joan");
   const [isFrom, setIsFrom] = useState(false);
 
   let [messageStack, setMessageStack] = useState({ users: [] });
@@ -164,7 +125,7 @@ export function Chats(props) {
   const [isEmosVisible, setIsEmosVisible] = useState(false);
   let renewSendersMessage = [];
   let renewOwnersMessage = [];
-
+  const icon='\'../assets/240px-Emoji_u1f610.svg.png\''
   const { language } = useContext(LangContext);
 
   const AddChat = (isFrom, renewMessage) => {
@@ -186,61 +147,6 @@ export function Chats(props) {
 
   const placeholder = language.placeholderText;
   const scrollRef = useRef();
-  /*
-//  const elementIndex = index.data === undefined ? 0 : index.data;
-  const contactJoinChatRoom = Patient.Patient[elementIndex];
-  Patient.Messages.Messages.push({
-    id: elementIndex + 1,
-    messageTs: from.getDate(),
-    chatId: elementIndex + 1,
-    message: "You are awesome",
-    senderUserId: elementIndex,
-  });
-  let renew = [];
-  const contactMessageRoom = Patient.Messages.Messages.filter((msg) =>
-    renew.push(from.sendMessage(msg.message))
-  );
-  //   console.log(renew);
-
-  useEffect(() => {
-    if (contactJoinChatRoom) {
-      let renewMessage = [
-        // from.sendMessage("hello"),
-        // from.sendMessage("hello world"),
-      ];
-      //AddChat()
-      let counter = 1;
-      if (renewMessage.length > counter) {
-        setMessageStack({
-          users: [
-            ...messageStack.users,
-            renewMessage.map((renewMessage) => {
-              counter++;
-              return (
-                <Messenger isFrom={isFrom} key={counter} text={renewMessage} />
-              );
-            }),
-          ],
-        });
-      }
-
-      // contactMessageRoom.map(msg=> renewMessage=from.sendMessage(msg.message))
-
-      //setMessage(from.sendMessage())
-
-      setMessageState(() => {
-        scrollRef.current?.scrollToEnd({
-          x: 0,
-          animated: true,
-        });
-      });
-
-      //setIsFrom(false)
-      //AddChat()
-    }
-  }, []);
-
-   */
 
   useEffect(() => {
     setMessage(from.sendMessage(""));
