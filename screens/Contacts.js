@@ -21,7 +21,7 @@ const Item = ({data:{theme, item, Chat, getInitials}}) => {
   };
 
   return (
-      <TouchableOpacity
+       <TouchableOpacity
           style={{ ...styles.item, backgroundColor: theme.accentColor }}
           activeOpacity={0.7}
           onPress={(event) =>
@@ -57,6 +57,9 @@ const Item = ({data:{theme, item, Chat, getInitials}}) => {
           <Text style={{ color: theme.color }}>
             {item.Chat.message[0].messageTS}
           </Text>
+            <Text style={{color:theme.bottomChatBar}}>
+                {item.Chat.message[0].isRead?null:'unread'}
+            </Text>
         </View>
       </TouchableOpacity>
   );
@@ -76,11 +79,11 @@ const FlatListItemSeparator = () => {
 
 export function Contacts() {
   const { theme } = useContext(ThemeContext);
-  const { language } = useContext(LangContext);
+
 
   const [contacts, setContact] = useState([]);
   const [messages, setMessages] = useState(0);
-  const [id, setId] = useState(0);
+  const [isContact, setIsContact] = useState(false);
   const fetch = new UseFetch();
 
   useEffect(() => {
@@ -95,6 +98,8 @@ export function Contacts() {
       })
       .then((response) => response.json())
       .then((json) => {
+          console.log(json)
+          setIsContact(true)
         setContact(json.BCSupport);
       })
       .catch((error) => {
@@ -102,7 +107,7 @@ export function Contacts() {
       });
 
     fetch
-      .useFetch("http://192.168.0.2:8081/messages/" + id, {
+      .useFetch("http://192.168.0.2:8081/messages/" + 0, {
         method: "GET",
         headers: {
           Accept: "application/json",
@@ -134,14 +139,22 @@ export function Contacts() {
   };
 
   return (
-    <SafeAreaView>
-      <FlatList
-        style={{ height: "100%", backgroundColor: theme.backgroundColor }}
-        ItemSeparatorComponent={FlatListItemSeparator}
-        data={contacts}
-        renderItem={({ item }) => <Item data={{theme, item, Chat, getInitials}}/>}
-        keyExtractor={(item, id) => id.toString()}
-      />
-    </SafeAreaView>
-  );
+     <SafeAreaView>
+         {isContact?
+              <FlatList
+                  style={{ height: "100%", backgroundColor: theme.backgroundColor }}
+                  ItemSeparatorComponent={FlatListItemSeparator}
+                  data={contacts}
+                  renderItem={({ item }) => <Item data={{theme, item, Chat, getInitials}}/>}
+                  keyExtractor={(item, id) => id.toString()}
+              />:
+             <View style={[styles.container,{justifyContent:"space-evenly",marginTop:300,alignSelf:'center'}]}>
+              <Text style={{fontSize:20}}>
+                  Your contacts will appear here
+              </Text>
+             </View>
+         }
+
+          </SafeAreaView>
+  )
 }
