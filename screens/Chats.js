@@ -32,10 +32,9 @@ export function userAppBarDetails(navigation) {
   </View>)
 }
 const Messenger = (props) => {
-  const { language } = useContext(LangContext);
+
   const { theme } = useContext(ThemeContext);
   const [isSelectAll, setIsSelectAll] = useState(false);
-  const setSelectTextFocus = useRef();
   const [isEnable, setIsEnable] = useState(false);
   const [isClipboard, setIsClipboard] = useState(false);
 
@@ -73,6 +72,7 @@ const Messenger = (props) => {
       ) : null}
       {props.isFrom ? (
               <View style={styles.messageContainer}>
+
                 <View
                     style={[
                       styles.receiverContainerChild,
@@ -80,9 +80,8 @@ const Messenger = (props) => {
                     ]}
                 >
                   <View>
-                    <Text style={[{ color: '#242329'},styles.messageFont]}>
-                      {props.text.date + "\n" + props.text.message}
-                    </Text>
+                    <Text  selectable multiline={true} style={[{ color: '#242329'},styles.messageFont]}
+                    >{props.text.date + "\n" + props.text.message}</Text>
                   </View>
                 </View>
               </View>
@@ -96,9 +95,17 @@ const Messenger = (props) => {
             ]}
           >
             <View>
-              <Text style={[{ color: theme.chatText},styles.messageFont]}>
-                {props.text.date + "\n" + props.text.message}
-              </Text>
+
+
+                <Text  selectable
+                            multiline={true}
+                            style={[{ color: theme.chatText},styles.messageFont]}
+
+                >{props.text.date + "\n" + props.text.message}</Text>
+
+
+
+
             </View>
           </View>
         </View>
@@ -108,12 +115,10 @@ const Messenger = (props) => {
 };
 
 export function Chats(props) {
-  const { index, chats } = props.data;
+  const {chats } = props.data;
 
   const from = new User("Dan");
-  const contactUser = new User("Johan");
   const to = new User("Joan");
-  const [isFrom, setIsFrom] = useState(false);
 
   let [messageStack, setMessageStack] = useState({ users: [] });
   const [scrollToView, setScrollToView] = useState();
@@ -125,9 +130,7 @@ export function Chats(props) {
   const [isEmosVisible, setIsEmosVisible] = useState(false);
   let renewSendersMessage = [];
   let renewOwnersMessage = [];
-  const icon='\'../assets/240px-Emoji_u1f610.svg.png\''
   const { language } = useContext(LangContext);
-
   const AddChat = (isFrom, renewMessage) => {
     setMessageStack({
       users: [
@@ -169,7 +172,6 @@ export function Chats(props) {
 
     clearInterval(this);
   }, 10);
-  const textInputRef = useRef();
   return (
     <View style={styles.container}>
       <ScrollView

@@ -1,53 +1,64 @@
-import React, { useRef, useState, useContext, useEffect } from "react";
+import React, {useState, useContext, useEffect } from "react";
 import { Actions } from "react-native-router-flux";
 import {
   SafeAreaView,
   View,
   FlatList,
   Text,
-  TouchableOpacity, Image,
+  TouchableOpacity,
 } from "react-native";
 import { styles } from "../styles/styles";
 import { ThemeContext } from "../context/ThemeContext";
 import { LangContext } from "../context/LangContext";
-import axios from "axios";
 import { UseFetch } from "../facades/UseFetch";
 
-const Item = ({ user = {}, setData, msg, initials, time, type, index }) => {
-  const { theme } = useContext(ThemeContext);
-  const { language } = useContext(LangContext);
 
-  const goToMessages = (index) => {
-    console.log(resultsChat);
-    Actions.Chats(index);
+const Item = ({data:{theme, item, Chat, getInitials}}) => {
+
+
+  const goToMessages = (data) => {
+    Actions.Chats(data);
   };
 
   return (
-    <TouchableOpacity
-      onPress={(event) => goToMessages(index)}
-      activeOpacity={0.7}
-      style={{ ...styles.item, backgroundColor: theme.accentColor }}
-    >
-      <View style={styles.initalsContainer}>
-        <View style={styles.initialsCircle}>
-          <Text style={styles.initialsText}>{initials}</Text>
+      <TouchableOpacity
+          style={{ ...styles.item, backgroundColor: theme.accentColor }}
+          activeOpacity={0.7}
+          onPress={(event) =>
+              goToMessages({
+                data: {
+                  userDetails:{userName:item.name,
+                    lastSeen: new Date().toLocaleDateString()+' '+item.Chat.message[0].messageTS,
+                    image:''},
+                  index: item.id,
+                  chats: Chat.Message.filter(
+                      (messages) =>
+                          messages.SenderUserId ===
+                          item.Chat.message[0].senderUserId
+                  ),
+                },
+              })
+          }
+      >
+        <View style={styles.initalsContainer}>
+          <View style={styles.initialsCircle}>
+            <Text>{getInitials(item.name)}</Text>
+          </View>
         </View>
-      </View>
-
-      <View style={styles.contactContainer}>
-        <Text style={{ ...styles.user, color: theme.color }}>{user}</Text>
-        <Text style={{ ...styles.user, color: theme.color }}>
-          {user.firstName + " " + user.lastName}
-        </Text>
-        <Text style={styles.message}>{msg}</Text>
-      </View>
-
-      <View style={styles.timeContainer}>
-        <View>
-          <Text style={{ color: theme.color }}>{time}</Text>
+        <View style={styles.contactContainer}>
+          <Text style={{ ...styles.user, color: theme.color }}>
+            {item.name}
+          </Text>
+          <Text style={{ ...styles.user, color: theme.color }}>
+            {item.Chat.message[0].message}
+          </Text>
         </View>
-      </View>
-    </TouchableOpacity>
+        <View style={styles.timeContainer}>
+          <Text style={{ color: theme.color }}>
+            {item.Chat.message[0].messageTS}
+          </Text>
+        </View>
+      </TouchableOpacity>
   );
 };
 
@@ -63,7 +74,7 @@ const FlatListItemSeparator = () => {
   );
 };
 
-export function Contacts({ index }) {
+export function Contacts() {
   const { theme } = useContext(ThemeContext);
   const { language } = useContext(LangContext);
 
@@ -109,9 +120,7 @@ export function Contacts({ index }) {
 
   const { Chat } = messages;
 
-  const goToMessages = (data) => {
-    Actions.Chats(data);
-  };
+
 
   // Get the names and creating initials
   const getInitials = function (string) {
@@ -130,46 +139,7 @@ export function Contacts({ index }) {
         style={{ height: "100%", backgroundColor: theme.backgroundColor }}
         ItemSeparatorComponent={FlatListItemSeparator}
         data={contacts}
-        renderItem={({ item }) => (
-          <TouchableOpacity
-            style={{ ...styles.item, backgroundColor: theme.accentColor }}
-            activeOpacity={0.7}
-            onPress={(event) =>
-              goToMessages({
-                data: {
-                  userDetails:{userName:item.name,
-                    lastSeen: new Date().toLocaleDateString()+' '+item.Chat.message[0].messageTS,
-                  image:''},
-                  index: item.id,
-                  chats: Chat.Message.filter(
-                    (messages) =>
-                      messages.SenderUserId ===
-                      item.Chat.message[0].senderUserId
-                  ),
-                },
-              })
-            }
-          >
-            <View style={styles.initalsContainer}>
-              <View style={styles.initialsCircle}>
-                <Text>{getInitials(item.name)}</Text>
-              </View>
-            </View>
-            <View style={styles.contactContainer}>
-              <Text style={{ ...styles.user, color: theme.color }}>
-                {item.name}
-              </Text>
-              <Text style={{ ...styles.user, color: theme.color }}>
-                {item.Chat.message[0].message}
-              </Text>
-            </View>
-            <View style={styles.timeContainer}>
-              <Text style={{ color: theme.color }}>
-                {item.Chat.message[0].messageTS}
-              </Text>
-            </View>
-          </TouchableOpacity>
-        )}
+        renderItem={({ item }) => <Item data={{theme, item, Chat, getInitials}}/>}
         keyExtractor={(item, id) => id.toString()}
       />
     </SafeAreaView>

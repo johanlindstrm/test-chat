@@ -1,5 +1,5 @@
-import React, {useState } from "react";
-import { Image, TouchableOpacity,View,Text } from "react-native";
+import React from "react";
+import { TouchableOpacity,Text } from "react-native";
 import { Actions, Router, Scene } from "react-native-router-flux";
 import { styles } from "../styles/styles";
 
@@ -12,16 +12,10 @@ import { Settings } from "../screens/Settings";
 import { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
 import { LangContext } from "../context/LangContext";
-
 //Route component
-
-
-
 export default function Routes() {
   const { language } = useContext(LangContext);
   const { theme } = useContext(ThemeContext);
-  const [isVisible, setIsVisible] = useState(false);
-
   const goToSettings = function () {
     Actions.Settings({ title: language.settingsTitle });
   };
@@ -46,18 +40,15 @@ export default function Routes() {
           title={language.contactTitle}
           initial={true}
           renderLeftButton={
-            <TouchableOpacity onPress={goToSettings}>
-              <Image
-                source={require("../assets/settingsIcon.png")}
-                style={{ width: 25, height: 25, marginLeft: 30 }}
-              />
+            <TouchableOpacity
+                style={{padding:16}}
+                onPress={goToSettings}>
+              <Text
+                style={{  marginLeft: 10,fontSize:20,color:'white',fontWeight:'bold' }}
+              >⋮</Text>
             </TouchableOpacity>
           }
-          // renderRightButton={
-          //   <TouchableOpacity style={{ margin: 12 }} onPress={goToAddToContact}>
-          //     <Text style={styles.addIconAppBar}>{' + '}</Text>
-          //   </TouchableOpacity>
-          // }
+
         />
 
         <Scene
@@ -74,12 +65,7 @@ export default function Routes() {
           component={Settings}
           title={"Settings"}
         />
-        {/*  <Scene
-          key="AddToContact"
-          titleStyle={styles.scene}
-          component={AddToContact}
-          title="Add Contact"
-        /> */}
+
       </Scene>
     </Router>
   );
