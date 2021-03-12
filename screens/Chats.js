@@ -217,7 +217,10 @@ export function Chats(props) {
             </TouchableOpacity>
             <TextInput
               editable={true}
-              style={styles.inputChat}
+              onEndEditing={()=>{
+
+              }}
+              style={[styles.inputChat,{color:'black'}]}
               placeholderTextColor='black'
               placeholder={placeholder}
               onChangeText={(text) => {
