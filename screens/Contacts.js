@@ -56,7 +56,7 @@ const Item = ({data:{theme, item, Chat, getInitials}}) => {
           <Text style={{ color: theme.color }}>
             {item.Chat.message[0].messageTS}
           </Text>
-            <View style={{color:theme.bottomChatBar,borderWidth:1,borderRadius:100,width:22,height:22,backgroundColor:theme.bottomChatBar,borderColor:'lightgray'}}>
+            <View style={[styles.unread,{color:theme.bottomChatBar,  backgroundColor:theme.bottomChatBar,}]}>
                 <Text style={{color:theme.color,textAlign:'center'}}>
                 {item.Chat.message[0].isRead?null:item.Chat.message.length}
             </Text>

@@ -300,6 +300,13 @@ export const styles = StyleSheet.create({
   },
     messageFont: {
       fontSize:17,
+    },
+    unread: {
+
+        borderWidth:1,
+        borderRadius:100,
+        width:22,height:22,
+        borderColor:'lightgray'
     }
 
 });
