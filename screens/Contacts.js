@@ -9,7 +9,6 @@ import {
 } from "react-native";
 import { styles } from "../styles/styles";
 import { ThemeContext } from "../context/ThemeContext";
-import { LangContext } from "../context/LangContext";
 import { UseFetch } from "../facades/UseFetch";
 
 
@@ -57,9 +56,12 @@ const Item = ({data:{theme, item, Chat, getInitials}}) => {
           <Text style={{ color: theme.color }}>
             {item.Chat.message[0].messageTS}
           </Text>
-            <Text style={{color:theme.bottomChatBar}}>
-                {item.Chat.message[0].isRead?null:'unread'}
+            <View style={{color:theme.bottomChatBar,borderWidth:1,borderRadius:100,width:22,height:22,backgroundColor:theme.bottomChatBar,borderColor:'lightgray'}}>
+                <Text style={{color:theme.color,textAlign:'center'}}>
+                {item.Chat.message[0].isRead?null:item.Chat.message.length}
             </Text>
+            </View>
+
         </View>
       </TouchableOpacity>
   );

@@ -1,6 +1,6 @@
 import React, { createContext, useState } from 'react';
 import schemes from '../Resources/Schemes';
-import { Actions } from 'react-native-router-flux';
+
 
 export const ThemeContext = createContext();
 

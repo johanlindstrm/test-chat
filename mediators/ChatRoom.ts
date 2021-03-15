@@ -1,9 +1,11 @@
+import { User } from "./User";
+
 export class ChatRoom {
-  static showMessage = function (User:any, message: any) {
+  static showMessage = function (user:User, message: any) {
     return {
-      date: User.getDate(),
-      userIcon: User.getUserIcon(),
-      user: User.getUserName(),
+      date: user.getDate(),
+      userIcon: user.getUserIcon(),
+      user: user.getUserName(),
       message: message,
     };
   };
