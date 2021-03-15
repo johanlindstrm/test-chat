@@ -1,16 +1,22 @@
 import { ChatRoom } from "./ChatRoom";
 
-
+/*
+ @Class UsER
+ */
 export class User {
 
 
+  //Instance variable
     private userIcon: any;
     private text: string='';
     private userName: string | undefined;
+
+    //Constructor
   constructor(userName?: string,userIcon?: string) {
       this.userIcon=userIcon
       this.userName = userName;
   }
+  // Accessors
   setUserName(userName: string) {
     this.userName = userName;
   }

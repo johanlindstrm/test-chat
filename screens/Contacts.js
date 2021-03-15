@@ -12,13 +12,18 @@ import { ThemeContext } from "../context/ThemeContext";
 import { UseFetch } from "../facades/UseFetch";
 
 
+/*
+ @ hook Item
+ */
 const Item = ({data:{theme, item, Chat, getInitials}}) => {
 
 
+    // route to Chat hook or go to chat view
   const goToMessages = (data) => {
     Actions.Chats(data);
   };
 
+  // return chat component
   return (
        <TouchableOpacity
           style={{ ...styles.item, backgroundColor: theme.accentColor }}
@@ -67,6 +72,10 @@ const Item = ({data:{theme, item, Chat, getInitials}}) => {
   );
 };
 
+/*
+ @FlatListItemSeparator
+
+ */
 const FlatListItemSeparator = () => {
   return (
     <View
@@ -79,15 +88,17 @@ const FlatListItemSeparator = () => {
   );
 };
 
+//Contact hook
 export function Contacts() {
-  const { theme } = useContext(ThemeContext);
+  const { theme } = useContext(ThemeContext); //declare variable
 
-
+ // use states
   const [contacts, setContact] = useState([]);
   const [messages, setMessages] = useState(0);
   const [isContact, setIsContact] = useState(false);
   const fetch = new UseFetch();
 
+  // component did mount
   useEffect(() => {
 
     fetch
@@ -139,7 +150,7 @@ export function Contacts() {
     }
     return initials;
   };
-
+    // return chat component
   return (
      <SafeAreaView>
          {isContact?
